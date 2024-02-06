@@ -49,25 +49,7 @@ if (isset($_SESSION['username'])) {
     <script src="js/pageScroll.js"></script>
     <main class="table">
         <section class="table_header"> 
-            <h1 class="title">Consulta</h1>    
-            <div class="input-group">
-                <input type="search" placeholder="Procurar dados...">
-                <img src="images/search.svg" alt="">
-            </div>
-            <div class="custom-select-wrapper">
-                <select name="column" class="custom-select">
-                    <option value="0" class="custom-option" selected>ID</option>
-                    <option value="1" class="custom-option">Hora</option>
-                    <option value="2" class="custom-option">Data</option>
-                    <option value="3" class="custom-option">Temperatura (ºC)</option>
-                    <option value="4" class="custom-option">Humidade (%)</option>
-                    <option value="5" class="custom-option">Pressão (HPA)</option>
-                    <option value="6" class="custom-option">CO2 (PPM)</option>
-                    <option value="7" class="custom-option">TVOC (PPB)</option>
-                </select>
-            </div>
-
-
+            <h1 class="title">Pesquisa</h1>
         </section>
         <section class="table_body" id="table_body">
             <table>

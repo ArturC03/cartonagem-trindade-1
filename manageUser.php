@@ -7,26 +7,7 @@ if (isset($_SESSION['username'])) {
     <script src="js/manageUser.js"></script>
     <main class="table">
         <section class="table_header">
-            <h1 class="title">Gerir Utilizadores</h1>    
-            <div class="input-group">
-                <input type="search" placeholder="Procurar dados...">
-                <img src="images/search.svg" alt="">
-            </div>
-            <div class="radio-inputs">
-                <label class="radio">
-                    <input type="radio" name="column" value="0" checked>
-                    <span class="name">Utilizador</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="column" value="1">
-                    <span class="name">Email</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="column" value="2">
-                    <span class="name">Permissões</span>
-                </label>
-            
-            </div>
+            <h1 class="title">Gerir Utilizadores</h1>
         </section>
         
         <section class="table_body">

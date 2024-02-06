@@ -7,21 +7,7 @@ if (isset($_SESSION['username'])) {
     <script src="js/manageGroup.js"></script>
     <main class="table">
         <section class="table_header">
-            <h1 class="title">Gerir Grupos</h1>    
-            <div class="input-group">
-                <input type="search" placeholder="Procurar dados...">
-                <img src="images/search.svg" alt="">
-            </div>
-            <div class="radio-inputs">
-                <label class="radio">
-                    <input type="radio" name="column" value="0">
-                    <span class="name">Grupo</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="column" value="1">
-                    <span class="name">Sensores</span>
-                </label>
-            </div>
+            <h1 class="title">Gerir Grupos</h1>
         </section>
         
         <section class="table_body">

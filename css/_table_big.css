@@ -19,7 +19,7 @@ main.table {
     background-color: #fff4;
     padding: .8rem 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
  
@@ -74,39 +74,6 @@ tbody tr:hover {
     transition: background-color 0.7s;
 }
  
-.table_header .input-group {
-    width: 50%;
-    height: 100%;
-    background-color: rgba(219, 219, 219, 0.333);
-    padding: 0 .8rem;
-    border-radius: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .2s;
-}
- 
-.table_header .input-group img {
-    width: 1.2rem;
-    height: 1.2rem;
-}
- 
-.table_header .input-group input {
-    width: 100%;
-    padding: 0 .5rem 0 .3rem;
-    background-color: transparent;
-    border: none;
-    outline: orange;
-    font-size: 14px;
-    color: white;
-}
- 
-.table_header .input-group:hover {
-    width: 55%;
-    background-color: #fff7;
-    box-shadow: 0 .1rem .4rem #0002;
-}
- 
 tbody tr.hide {
     --delay: .1s;
     transition: .5s ease-in-out var(--delay), background-color 0s;
@@ -144,67 +111,4 @@ th {
  
 td {
     text-align: center;
-}
-
-.radio-inputs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 0.25rem;
-    font-size: 2vh;
-}
- 
-.radio-inputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
-    margin: 0.25rem;
-}
- 
-.radio-inputs .radio input {
-    display: none;
-}
- 
-.radio-inputs .radio .name {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: .5rem 1rem;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.7s;
- 
-}
- 
-.radio-inputs .radio input:checked + .name {
-    background-color: #ffcc5efe;
-    font-weight: 600;
-    transition: background-color 0.4s;
-}
-
-@media screen and (max-width: 1195px) {
-    .table_header .input-group:hover {
-        width: 50%;
-    }
-    
-    .table_header .input-group input::placeholder {
-        color: transparent;
-    }
-
-    .table_header{
-        font-size: 13px;
-    }
-
-    .radio-inputs {
-        padding: 0em;
-        font-size: 1vh;
-    }
-
-    .title{
-        font-size: 15px;
-    }
 }

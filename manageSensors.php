@@ -6,26 +6,7 @@ if (isset($_SESSION['username'])) {
 ?>
     <main class="table">
         <section class="table_header">
-            <h1 class="title">Gerir Nós</h1>    
-            <div class="input-group">
-                <input type="search" placeholder="Procurar dados...">
-                <img src="images/search.svg" alt="">
-            </div>
-            <div class="radio-inputs">
-                <label class="radio">
-                    <input type="radio" name="column" value="0" checked>
-                    <span class="name">ID</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="column" value="1">
-                    <span class="name">Localização</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="column" value="3">
-                    <span class="name">Estado</span>
-                </label>
-            
-            </div>
+            <h1 class="title">Gerir Nós</h1>
         </section>
         
         <section class="table_body">
