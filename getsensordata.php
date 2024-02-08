@@ -47,6 +47,7 @@ foreach ($result as $row) {
 echo json_encode(array(
   'min' => 0,
   'max' => 35,
+  'radius' => intval($arrConfig['cloud_radius']),
   'data' => $data
 ));
 ?>

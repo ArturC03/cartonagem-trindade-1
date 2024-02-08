@@ -11,8 +11,11 @@ $arrConfig['dbname'] = 'plantdb';
 
 require_once('db.inc.php');
 
-$result = my_query("SELECT titulo from titulo WHERE id=(select max(id) from titulo);");
-$arrConfig['site_title'] = $result[0]['titulo'];
+$result = my_query("SELECT * from site_settings");
+
+foreach ($result as $row) {
+  $arrConfig[$row['nome']] = $row['valor'];
+}
 
 $viewportWidth = 0.62;
 

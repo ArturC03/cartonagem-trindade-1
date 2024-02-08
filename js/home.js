@@ -28,13 +28,14 @@ var resizeId;
     dataType: 'json',
     Type:'GET',
     success: function(data1) {
+      console.log(data1);
       for (var i = 0; i < data1.data.length; i++) {
         {
           var point = {
             x: (parseFloat(data1.data[i].x) * (size_x / parseFloat(data1.data[i].size_x))),
             y: (parseFloat(data1.data[i].y) * (size_y / parseFloat(data1.data[i].size_y))),
             value: data1.data[i].value,
-            radius: 25
+            radius: data1.radius
           }
           points.push(point);
         }
