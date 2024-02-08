@@ -114,7 +114,7 @@
   font-size: 3.5vh;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 1500px) {
   #title {
     display: none;
   }
