@@ -41,23 +41,43 @@ if (isset($_SESSION['username'])) {
     
     $datas= "s.date BETWEEN '".$dataMinima."' and '".$dataMaxima."' AND ";
 
-    $sql = "SELECT distinct s.* FROM sensors s where ".$comp2.$datas."s.id_sensor in $sensores order by date, hour ASC";
+    $sql = "SELECT distinct s.id_sensor, s.date, s.hour, ROUND(s.temperature, 2) AS temperature, ROUND(s.humidity, 2) AS humidity,
+    ROUND(s.pressure, 2) AS pressure, ROUND(s.altitude, 2) AS altitude, ROUND(s.eCO2, 2) AS eCO2, ROUND(s.eTVOC, 2) AS eTVOC
+    FROM sensors s where ".$comp2.$datas."s.id_sensor in $sensores ORDER BY date, hour ASC";
     $sql2 = "SELECT distinct s.id_sensor, s.date, s.hour, s.temperature, s.humidity, s.pressure, s.altitude, s.eCO2, s.eTVOC FROM sensors s where ".$comp2.$datas."s.id_sensor in $sensores order by date, hour ASC";
     ?>
     <p id="sql" class="d-none"><?php echo $sql; ?></p>
     <p id="sql2" class="d-none"><?php echo $sql2; ?></p>
-    <script src="js/pageScroll.js"></script>
+    <script src="js/consultaTabela.js"></script>
     <main class="table">
         <section class="table_header"> 
             <h1 class="title">Pesquisa</h1>
+            
+            <div class="custom-select-wrapper">
+                <label for="column">Ordenar por:</label>
+                <select name="column" id="column" class="custom-select">
+                    <option value="">Predefinido (Data e Hora)</option>
+                    <option value="0" class="custom-option">ID</option>
+                    <option value="1" class="custom-option">Temperatura (ºC)</option>
+                    <option value="2" class="custom-option">Humidade (%)</option>
+                    <option value="3" class="custom-option">Pressão (HPA)</option>
+                    <option value="4" class="custom-option">CO2 (PPM)</option>
+                    <option value="5" class="custom-option">TVOC (PPB)</option>
+                </select>
+
+                <select name="order" id="order" class="custom-select d-none">
+                    <option value="0">Descendente</option>
+                    <option value="1">Ascendente</option>
+                </select>
+            </div>
         </section>
         <section class="table_body" id="table_body">
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Hora</th>
                         <th>Data</th>
+                        <th>Hora</th>
                         <th>Temperatura (ºC)</th>
                         <th>Humidade (%)</th>
                         <th>Pressão (HPA)</th>
@@ -94,8 +114,6 @@ if (isset($_SESSION['username'])) {
             </button>
         </section>
     </main>
-        
-    <script src="js/consultaTabela2.js"></script>
 <?php
 include('footer.inc.php');
 }else{
