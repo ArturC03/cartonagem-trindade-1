@@ -77,7 +77,11 @@ function sendToJSON() {
                 console.log(err)
             },
             complete: function () {
-                document.location.href = "download/dados.json";
+                var link = document.createElement('a');
+                link.href = "download/dados.json";
+                link.download = "dados.json";
+                link.click();
+                link.remove();
                 $('.loader').addClass("d-none");
             }
         })
