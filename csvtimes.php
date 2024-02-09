@@ -108,7 +108,7 @@ if (isset($_SESSION['username'])) {
 
                         echo '<table>';
                         echo '<thead>';
-                        echo '<tr><th>Ações</th><th>Tipo Agendamento</th><th>Sensores</th></tr>';
+                        echo '<tr><th>Ações</th><th>Tipo Agendamento</th><th>Formato</th><th>Sensores</th></tr>';
                         echo '</thead>';
                         
                         echo '<tbody>';
@@ -133,6 +133,7 @@ if (isset($_SESSION['username'])) {
                                         echo '<td>Mensalmente</td>';
                                         break;
                                 }
+                                echo '<td>' . ($row["tipo_geracao"] == 0 ? 'CSV' : 'JSON') . '</td>';
                                 echo '<td>' . $row["sensores"] . '</td>';
                                 echo '</tr>';
                             }
