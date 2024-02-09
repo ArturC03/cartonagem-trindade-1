@@ -108,14 +108,14 @@ if (isset($_SESSION['username'])) {
 
                         echo '<table>';
                         echo '<thead>';
-                        echo '<tr><th>Ações</th><th>Tipo Agendamento</th><th>Sensores</th></tr>';
+                        echo '<tr><th>Ações</th><th>Tipo Agendamento</th><th>Formato</th><th>Sensores</th></tr>';
                         echo '</thead>';
                         
                         echo '<tbody>';
                         if (count($result) != 0) {    
                             foreach ($result as $row) {
                                 echo '<tr>';
-                                echo '<td class="button-container-table"><a class="button-table delete" href="deleteScheduled.php?id=' . $row["id_hora"] . '">Eliminar</a><a class="button-table" href="download/scheduled/' . $row["id_hora"] . '/">Ver CSVs</a></td>';
+                                echo '<td class="button-container-table"><a class="button-table delete" href="deleteScheduled.php?id=' . $row["id_hora"] . '">Eliminar</a><a class="button-table" href="download/scheduled/' . $row["id_hora"] . '/">Ver ' . ($row["tipo_geracao"] == 0 ? 'CSV' : 'JSON') . 's</a></td>';
                                 switch ($row["periodo_geracao"]) {
                                     case "MINUTE":
                                         echo '<td>Minuto a Minuto</td>';
@@ -133,6 +133,7 @@ if (isset($_SESSION['username'])) {
                                         echo '<td>Mensalmente</td>';
                                         break;
                                 }
+                                echo '<td>' . ($row["tipo_geracao"] == 0 ? 'CSV' : 'JSON') . '</td>';
                                 echo '<td>' . $row["sensores"] . '</td>';
                                 echo '</tr>';
                             }

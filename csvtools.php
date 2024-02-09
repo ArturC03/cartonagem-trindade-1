@@ -69,7 +69,70 @@ if (isset($_SESSION['username'])) {
             }
             exit();
         } else if (isset($_POST['botaoJSON'])) {
-            header("Location:503.html");
+            if (isset($_POST['sensores'])) {
+                ob_clean();
+                // Processar a geração do JSON aqui
+                $sensoresSelecionados = $_POST['sensores'];
+            
+                // Consulta SQL para selecionar os dados dos sensores escolhidos
+                // Calcula a data de agora
+                $min_datetime = new DateTime($_POST['horaMinima']);
+                $max_datetime = new DateTime($_POST['horaMaxima']);
+            
+                $result = my_query("
+                SELECT id_sensor, date, hour, temperature, humidity, pressure, altitude, eCO2, eTVOC 
+                FROM sensors
+                WHERE id_sensor IN ('" . implode('\',\'', $sensoresSelecionados) . "')
+                AND sensors.date BETWEEN '" . $min_datetime->format('Y-m-d') . "' AND '" . $max_datetime->format('Y-m-d') . "';"
+                );                
+            
+                if (count($result) > 0) {
+                    // Nome do arquivo JSON
+                    $fileName = "download/dados_sensores.json";
+                    
+                    $data = array();
+                    foreach ($result as $row) {
+                        $formattedTemperature = ltrim(sprintf("%.3f", $row['temperature']), '0');
+                        $row['temperature'] = $formattedTemperature;
+                        $formattedHumidity = ltrim(sprintf("%.3f", $row['humidity']), '0');
+                        $row['humidity'] = $formattedHumidity;
+                        
+                        $formattedPressure = ltrim(sprintf("%.3f", $row['pressure']), '0');
+                        $row['pressure'] = $formattedPressure;
+            
+                        $formattedCo2 = ltrim(sprintf("%.3f", $row['eCO2']), '0');
+                        $row['eCO2'] = $formattedCo2;
+            
+                        $formattedTvoc = ltrim(sprintf("%.3f", $row['eTVOC']), '0');
+                        $row['eTVOC'] = $formattedTvoc;
+                        
+                        $data[] = $row;
+                    }
+            
+                    $file = fopen($fileName, 'w');
+                    fwrite($file, json_encode($data));
+                    fclose($file);
+                    
+                    // Define os cabeçalhos para download
+                    header('Content-Type: application/json');
+                    header('Content-Disposition: attachment; filename="' . $fileName . '"');
+                    
+                    // Lê e envia o arquivo JSON para o cliente
+                    readfile($fileName);
+                } else {
+                    echo "Nenhum dado encontrado para os sensores selecionados.";
+                    echo $min_datetime->format('Y-m-d H:i:s');
+                    echo $max_datetime->format('Y-m-d H:i:s');
+                    print_r($sensoresSelecionados);
+                }
+                exit();
+            } else {
+                echo "Nenhum dado encontrado para os grupos selecionados.";
+                echo $min_datetime->format('Y-m-d H:i:s');
+                echo $max_datetime->format('Y-m-d H:i:s');
+                print_r($sensoresSelecionados);
+            }
+            exit();
         }
     } else {
 ?>

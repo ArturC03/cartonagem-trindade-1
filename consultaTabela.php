@@ -94,17 +94,17 @@ if (isset($_SESSION['username'])) {
         </section>
         
         <section class="button-container">
-            <button class="learn-more" onclick="window.location.href='503.html';">
-                <div class="circle">
-                    <div class="icon arrow"></div>
-                </div>
-                <span class="button-text">Gráficos</span>
-            </button>
             <button class="learn-more" onclick="sendToCSV();">
                 <div class="circle">
                     <div class="icon arrow"></div>
                 </div>
                 <span class="button-text">Obter CSV</span>
+            </button>
+            <button class="learn-more" onclick="sendToJSON();">
+                <div class="circle">
+                    <div class="icon arrow"></div>
+                </div>
+                <span class="button-text">Obter JSON</span>
             </button>
             <button class="learn-more" onclick="window.location.href='archive.php';">
                 <div class="circle">

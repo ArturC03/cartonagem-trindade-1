@@ -6,7 +6,7 @@
       <li id="title"><a href="home.php"><?php echo $arrConfig['site_title']; ?></a></li>
       <li><a href="home.php">Home</a></li>
       <li><a href="archive.php">Arquivo</a></li>
-      <li><a href="csvtools.php">CSV</a></li>
+      <li><a href="csvtools.php">Exportar</a></li>
     </ul>
   </div>
 
@@ -17,7 +17,7 @@
         <a href="manageSensors.php">Gerir Nós</a>
         <a href="manageUser.php">Gerir Utilizadores</a>
         <a href="manageGroup.php">Gerir Grupos</a>
-        <a href="csvtimes.php">CSV Automático</a>
+        <a href="csvtimes.php">Exportar Automático</a>
         <a href="settings.php">Definições</a>
       </div>
     </div>

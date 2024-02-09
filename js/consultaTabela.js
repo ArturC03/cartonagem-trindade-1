@@ -65,6 +65,29 @@ function sendToCSV() {
     }, 800)
 }
 
+function sendToJSON() {
+    $('.loader').removeClass("d-none");
+    setTimeout(function() {
+        $.ajax({
+            url: "obterJSON.php",
+            method: 'POST',
+            data: { sql: document.getElementById('sql2').textContent},
+            dataType: 'json',
+            error: err => {
+                console.log(err)
+            },
+            complete: function () {
+                var link = document.createElement('a');
+                link.href = "download/dados.json";
+                link.download = "dados.json";
+                link.click();
+                link.remove();
+                $('.loader').addClass("d-none");
+            }
+        })
+    }, 800)
+}
+
 $(function() {
     if (!flag) {
         tableBody = $('.table_body');
