@@ -30,3 +30,7 @@ foreach ($result2 as $row) {
 $file = fopen($fileName, 'w');
 fwrite($file, json_encode($data));
 fclose($file);
+header('Content-Type: application/json');
+header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+header('Content-Length: ' . filesize($fileName));
+readfile($fileName);

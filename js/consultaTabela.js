@@ -65,6 +65,25 @@ function sendToCSV() {
     }, 800)
 }
 
+function sendToJSON() {
+    $('.loader').removeClass("d-none");
+    setTimeout(function() {
+        $.ajax({
+            url: "obterJSON.php",
+            method: 'POST',
+            data: { sql: document.getElementById('sql2').textContent},
+            dataType: 'json',
+            error: err => {
+                console.log(err)
+            },
+            complete: function () {
+                document.location.href = "download/dados.json";
+                $('.loader').addClass("d-none");
+            }
+        })
+    }, 800)
+}
+
 $(function() {
     if (!flag) {
         tableBody = $('.table_body');
