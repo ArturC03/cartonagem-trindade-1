@@ -4,6 +4,9 @@ include('config.inc.php');
 if (isset($_SESSION['username'])) {
     include('header.inc.php');
 
+    if (!isset($_POST['ids'])) {
+        header('Location: archive.php');
+    } else {
     $ids=$_POST['ids'];
     $sensores= "(";
     foreach($ids as $id){
@@ -115,7 +118,8 @@ if (isset($_SESSION['username'])) {
         </section>
     </main>
 <?php
-include('footer.inc.php');
+    }
+    include('footer.inc.php');
 }else{
     header('Location: login.php');
 }
