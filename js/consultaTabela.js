@@ -50,7 +50,7 @@ function sendToCSV() {
     $('.loader').removeClass("d-none");
     setTimeout(function() {
         $.ajax({
-            url: "obterCSV.php",
+            url: "obter_CSV.php",
             method: 'POST',
             data: { sql: document.getElementById('sql2').textContent},
             dataType: 'json',
@@ -69,7 +69,7 @@ function sendToJSON() {
     $('.loader').removeClass("d-none");
     setTimeout(function() {
         $.ajax({
-            url: "obterJSON.php",
+            url: "obter_JSON.php",
             method: 'POST',
             data: { sql: document.getElementById('sql2').textContent},
             dataType: 'json',
