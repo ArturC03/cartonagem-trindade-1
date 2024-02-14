@@ -78,7 +78,6 @@ button:hover {
 .sensor-update {
     display: flex;
     flex-wrap: wrap;
-    width: 30%;
     border: 2px solid #fbe961;
     border-radius: 8px;
     padding: 10px;
