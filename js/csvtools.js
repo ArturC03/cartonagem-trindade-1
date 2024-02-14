@@ -45,3 +45,16 @@ $(document).ready(function() {
         inputHora.prop('disabled', this.value != 'ONCE');
     });
 });
+
+$('button[type="submit"]').on('click', function(e) {
+    var mindate = $('#horaMinima');
+    var maxdate = $('#horaMaxima');
+
+    if (mindate.val() > maxdate.val()) {
+        e.preventDefault();
+        maxdate[0].setCustomValidity('A data de fim não pode ser anterior à data de início');
+        maxdate[0].reportValidity();
+    } else {
+        maxdate[0].setCustomValidity('');
+    }
+});

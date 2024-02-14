@@ -197,8 +197,8 @@ if (isset($_SESSION['username'])) {
             <div class="sensor-update">
             </div>
             <h2>Período</h2>
-            <input type="date" name="horaMinima" id="horaMinima" step="1" required>
-            <input type="date" name="horaMaxima" id="horaMaxima" step="1" required>
+            <input type="date" name="horaMinima" id="horaMinima" step="1" max="<?php echo date('Y-m-d') ?>" required>
+            <input type="date" name="horaMaxima" id="horaMaxima" step="1" max="<?php echo date('Y-m-d') ?>" required>
             
             <div class="button-container">
                 <button type="submit" class="btn-success" id="botaoCSV" name="botaoCSV">Gerar CSV</button>
