@@ -28,8 +28,8 @@ if (isset($_SESSION['username'])) {
             <label for="maxtime">Hora Fim</label>
             <input type="time" name="maxtime">
             <div class="radio">
-                <input type="submit" value="Submit" name="submit" id="submit" class="submit" required>
-                <input type="reset" value="Reset" name="reset" id="reset" class="reset" required>
+                <input type="reset" value="Repor" name="reset" id="reset" class="reset" required>
+                <input type="submit" value="Pesquisar" name="submit" id="submit" class="submit" required>
             </div>
         </form>
         
