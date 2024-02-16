@@ -1,26 +1,32 @@
 <?php
 include 'config.inc.php';
 
+if(isset($_POST['completeYes'])) {
+  $pass = $_POST['new-password'];
+  $password = sha1($pass);
+  
+  if (my_query("UPDATE users SET password='$password' WHERE token='" . $_SESSION['token'] . "'") == 1) {
+    my_query("UPDATE users SET token=NULL WHERE token='" . $_SESSION['token'] . "'");
+    unset($_SESSION['token']);
+    
+    echo "<script type='text/javascript'>
+    alert('Password atualizada com sucesso!')
+    window.location = 'logout.php';</script>";
+  } else {
+    echo "erro";
+  }	
+  
+  exit;
+}
+
 if (isset($_GET['token'])) {
+    $_SESSION['token'] = $_GET['token'];
     
-    $token = $_GET['token'];
-    
-    $result = my_query("SELECT * FROM utilizadores WHERE token = '$token'");
+    $result = my_query("SELECT * FROM users WHERE token = '" . $_SESSION['token'] . "'");
     if (count($result) > 0) {
         include 'header.inc.php';
 
-        if(isset($_POST['completeYes'])) {
-            $pass = $_POST['new-password'] ; 
-            $password = sha1($pass);
-
-            if (my_query("UPDATE `users` SET `password`='$password' WHERE token='$token'") == TRUE) {
-                echo "<script type='text/javascript'>
-                alert('Password atualizada com sucesso!')
-                window.location = 'logout.php';</script>";
-            } else {
-                header("location:editarDados.php?msg=failed");
-            }	
-        }
+        
         ?>
           <div class="container">
             <h2>Alterar Password</h2>
