@@ -36,7 +36,6 @@ if (isset($_SESSION['username'])) {
             </table>
         </section>
     </main>
-    <script src="js/consultaTabela.js"></script>
 <?php
 	include('footer.inc.php');
 }else{

@@ -4,46 +4,54 @@ include('config.inc.php');
 if (isset($_SESSION['username'])) {
 	include('header.inc.php');
 	
-	$id = $_GET['id'];
+	if (isset($_GET['id']) && !empty($_GET['id'])) {
+		$_SESSION['id'] = $_GET['id'];
+	} else if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+	} else {
+		header("location:manageUser.php");
+	}
 
 if(isset($_POST['completeYes'])) {
-	$id_exists = false;
 	$username = $_POST['username'];
 	$pass = $_POST['new-password'] ; 
 	$email = $_POST['email'] ; 
-	$userType = $_POST['permitions'] == 'yes' ? 1 : 0;
-	
-	if (is_null($pass))
+	$userType = $_POST['admin'] == 'yes' ? 1 : 0;
+
+	if (empty($pass))
 	{
-		if (my_query("UPDATE `users` SET `username`='$username', `email`='$email', `user_type`='$userType' WHERE user_id='$id'") == TRUE) {
+		if (my_query("UPDATE `users` SET `username`='$username', `email`='$email', `user_type`='$userType' WHERE user_id='" . $_SESSION['id'] . "'") == 1) {
+			unset($_SESSION['id']);
 			echo "<script type='text/javascript'>
-			alert('Dados de utilizador atualizados com sucesso!')
+			alert('Dados de utilizador atualizados com sucesso!!')
 			window.location = 'manageUser.php';</script>";
 		} else {
+			unset($_SESSION['id']);
 			header("location:editUser.php?msg=failed");
 		}	
 	} else {
 		$password = sha1($pass);
 		
-		if (my_query("UPDATE `users` SET `username`='$username', `email`='$email', `user_type`='$userType', `password`='$password' WHERE user_id='$id'") == TRUE) {
+		if (my_query("UPDATE `users` SET `username`='$username', `email`='$email', `user_type`='$userType', `password`='$password' WHERE user_id='" . $_SESSION['id'] . "'") == 1) {
+			unset($_SESSION['id']);
 			echo "<script type='text/javascript'>
 			alert('Dados de utilizador atualizados com sucesso!!')
 			window.location = 'manageUser.php';</script>";
 		} else {
+			unset($_SESSION['id']);
 			header("location:editUser.php?msg=failed");
 		} 
 	} 		
 } 
 
-$result = my_query("SELECT * FROM users where user_id='$id';");
+$result = my_query("SELECT * FROM users where user_id='" . $_SESSION['id'] . "';");
 ?>
 
 
 <div class="container">
 	<h2>Alterar Dados do Utilizador</h2>
 
-	<form id="userForm" class="user-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-		<input type="hidden" name="id" value="<?php echo $id;?>">
+	<form id="userForm" class="user-form" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+		<input type="hidden" name="id" value="<?php echo $_SESSION['id'];?>">
 		<?php
 			if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
 				echo '<span style="color: red;">ERRO A ALTERAR OS DADOS!!!</span>';

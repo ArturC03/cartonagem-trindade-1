@@ -53,7 +53,6 @@ if (isset($_SESSION['username'])) {
             <span class="button-text">Adicionar Grupo</span>
         </button>
     </main>
-    <script src="js/consultaTabela.js"></script>
 
 <?php
     include('footer.inc.php');
