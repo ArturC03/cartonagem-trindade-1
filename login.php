@@ -13,6 +13,7 @@ if (isset($_SESSION['username'])) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="css/login.css">
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
             <title>Login</title>
         </head>
@@ -51,13 +52,14 @@ if (isset($_SESSION['username'])) {
                                 
                                 <button type="submit" class="btn" name="submit" value="Login">Iniciar Sessão</button>
                                 
-                                <button type="button" onclick="recuperarPass()" class="link">Esqueceste-te da tua password?</button>                    
+                                <button type="button" onclick="voltarRecuperarPass()" class="link">Esqueceste-te da tua password?</button>                    
                             </form>
                         </div>
                         
                         <div class="form-box login flip-box-back" id="recuperarPass">
                             <img class="logotrindade"src="images/trindade.png" alt="">
-                            <form autocomplete="off" action="send_link.php" method="post">
+                            <form autocomplete="off" id="recuperarForm">
+                                <input type="hidden" name="tipo" value="1">
                                 
                                 <h2>Recuperar Password</h2>
                                 
@@ -68,11 +70,13 @@ if (isset($_SESSION['username'])) {
                                 
                                 <div class="input-box">
                                     <span class="icon"><i class='bx bxs-user-circle'></i></span>
-                                    <input type="email" placeholder=" " required>
+                                    <input type="email" name="username" id="recoverEmail" placeholder=" " required>
                                     <label>Email</label>
                                 </div>
+
+                                <div class="message-div" id="message-div"></div>
                                 
-                                <button type="submit" class="btn">Recuperar Password</button>
+                                <button type="submit" class="btn" id="submitRecuperar">Recuperar Password</button>
                             </form>
                             <button type="button" onclick="voltarLogin()" class="link">Voltar</button>
                         </div>
@@ -95,7 +99,7 @@ if (isset($_SESSION['username'])) {
 		$result = my_query("SELECT * from users WHERE email LIKE '{$username}' AND password LIKE '{$password}' LIMIT 1;");
 
 		if (!count($result) == 1) {
-			header("location:login.php?msg=failed");
+			header("location:login.php?msg1=failed");
 
 		} else {
 			$_SESSION['username']=$result[0]['email'];

@@ -5,7 +5,6 @@ if (isset($_SESSION['username'])) {
 	include('header.inc.php');
 	
 	if(isset($_POST['completeYes'])) {
-		$id_exists = false;
 		$username = $_POST['username'];
 		$pass = $_POST['new-password'] ; 
 		$password = sha1($pass);
@@ -22,14 +21,15 @@ if (isset($_SESSION['username'])) {
 		}
 		else
 		{
-			$sql = "INSERT INTO `users`(`username`, `email`, `user_type`, `password`) VALUES ('$username','$email','$userType','$password')";
+			$sql = "INSERT INTO `users`(`username`, `email`, `user_type`, `password`, `token`) VALUES ('$username','$email','$userType','$password', '')";
 
-			if (my_query($sql) == TRUE) {
+			if (my_query($sql) >= 1) {
 				echo "<script type='text/javascript'>
 				alert('Novo utilizador adicionado com sucesso!')
 				window.location = 'manageUser.php';</script>";
 			} else {
-				echo "erro na criação so novo utilizador! Tente outra vez! "  . $arrConfig['conn']->error;
+				echo "<script type='text/javascript'>
+				alert(Erro na criação so novo utilizador! Tente outra vez! "  . $arrConfig['conn']->error . ")";
 			} 
 		}
 	} 	

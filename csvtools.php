@@ -55,17 +55,11 @@ if (isset($_SESSION['username'])) {
                     // Lê e envia o arquivo CSV para o cliente
                     readfile($fileName);
                 } else {
-                    echo "Nenhum dado encontrado para os sensores selecionados.";
-                    echo $min_datetime->format('Y-m-d H:i:s');
-                    echo $max_datetime->format('Y-m-d H:i:s');
-                    print_r($sensoresSelecionados);
+                    echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
                 }
                 exit();
             } else {
-                echo "Nenhum dado encontrado para os grupos selecionados.";
-                echo $min_datetime->format('Y-m-d H:i:s');
-                echo $max_datetime->format('Y-m-d H:i:s');
-                print_r($sensoresSelecionados);
+                echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
             }
             exit();
         } else if (isset($_POST['botaoJSON'])) {
@@ -120,17 +114,11 @@ if (isset($_SESSION['username'])) {
                     // Lê e envia o arquivo JSON para o cliente
                     readfile($fileName);
                 } else {
-                    echo "Nenhum dado encontrado para os sensores selecionados.";
-                    echo $min_datetime->format('Y-m-d H:i:s');
-                    echo $max_datetime->format('Y-m-d H:i:s');
-                    print_r($sensoresSelecionados);
+                    echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
                 }
                 exit();
             } else {
-                echo "Nenhum dado encontrado para os grupos selecionados.";
-                echo $min_datetime->format('Y-m-d H:i:s');
-                echo $max_datetime->format('Y-m-d H:i:s');
-                print_r($sensoresSelecionados);
+                echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
             }
             exit();
         }

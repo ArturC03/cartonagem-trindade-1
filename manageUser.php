@@ -50,7 +50,6 @@ if (isset($_SESSION['username'])) {
             <span class="button-text">Adicionar Utilizador</span>
         </button>
     </main>
-    <script src="js/consultaTabela.js"></script>
 
 <?php
     include('footer.inc.php');

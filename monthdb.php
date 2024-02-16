@@ -30,7 +30,7 @@
     while ($year == $last_db->format('Y') && $month < $last_db->format('m') || $y < $year) {
         
         $new_dbname= $arrConfig['dbname'] . "_" . $y."_" . $m;
-        if(my_query("CREATE DATABASE IF NOT EXISTS $new_dbname;") == TRUE){
+        if(my_query("CREATE DATABASE IF NOT EXISTS $new_dbname;") == 1){
             my_query("
             select concat('create table
             $new_dbname.',TABLE_NAME,' like ".$arrConfig['dbname'].".',TABLE_NAME,'; insert into

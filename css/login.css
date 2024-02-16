@@ -237,6 +237,15 @@ input:-webkit-autofill:active{
     transform: rotateY(180deg);
 }
 
+.d-none {
+    display: none;
+}
+
+.message-div {  
+    color: white;
+    font-size: 12px;
+    width: 100%;
+}
 @media only screen and (max-width: 946px) { 
     .container .content {
         display: none;

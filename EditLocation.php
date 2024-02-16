@@ -15,14 +15,14 @@ if (isset($_POST['completeYes'])) {
 	$res = my_query("SELECT id_sensor FROM location WHERE id_sensor='$id_sensor'");
     
 	if (count($res) > 0) {
-		if (my_query("UPDATE `location` SET `location_x`=$location_x,`location_y`=$location_y,`size_x`=$size_x,`size_y`=$size_y where `id_sensor` = '$id_sensor';") == TRUE) {
+		if (my_query("UPDATE `location` SET `location_x`=$location_x,`location_y`=$location_y,`size_x`=$size_x,`size_y`=$size_y where `id_sensor` = '$id_sensor';") == 1) {
             echo "<script type='text/javascript'>
             window.location = 'manageSensors.php';</script>";
 		} else {
             echo "Error: " . $arrConfig['conn']->error;
 		}
 	} else {
-        if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_sensor) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '$id_sensor' )") == TRUE) {
+        if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_sensor) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '$id_sensor' )") >= 1) {
             echo "<script type='text/javascript'>
             alert('Nova localização adicionada com sucesso!')
             window.location = 'manageSensors.php';</script>";

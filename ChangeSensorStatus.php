@@ -13,6 +13,6 @@ if ($status == 1) {
     header('Location: manageSensors.php'); 
     exit;
 } else {
-    echo "Primeiro é necessário definir uma localização!!";
+    echo "<script>alert(Primeiro é necessário definir uma localização!!); window.location = 'manageSensors.php'</script>";
 } 
 ?>
