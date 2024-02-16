@@ -13,7 +13,7 @@ if(isset($_POST['completeYes'])) {
     alert('Password atualizada com sucesso!')
     window.location = 'logout.php';</script>";
   } else {
-    echo "erro";
+    echo "<script>alert(Erro a atualizar password! Tente outra vez!); window.location = 'recuperar_pass.php'</script>";
   }	
   
   exit;

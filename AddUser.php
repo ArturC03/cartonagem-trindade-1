@@ -28,7 +28,8 @@ if (isset($_SESSION['username'])) {
 				alert('Novo utilizador adicionado com sucesso!')
 				window.location = 'manageUser.php';</script>";
 			} else {
-				echo "Erro na criação so novo utilizador! Tente outra vez! "  . $arrConfig['conn']->error;
+				echo "<script type='text/javascript'>
+				alert(Erro na criação so novo utilizador! Tente outra vez! "  . $arrConfig['conn']->error . ")";
 			} 
 		}
 	} 	

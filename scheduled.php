@@ -86,7 +86,7 @@ foreach ($result as $row) {
 
         fclose($file);
         if (my_query("UPDATE hora SET num_ficheiros = " . ($row['num_ficheiros'] + 1) . " WHERE id_hora = " . $row['id_hora'] . ";") == 0) {
-            echo "Erro ao atualizar o número de ficheiros, por favor contacte o administrador da BD";
+            echo "<script>alert(Erro ao atualizar o número de ficheiros, por favor contacte o administrador da BD.); window.location = 'csvtimes.php'</script>";
         }
     }
     

@@ -6,5 +6,5 @@ if (my_query("DELETE FROM grupos WHERE id_grupo = $id") == 1) {
     header('Location: manageGroup.php'); 
     exit;
 } else {
-    echo "Erro a eliminar grupo! Tente outra vez!";
+    echo "<script>alert(Erro a eliminar grupo! Tente outra vez!); window.location = 'manageGroup.php'</script>";
 }
