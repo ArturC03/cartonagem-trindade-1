@@ -78,7 +78,7 @@ if (isset($_SESSION['username'])) {
         <div class="container">
             <form name="form01" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <label for="cloud">Raio da Nuvem: </label>
-                <input type="number" id="cloud" name="cloud" value="<?php echo $arrConfig['cloud_radius']; ?>" required>
+                <input type="number" id="cloud" name="cloud" value="<?php echo $arrConfig['cloud_radius']; ?>" min="1" required>
                 <div class="submit-reset-container">
                     <input type="reset" id="reset">
                     <input type="submit" id="submit" name="changeCloud">
