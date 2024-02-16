@@ -17,7 +17,7 @@ if (isset($_SESSION['username'])) {
         
         if (count($res) > 0)
         {
-        if (my_query("UPDATE `users` SET `password`='$password' WHERE email='$session_id'") == TRUE) {
+        if (my_query("UPDATE `users` SET `password`='$password' WHERE email='$session_id'") == 1) {
             echo "<script type='text/javascript'>
             alert('Password atualizada com sucesso!')
             window.location = 'logout.php';</script>";
@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
     if(isset($_POST['changeTitle'])){
         $arrConfig['site_title'] = $_POST['tit'];
 
-        if (my_query("INSERT into site_settings values(null, 'site_title', '" . $arrConfig['site_title']. "');") == TRUE) {
+        if (my_query("INSERT into site_settings values(null, 'site_title', '" . $arrConfig['site_title']. "');") == 1) {
             echo "<script type='text/javascript'>
             alert('Título atualizado com sucesso!');
             window.location.href = 'home.php';</script>";
@@ -49,7 +49,7 @@ if (isset($_SESSION['username'])) {
     if(isset($_POST['changeCloud'])) {
         $arrConfig['cloud_radius'] = $_POST['cloud'];
 
-        if (my_query("INSERT into site_settings values(null, 'cloud_radius', '" . $arrConfig['cloud_radius']. "');") == TRUE) {
+        if (my_query("INSERT into site_settings values(null, 'cloud_radius', '" . $arrConfig['cloud_radius']. "');") == 1) {
             echo "<script type='text/javascript'>
             alert('Raio da nuvem atualizado com sucesso!');
             window.location.href = 'home.php';</script>";

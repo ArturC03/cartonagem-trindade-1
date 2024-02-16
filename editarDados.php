@@ -17,7 +17,7 @@ if (isset($_SESSION['username'])) {
     
     if (count($res) > 0)
     {
-      if (my_query("UPDATE `users` SET `password`='$password' WHERE email='$session_id'") == TRUE) {
+      if (my_query("UPDATE `users` SET `password`='$password' WHERE email='$session_id'") == 1) {
         echo "<script type='text/javascript'>
         alert('Password atualizada com sucesso!')
         window.location = 'logout.php';</script>";
