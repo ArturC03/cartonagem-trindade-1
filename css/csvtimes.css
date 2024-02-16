@@ -16,6 +16,10 @@ input, select {
     font-size: 13px;
 }
 
+.scheduled {
+    max-width: 50%;
+}
+
 .sensor-container {    
     width: 90vw;
     max-width: 1200px;
