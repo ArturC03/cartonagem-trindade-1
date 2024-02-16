@@ -21,9 +21,9 @@ if (isset($_SESSION['username'])) {
 		}
 		else
 		{
-			$sql = "INSERT INTO `users`(`username`, `email`, `user_type`, `password`) VALUES ('$username','$email','$userType','$password')";
+			$sql = "INSERT INTO `users`(`username`, `email`, `user_type`, `password`, `token`) VALUES ('$username','$email','$userType','$password', '')";
 
-			if (my_query($sql) == 1) {
+			if (my_query($sql) >= 1) {
 				echo "<script type='text/javascript'>
 				alert('Novo utilizador adicionado com sucesso!')
 				window.location = 'manageUser.php';</script>";
