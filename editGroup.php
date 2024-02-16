@@ -51,7 +51,7 @@ if (count($result3) > 0) {
 			<?php 
 				foreach ($result2 as $row) {
 					echo '<label class="check-container">';
-					echo '<input type="checkbox" class="checkbox" name="sensores[]" value="' . $row['id_sensor'] . '" ' . (in_array($row['id_sensor'], $sensores_list) ? 'checked' : '') . '>';
+					echo '<input type="checkbox" class="checkbox" name="sensores[]" value="' . $row['id_sensor'] . '" ' . (in_array($row['id_sensor'], $sensores_list) ? 'checked disabled' : '') . '>';
 					echo '<div class="checkmark"></div>';
 					echo '<span>' . $row['id_sensor'] . '</span>';
 					echo '</label>';

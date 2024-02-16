@@ -63,3 +63,7 @@
     transform: rotate(45deg);
     transition: all 500ms ease-in-out;
 }
+
+.sensor-update input:disabled ~ .checkmark {
+    opacity: 0.5;
+}
