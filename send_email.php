@@ -16,14 +16,14 @@ try{
         $mail = new PHPMailer(true);
         $mail -> isSMTP();
         $mail->CharSet = 'UTF-8';
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'smtp-mail.outlook.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'hugo2006almeida2006@gmail.com';
-        $mail->Password='dkyv xilc srbj coqo';
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port=465;
+        $mail->Username = 'no-reply1742@hotmail.com';
+        $mail->Password='1R0_#y19i$sw';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port=587;
         
-        $mail->setFrom('hugo2006almeida2006@gmail.com');
+        $mail->setFrom('no-reply1742@hotmail.com');
         $mail->addAddress($_POST['email']);
         
         $token = bin2hex(random_bytes(16));

@@ -22,7 +22,7 @@ if (isset($_POST['completeYes'])) {
             echo "Error: " . $arrConfig['conn']->error;
 		}
 	} else {
-        if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_sensor) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '$id_sensor' )") == 1) {
+        if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_sensor) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '$id_sensor' )") >= 1) {
             echo "<script type='text/javascript'>
             alert('Nova localização adicionada com sucesso!')
             window.location = 'manageSensors.php';</script>";
