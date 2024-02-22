@@ -4,8 +4,8 @@ USE `plantdb_new`;
 CREATE TABLE `sensor`(
     `id_sensor` VARCHAR(4) NOT NULL,
     `description` TEXT NULL,
-    `id_location` INT UNSIGNED NOT NULL,
-    `id_group` INT UNSIGNED NOT NULL,
+    `id_location` INT UNSIGNED NULL,
+    `id_group` INT UNSIGNED NULL,
     `status` TINYINT(1) NOT NULL,
     `id_user` INT UNSIGNED NOT NULL,
     `last_edited_at` DATETIME NOT NULL
@@ -152,10 +152,8 @@ INSERT INTO `plantdb_new`.`user`
 SELECT `user_id`, `username`, `email`, `password`, IF(`user_type` = 0, 2, 1), '2', NOW() FROM `plantdb`.`users`;
 
 INSERT INTO `plantdb_new`.`location`
-SELECT NULL, NULL, NULL, NULL, NULL, '2', NOW()
-FROM (
-    SELECT DISTINCT `id_sensor` FROM `plantdb`.`sensors`
-) AS unique_sensors;
+SELECT `location_id`,`location_x`,`location_y`,`size_x`,`size_y`, '2', NOW()
+FROM `plantdb`.`location`;
 
 INSERT INTO `plantdb_new`.`group`
 SELECT *, '2', NOW() FROM `plantdb`.`grupos`;
@@ -180,7 +178,7 @@ INSERT INTO `plantdb_new`.`sensor`
 SELECT DISTINCT
     `plantdb`.`sensors`.`id_sensor`,
     '' AS `description`,
-    CASE WHEN `plantdb`.`location`.`location_id` IS NOT NULL THEN `plantdb`.`location`.`location_id` ELSE 1 END AS location_id,
+    `plantdb`.`location`.`location_id`,
     `plantdb`.`location`.`grupo`,
     `plantdb`.`location`.`status`,
     '2',
