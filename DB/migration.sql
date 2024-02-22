@@ -113,35 +113,35 @@ CREATE TABLE `site_settings`(
     `last_edited_at` DATETIME NOT NULL
 );
 ALTER TABLE
-    `sensor` ADD CONSTRAINT `sensor_id_group_foreign` FOREIGN KEY(`id_group`) REFERENCES `group`(`id_group`);
+    `sensor` ADD CONSTRAINT `sensor_id_group_foreign` FOREIGN KEY(`id_group`) REFERENCES `group`(`id_group`) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE
-    `sensor` ADD CONSTRAINT `sensor_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`);
+    `sensor` ADD CONSTRAINT `sensor_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `group` ADD CONSTRAINT `group_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`);
+    `group` ADD CONSTRAINT `group_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `location` ADD CONSTRAINT `location_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`);
+    `location` ADD CONSTRAINT `location_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `site_settings` ADD CONSTRAINT `site_settings_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`);
+    `site_settings` ADD CONSTRAINT `site_settings_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `export_sensor` ADD CONSTRAINT `export_sensor_id_sensor_foreign` FOREIGN KEY(`id_sensor`) REFERENCES `sensor`(`id_sensor`);
+    `export_sensor` ADD CONSTRAINT `export_sensor_id_sensor_foreign` FOREIGN KEY(`id_sensor`) REFERENCES `sensor`(`id_sensor`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `export_sensor` ADD CONSTRAINT `export_sensor_id_export_foreign` FOREIGN KEY(`id_export`) REFERENCES `export`(`id_export`);
+    `export_sensor` ADD CONSTRAINT `export_sensor_id_export_foreign` FOREIGN KEY(`id_export`) REFERENCES `export`(`id_export`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `sensor` ADD CONSTRAINT `sensor_id_location_foreign` FOREIGN KEY(`id_location`) REFERENCES `location`(`id_location`);
+    `sensor` ADD CONSTRAINT `sensor_id_location_foreign` FOREIGN KEY(`id_location`) REFERENCES `location`(`id_location`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `error_log` ADD CONSTRAINT `error_log_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`);
+    `error_log` ADD CONSTRAINT `error_log_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `export` ADD CONSTRAINT `export_id_interval_foreign` FOREIGN KEY(`id_interval`) REFERENCES `interval`(`id_interval`);
+    `export` ADD CONSTRAINT `export_id_interval_foreign` FOREIGN KEY(`id_interval`) REFERENCES `interval`(`id_interval`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `sensor_reading` ADD CONSTRAINT `sensor_reading_id_sensor_foreign` FOREIGN KEY(`id_sensor`) REFERENCES `sensor`(`id_sensor`);
+    `sensor_reading` ADD CONSTRAINT `sensor_reading_id_sensor_foreign` FOREIGN KEY(`id_sensor`) REFERENCES `sensor`(`id_sensor`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `error_log` ADD CONSTRAINT `error_log_id_error_foreign` FOREIGN KEY(`id_error`) REFERENCES `error`(`id_error`);
+    `error_log` ADD CONSTRAINT `error_log_id_error_foreign` FOREIGN KEY(`id_error`) REFERENCES `error`(`id_error`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `export` ADD CONSTRAINT `export_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`);
+    `export` ADD CONSTRAINT `export_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE
-    `user` ADD CONSTRAINT `user_id_type_foreign` FOREIGN KEY(`id_type`) REFERENCES `user_type`(`id_type`);
+    `user` ADD CONSTRAINT `user_id_type_foreign` FOREIGN KEY(`id_type`) REFERENCES `user_type`(`id_type`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `user` ADD CONSTRAINT `user_last_edited_by_foreign` FOREIGN KEY(`last_edited_by`) REFERENCES `user`(`id_user`);
+    `user` ADD CONSTRAINT `user_last_edited_by_foreign` FOREIGN KEY(`last_edited_by`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 
 INSERT INTO `plantdb_new`.`user_type`
 VALUES
