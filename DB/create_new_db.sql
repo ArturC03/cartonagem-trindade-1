@@ -13,7 +13,7 @@ CREATE TABLE `sensor`(
 ALTER TABLE
     `sensor` ADD PRIMARY KEY(`id_sensor`);
 CREATE TABLE `location`(
-    `id_location` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_location` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `location_x` INT NULL,
     `location_y` INT NULL,
     `size_x` INT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `error_log`(
     `id_user` INT UNSIGNED NULL
 );
 CREATE TABLE `user_type`(
-    `id_type` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_type` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `type` VARCHAR(20) NOT NULL
 );
 ALTER TABLE
@@ -38,7 +38,7 @@ CREATE TABLE `error`(
     `error` TEXT NOT NULL
 );
 CREATE TABLE `group`(
-    `id_group` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_group` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `group_name` VARCHAR(100) NOT NULL,
     `id_user` INT UNSIGNED NOT NULL,
     `last_edited_at` DATETIME NOT NULL
@@ -51,7 +51,7 @@ CREATE TABLE `interval`(
     `interval_name` VARCHAR(30) NOT NULL
 );
 CREATE TABLE `sensor_reading`(
-    `id_reading` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_reading` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_sensor` VARCHAR(4) NOT NULL,
     `date` DATE NOT NULL,
     `time` TIME NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `sensor_reading`(
     `f_Dismount` VARCHAR(4) NOT NULL
 );
 CREATE TABLE `user`(
-    `id_user` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_user` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(30) NOT NULL,
     `email` VARCHAR(150) NOT NULL,
     `password` VARCHAR(300) NOT NULL,
@@ -93,7 +93,7 @@ ALTER TABLE
 ALTER TABLE
     `user` ADD UNIQUE `user_email_unique`(`email`);
 CREATE TABLE `export`(
-    `id_export` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_export` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_interval` INT UNSIGNED NOT NULL,
     `generation_format` TINYINT(1) NOT NULL,
     `existing_files` INT NOT NULL,
@@ -101,12 +101,12 @@ CREATE TABLE `export`(
     `edited_at` DATETIME NOT NULL
 );
 CREATE TABLE `export_sensor`(
-    `id_export_sensor` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_export_sensor` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_sensor` VARCHAR(4) NOT NULL,
     `id_export` INT UNSIGNED NOT NULL
 );
 CREATE TABLE `site_settings`(
-    `id_setting` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_setting` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(30) NOT NULL,
     `value` TEXT NOT NULL,
     `id_user` INT UNSIGNED NOT NULL,
