@@ -13,11 +13,11 @@ if (isset($_SESSION['username'])) {
         $password = sha1($pass);
         $session_id = $_SESSION['username'];
 
-        $res = my_query("SELECT * FROM users WHERE password LIKE '{$passOld}' and email LIKE '{$session_id}'");
+        $res = my_query("SELECT * FROM user WHERE password = '$passOld' and id_user = '$session_id'");
         
         if (count($res) > 0)
         {
-        if (my_query("UPDATE `users` SET `password`='$password' WHERE email='$session_id'") == 1) {
+        if (my_query("UPDATE `user` SET `password`='$password', last_edited_by = '" . $_SESSION['username'] . "' WHERE id_user='$session_id'") == 1) {
             echo "<script type='text/javascript'>
             alert('Password atualizada com sucesso!')
             window.location = 'logout.php';</script>";
@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
     if(isset($_POST['changeTitle'])){
         $arrConfig['site_title'] = $_POST['tit'];
 
-        if (my_query("INSERT into site_settings values(null, 'site_title', '" . $arrConfig['site_title']. "');") >= 1) {
+        if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('site_title', '" . $arrConfig['site_title']. "', '" . $_SESSION['username'] . "');") >= 1) {
             echo "<script type='text/javascript'>
             alert('Título atualizado com sucesso!');
             window.location.href = 'home.php';</script>";
@@ -49,7 +49,7 @@ if (isset($_SESSION['username'])) {
     if(isset($_POST['changeCloud'])) {
         $arrConfig['cloud_radius'] = $_POST['cloud'];
 
-        if (my_query("INSERT into site_settings values(null, 'cloud_radius', '" . $arrConfig['cloud_radius']. "');") >= 1) {
+        if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('cloud_radius', '" . $arrConfig['cloud_radius']. "', '" . $_SESSION['username'] . "');") >= 1) {
             echo "<script type='text/javascript'>
             alert('Raio da nuvem atualizado com sucesso!');
             window.location.href = 'home.php';</script>";

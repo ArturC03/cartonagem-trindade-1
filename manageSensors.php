@@ -21,7 +21,7 @@ if (isset($_SESSION['username'])) {
                 </thead>
                 <tbody>
                     <?php
-                        $result = my_query("SELECT DISTINCT l.id_sensor , IF(l.location_x IS NULL,'Localização Por Definir','Localização Definida') as location, l.status FROM location l");
+                        $result = my_query("SELECT id_sensor, IF(id_location IS NULL, 'Localização Por Definir', 'Localização Definida') AS location, status FROM sensor;");
                         foreach ($result as $row) 
                         {
                             echo '<tr>';

@@ -12,20 +12,25 @@ if (isset($_POST['completeYes'])) {
 	$location_y = $_POST['location_y'];
     $size_x = $_POST['size_x'];
     $size_y = $_POST['size_y'];
-	$res = my_query("SELECT id_sensor FROM location WHERE id_sensor='$id_sensor'");
+	$res = my_query("SELECT id_location FROM sensor WHERE id_sensor = '$id_sensor';");
     
-	if (count($res) > 0) {
-		if (my_query("UPDATE `location` SET `location_x`=$location_x,`location_y`=$location_y,`size_x`=$size_x,`size_y`=$size_y where `id_sensor` = '$id_sensor';") == 1) {
+	if ($res[0] != null) {
+		if (my_query("UPDATE `location` SET `location_x`=$location_x,`location_y`=$location_y,`size_x`=$size_x,`size_y`=$size_y, id_user = '" . $_SESSION['username'] . "' where `id_sensor` = '$id_sensor';") == 1) {
             echo "<script type='text/javascript'>
+            alert('Localização atualizada com sucesso!')
             window.location = 'manageSensors.php';</script>";
 		} else {
             echo "Error: " . $arrConfig['conn']->error;
 		}
 	} else {
-        if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_sensor) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '$id_sensor' )") >= 1) {
-            echo "<script type='text/javascript'>
-            alert('Nova localização adicionada com sucesso!')
-            window.location = 'manageSensors.php';</script>";
+        if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_user) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '" . $_SESSION['$username'] . "')") >= 1) {
+            if (my_query("UPDATE sensor SET id_location = LAST_INSERT_ID(), id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$id_sensor';") == 1) {
+                echo "<script type='text/javascript'>
+                alert('Nova localização adicionada com sucesso!')
+                window.location = 'manageSensors.php';</script>";
+            } else {
+                echo "Error: " . $arrConfig['conn']->error;
+            }
         } else {
             echo "Error: " . $sql . "<br>" . $mysqli->error;
         }

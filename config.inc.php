@@ -7,14 +7,14 @@ date_default_timezone_set("Europe/Lisbon");
 $arrConfig['servername'] = 'localhost';
 $arrConfig['username'] = 'root';
 $arrConfig['password'] = '';
-$arrConfig['dbname'] = 'plantdb';
+$arrConfig['dbname'] = 'plantdb_new';
 
 require_once('db.inc.php');
 
 $result = my_query("SELECT * from site_settings");
 
 foreach ($result as $row) {
-  $arrConfig[$row['nome']] = $row['valor'];
+  $arrConfig[$row['name']] = $row['value'];
 }
 
 $viewportWidth = 0.62;

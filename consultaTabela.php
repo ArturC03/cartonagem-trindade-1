@@ -33,21 +33,21 @@ if (isset($_SESSION['username'])) {
     $comp3= strlen($horaMaxima);
     
     if($comp2==0 && $comp3==0){
-        $comp2= "s.hour BETWEEN '00:00:00' and '23:59:59' AND ";
+        $comp2= "s.time BETWEEN '00:00:00' and '23:59:59' AND ";
     }elseif($comp2==0 && $comp3 <> 0){
-        $comp2= "s.hour BETWEEN '00:00:00' and '".$horaMaxima."' and ";
+        $comp2= "s.time BETWEEN '00:00:00' and '".$horaMaxima."' and ";
     }elseif($comp2 <> 0 && $comp3 <> 0){
-        $comp2= "s.hour BETWEEN '".$horaMinima."' and '".$horaMaxima."' AND ";
+        $comp2= "s.time BETWEEN '".$horaMinima."' and '".$horaMaxima."' AND ";
     }else{
-        $comp2= "s.hour BETWEEN '".$horaMinima."' and '23:59:59' AND ";
+        $comp2= "s.time BETWEEN '".$horaMinima."' and '23:59:59' AND ";
     }
     
     $datas= "s.date BETWEEN '".$dataMinima."' and '".$dataMaxima."' AND ";
 
-    $sql = "SELECT distinct s.id_sensor, s.date, s.hour, ROUND(s.temperature, 2) AS temperature, ROUND(s.humidity, 2) AS humidity,
+    $sql = "SELECT distinct s.id_sensor, s.date, s.time, ROUND(s.temperature, 2) AS temperature, ROUND(s.humidity, 2) AS humidity,
     ROUND(s.pressure, 2) AS pressure, ROUND(s.altitude, 2) AS altitude, ROUND(s.eCO2, 2) AS eCO2, ROUND(s.eTVOC, 2) AS eTVOC
-    FROM sensors s where ".$comp2.$datas."s.id_sensor in $sensores ORDER BY date, hour ASC";
-    $sql2 = "SELECT distinct s.id_sensor, s.date, s.hour, s.temperature, s.humidity, s.pressure, s.altitude, s.eCO2, s.eTVOC FROM sensors s where ".$comp2.$datas."s.id_sensor in $sensores order by date, hour ASC";
+    FROM sensor_reading s where ".$comp2.$datas."s.id_sensor in $sensores ORDER BY date, time ASC";
+    $sql2 = "SELECT distinct s.id_sensor, s.date, s.time, s.temperature, s.humidity, s.pressure, s.altitude, s.eCO2, s.eTVOC FROM sensor_reading s where ".$comp2.$datas."s.id_sensor in $sensores order by date, time ASC";
     ?>
     <p id="sql" class="d-none"><?php echo $sql; ?></p>
     <p id="sql2" class="d-none"><?php echo $sql2; ?></p>

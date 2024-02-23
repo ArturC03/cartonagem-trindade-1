@@ -2,52 +2,53 @@
 include('config.inc.php');
 
 // Consulta os valores dos sensores
-$result = my_query("SELECT 
-location.id_sensor,
-location.location_x,
-location.location_y,
-location.size_x,
-location.size_y,
-CAST(sensors.temperature AS SIGNED) AS temperatura_int
-FROM 
-location
-INNER JOIN 
-sensors 
-ON 
-location.id_sensor = sensors.id_sensor
-WHERE 
-location.status = 1
-AND
-sensors.sensor_id IN (
-    SELECT 
-        MAX(sensor_id) AS max_sensor_id
+$result = my_query(
+    "SELECT
+    sr.id_sensor,
+    l.location_x,
+    l.location_y,
+    l.size_x,
+    l.size_y,
+    sr.date,
+    sr.time,
+    sr.temperature
     FROM 
-        sensors
-    GROUP BY 
-        id_sensor
-)
-;
-");
+        location l
+    INNER JOIN 
+        sensor s ON l.id_location = s.id_location
+    INNER JOIN 
+        sensor_reading sr ON s.id_sensor = sr.id_sensor
+    WHERE 
+        s.status = 1
+    AND
+        sr.id_reading = (
+            SELECT 
+                MAX(id_reading)
+            FROM 
+                sensor_reading
+            WHERE 
+                id_sensor = s.id_sensor
+        );"
+);
 
 // Cria um array para armazenar os dados dos sensores
 $data = array();
 
 // Adiciona cada linha do resultado da consulta ao array
 foreach ($result as $row) {
-  $data[] = array(
-    'x' => $row['location_x'],
-    'y' => $row['location_y'],
-    'size_x' => $row['size_x'],
-    'size_y' => $row['size_y'],
-    'value' => $row['temperatura_int'] == 0 ? 1 : $row['temperatura_int'],
-  );
+    $data[] = array(
+        'x' => $row['location_x'],
+        'y' => $row['location_y'],
+        'size_x' => $row['size_x'],
+        'size_y' => $row['size_y'],
+        'value' => $row['temperatura_int'] == 0 ? 1 : $row['temperatura_int'],
+    );
 }
 
 // Retorna os dados como JSON
 echo json_encode(array(
-  'min' => 0,
-  'max' => 35,
-  'radius' => intval($arrConfig['cloud_radius']),
-  'data' => $data
+    'min' => 0,
+    'max' => 35,
+    'radius' => intval($arrConfig['cloud_radius']),
+    'data' => $data
 ));
-?>

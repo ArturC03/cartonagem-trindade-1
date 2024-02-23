@@ -19,31 +19,35 @@ if(isset($_POST['completeYes'])) {
 
 	if (empty($pass))
 	{
-		if (my_query("UPDATE `users` SET `username`='$username', `email`='$email', `user_type`='$userType' WHERE user_id='" . $_SESSION['id'] . "'") == 1) {
+		if (my_query("UPDATE `user` SET `username`='$username', `email`='$email', `id_type`='$userType', last_edited_by = '" . $_SESSION['username'] . "' WHERE id_user='" . $_SESSION['id'] . "'") == 1) {
 			unset($_SESSION['id']);
 			echo "<script type='text/javascript'>
 			alert('Dados de utilizador atualizados com sucesso!!')
 			window.location = 'manageUser.php';</script>";
 		} else {
 			unset($_SESSION['id']);
-			header("location:editUser.php?msg=failed");
+			echo "<script type='text/javascript'>
+			alert('Erro ao atualizar os dados do utilizador!!')
+			window.location = 'manageUser.php';</script>";
 		}	
 	} else {
 		$password = sha1($pass);
 		
-		if (my_query("UPDATE `users` SET `username`='$username', `email`='$email', `user_type`='$userType', `password`='$password' WHERE user_id='" . $_SESSION['id'] . "'") == 1) {
+		if (my_query("UPDATE `user` SET `username`='$username', `email`='$email', `user_type`='$userType', `password`='$password', last_edited_by = '" . $_SESSION['username'] . "' WHERE id_user='" . $_SESSION['id'] . "'") == 1) {
 			unset($_SESSION['id']);
 			echo "<script type='text/javascript'>
 			alert('Dados de utilizador atualizados com sucesso!!')
 			window.location = 'manageUser.php';</script>";
 		} else {
 			unset($_SESSION['id']);
-			header("location:editUser.php?msg=failed");
+			echo "<script type='text/javascript'>
+			alert('Erro ao atualizar os dados do utilizador!!')
+			window.location = 'manageUser.php';</script>";
 		} 
 	} 		
 } 
 
-$result = my_query("SELECT * FROM users where user_id='" . $_SESSION['id'] . "';");
+$result = my_query("SELECT * FROM user where id_user='" . $_SESSION['id'] . "';");
 ?>
 
 
@@ -52,11 +56,6 @@ $result = my_query("SELECT * FROM users where user_id='" . $_SESSION['id'] . "';
 
 	<form id="userForm" class="user-form" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 		<input type="hidden" name="id" value="<?php echo $_SESSION['id'];?>">
-		<?php
-			if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
-				echo '<span style="color: red;">ERRO A ALTERAR OS DADOS!!!</span>';
-			} 
-		?>
 
 		<label for="username" class="form-label">Utilizador:</label>
 		<input type="text" id="username" name="username" class="form-input" value="<?php echo $result[0]['username'];?>" required>

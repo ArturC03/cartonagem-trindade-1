@@ -13,7 +13,7 @@ if (isset($_SESSION['username'])) {
             <label for="searchnos">Nós</label>
             <select class="searchnos" name="ids[]" id="" multiple required>
                 <?php 
-                $consulta = my_query("SELECT id_sensor FROM location WHERE location.status=1 GROUP BY id_sensor");
+                $consulta = my_query("SELECT id_sensor FROM sensor WHERE sensor.status=1 ORDER BY LPAD(CAST(CONV(RIGHT(id_sensor, 2), 16, 10) AS SIGNED), 2, '0') ASC;");
                 foreach ($consulta as $resultado) {
                     echo "<option value=" . $resultado["id_sensor"] . ">" . $resultado["id_sensor"] . "</option>";
                 }

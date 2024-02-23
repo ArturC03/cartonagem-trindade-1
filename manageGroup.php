@@ -21,22 +21,23 @@ if (isset($_SESSION['username'])) {
                 </thead>
                 <tbody>
                     <?php                        
-                        $result = my_query("SELECT grupos.id_grupo, grupos.grupo, GROUP_CONCAT(DISTINCT id_sensor) AS id_sensors
-                        FROM grupos
-                        LEFT JOIN location ON location.grupo = grupos.id_grupo
-                        GROUP BY grupos.id_grupo
-                        ORDER BY grupos.grupo;
-                        ");
+                        $result = my_query(
+                            "SELECT `group`.id_group, `group`.group_name, GROUP_CONCAT(sensor.id_sensor) AS id_sensors
+                            FROM `group`
+                            LEFT JOIN sensor ON sensor.id_group = `group`.id_group
+                            GROUP BY `group`.id_group
+                            ORDER BY `group`.group_name ASC;"
+                        );
                         foreach ($result as $row)  
                         {   
                             echo '  
                             <tr> 
-                            <td>'. $row["grupo"]. '</td>
+                            <td>'. $row["group_name"]. '</td>
                             <td>'. $row["id_sensors"]. '</td>
                             <td>
                             <div class="button-container">
-                            <a type="button" class="button-table" href="editGroup.php?id='. $row["id_grupo"].'" >Editar</a>
-                            <a type="button" class="button-table delete" id="a_id" href="deleteGroup.php?id='. $row["id_grupo"].'" >Eliminar</a>
+                            <a type="button" class="button-table" href="editGroup.php?id='. $row["id_group"].'" >Editar</a>
+                            <a type="button" class="button-table delete" id="a_id" href="deleteGroup.php?id='. $row["id_group"].'" >Eliminar</a>
                             </div>
                             </td>  
                             </tr>  

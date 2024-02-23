@@ -5,123 +5,68 @@ if (isset($_SESSION['username'])) {
     include('header.inc.php');
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['botaoCSV'])){
-            if (isset($_POST['sensores'])) {
-                ob_clean();
-                // Processar a geração do CSV aqui
-                $sensoresSelecionados = $_POST['sensores'];
+        if (isset($_POST['sensores'])) {
+            ob_clean();
 
-                // Consulta SQL para selecionar os dados dos sensores escolhidos
-                // Calcula a data de agora
-                $min_datetime = new DateTime($_POST['horaMinima']);
-                $max_datetime = new DateTime($_POST['horaMaxima']);
+            $sensoresSelecionados = $_POST['sensores'];
+            $min_datetime = new DateTime($_POST['horaMinima']);
+            $max_datetime = new DateTime($_POST['horaMaxima']);
 
-                $result = my_query("
-                SELECT id_sensor, date, hour, temperature, humidity, pressure, altitude, eCO2, eTVOC 
-                FROM sensors
+            $result = my_query("
+                SELECT id_sensor, date, time, temperature, humidity, pressure, altitude, eCO2, eTVOC 
+                FROM sensor_reading
                 WHERE id_sensor IN ('" . implode('\',\'', $sensoresSelecionados) . "')
-                AND sensors.date BETWEEN '" . $min_datetime->format('Y-m-d') . "' AND '" . $max_datetime->format('Y-m-d') . "';"
-                );                
+                AND sensor_reading.date BETWEEN '" . $min_datetime->format('Y-m-d') . "' AND '" . $max_datetime->format('Y-m-d') . "';"
+            );
 
-                if (count($result) > 0) {
-                    // Nome do arquivo CSV
+            if (count($result) > 0) {
+                if (isset($_POST['botaoCSV'])) {
                     $fileName = "download/dados_sensores.csv";
-                    
                     $file = fopen($fileName, 'w');
                     fputcsv($file, array('id_sensors', 'Data', 'Hora', 'Temperatura', 'Humidade','Pressão', 'Altitude', 'CO2','TVOC'),';');
-                    foreach ($result as $row) {
-                        $formattedTemperature = ltrim(sprintf("%.3f", $row['temperature']), '0');
-                        $row['temperature'] = $formattedTemperature;
-                        $formattedHumidity = ltrim(sprintf("%.3f", $row['humidity']), '0');
-                        $row['humidity'] = $formattedHumidity;
-                        
-                        $formattedPressure = ltrim(sprintf("%.3f", $row['pressure']), '0');
-                        $row['pressure'] = $formattedPressure;
-
-                        $formattedCo2 = ltrim(sprintf("%.3f", $row['eCO2']), '0');
-                        $row['eCO2'] = $formattedCo2;
-
-                        $formattedTvoc = ltrim(sprintf("%.3f", $row['eTVOC']), '0');
-                        $row['eTVOC'] = $formattedTvoc;
-                        
-                        fputcsv($file, $row,';');
-                    }
-                    fclose($file);
-                    
-                    // Define os cabeçalhos para download
-                    header('Content-Type: text/csv');
-                    header('Content-Disposition: attachment; filename="' . $fileName . '"');
-                    
-                    // Lê e envia o arquivo CSV para o cliente
-                    readfile($fileName);
-                } else {
-                    echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
-                }
-                exit();
-            } else {
-                echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
-            }
-            exit();
-        } else if (isset($_POST['botaoJSON'])) {
-            if (isset($_POST['sensores'])) {
-                ob_clean();
-                // Processar a geração do JSON aqui
-                $sensoresSelecionados = $_POST['sensores'];
-            
-                // Consulta SQL para selecionar os dados dos sensores escolhidos
-                // Calcula a data de agora
-                $min_datetime = new DateTime($_POST['horaMinima']);
-                $max_datetime = new DateTime($_POST['horaMaxima']);
-            
-                $result = my_query("
-                SELECT id_sensor, date, hour, temperature, humidity, pressure, altitude, eCO2, eTVOC 
-                FROM sensors
-                WHERE id_sensor IN ('" . implode('\',\'', $sensoresSelecionados) . "')
-                AND sensors.date BETWEEN '" . $min_datetime->format('Y-m-d') . "' AND '" . $max_datetime->format('Y-m-d') . "';"
-                );                
-            
-                if (count($result) > 0) {
-                    // Nome do arquivo JSON
+                    $contentType = 'text/csv';
+                } else if (isset($_POST['botaoJSON'])) {
                     $fileName = "download/dados_sensores.json";
-                    
-                    $data = array();
-                    foreach ($result as $row) {
-                        $formattedTemperature = ltrim(sprintf("%.3f", $row['temperature']), '0');
-                        $row['temperature'] = $formattedTemperature;
-                        $formattedHumidity = ltrim(sprintf("%.3f", $row['humidity']), '0');
-                        $row['humidity'] = $formattedHumidity;
-                        
-                        $formattedPressure = ltrim(sprintf("%.3f", $row['pressure']), '0');
-                        $row['pressure'] = $formattedPressure;
-            
-                        $formattedCo2 = ltrim(sprintf("%.3f", $row['eCO2']), '0');
-                        $row['eCO2'] = $formattedCo2;
-            
-                        $formattedTvoc = ltrim(sprintf("%.3f", $row['eTVOC']), '0');
-                        $row['eTVOC'] = $formattedTvoc;
-                        
+                    $file = fopen($fileName, 'w');
+                    $contentType = 'application/json';
+                }
+
+                foreach ($result as $row) {
+                    $formattedTemperature = ltrim(sprintf("%.3f", $row['temperature']), '0');
+                    $row['temperature'] = $formattedTemperature;
+                    $formattedHumidity = ltrim(sprintf("%.3f", $row['humidity']), '0');
+                    $row['humidity'] = $formattedHumidity;
+                    $formattedPressure = ltrim(sprintf("%.3f", $row['pressure']), '0');
+                    $row['pressure'] = $formattedPressure;
+                    $formattedCo2 = ltrim(sprintf("%.3f", $row['eCO2']), '0');
+                    $row['eCO2'] = $formattedCo2;
+                    $formattedTvoc = ltrim(sprintf("%.3f", $row['eTVOC']), '0');
+                    $row['eTVOC'] = $formattedTvoc;
+
+                    if (isset($_POST['botaoCSV'])) {
+                        fputcsv($file, $row, ';');
+                    } else if (isset($_POST['botaoJSON'])) {
                         $data[] = $row;
                     }
-            
-                    $file = fopen($fileName, 'w');
-                    fwrite($file, json_encode($data));
-                    fclose($file);
-                    
-                    // Define os cabeçalhos para download
-                    header('Content-Type: application/json');
-                    header('Content-Disposition: attachment; filename="' . $fileName . '"');
-                    
-                    // Lê e envia o arquivo JSON para o cliente
-                    readfile($fileName);
-                } else {
-                    echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
                 }
-                exit();
+
+                if (isset($_POST['botaoJSON'])) {
+                    fwrite($file, json_encode($data));
+                }
+
+                fclose($file);
+
+                header('Content-Type: ' . $contentType);
+                header('Content-Disposition: attachment; filename="' . $fileName . '"');
+                readfile($fileName);
             } else {
-                echo "<script>alert(Nenhum dado encontrado para os sensores selecionados.);</script>";
+                echo "<script>alert('Nenhum dado encontrado para os sensores selecionados.');</script>";
             }
             exit();
+        } else {
+            echo "<script>alert('Nenhum dado encontrado para os sensores selecionados.');</script>";
         }
+        exit();
     } else {
 ?>
 <div class="container">   
@@ -129,7 +74,19 @@ if (isset($_SESSION['username'])) {
         <h2>Grupos</h2>
         <section class="table_body">
             <?php
-            $result = my_query("SELECT grupos.id_grupo, grupos.grupo, GROUP_CONCAT(DISTINCT id_sensor) AS id_sensors FROM location, grupos WHERE location.grupo = grupos.id_grupo GROUP BY grupo ORDER BY id_grupo;");
+            $result = my_query(
+                "SELECT
+                    `group`.group_name,
+                    GROUP_CONCAT(sensor.id_sensor SEPARATOR ', ') AS sensor_list
+                FROM
+                    `group`
+                INNER JOIN
+                    sensor ON `group`.id_group = sensor.id_group
+                GROUP BY
+                    `group`.group_name
+                ORDER BY
+                    `group`.group_name ASC;"
+            );
             
             $grupos = array();
             $gruposSensores = array();

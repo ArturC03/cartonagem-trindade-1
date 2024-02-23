@@ -12,10 +12,17 @@ if (isset($_SESSION['username'])) {
             $folderName = rand(100000, 999999);
         }
 
-        $result = my_query("INSERT INTO hora (id_hora, periodo_geracao, sensores, tipo_geracao) VALUES (" . $folderName . " , '" . $_POST['periodoSelecionado'] . "', '" . implode(',', $sensoresSelecionados) . "', " . ($_POST['submit'] == "CSV" ? '0' : '1') . ");");
-
-        if ($result == false) {
+        $result = my_query("INSERT INTO export (id_export, id_interval, generation_format, id_user) VALUES ( '$folderName', '" . $_POST['periodoSelecionado'] . "', '" . ($_POST['submit'] == 'CSV' ? 0 : 1) . "', " . $_SESSION['username'] . ");");
+        if (!$result) {
             die('Erro ao criar o agendamento');
+        }
+
+        foreach ($sensoresSelecionados as $sensor) {
+            $result2 = my_query("INSERT INTO export_sensor (id_export, id_sensor) VALUES ('$folderName', " . $sensor . ");");
+
+            if (!$result2) {
+                die('Erro ao criar o agendamento');
+            }
         }
 
         mkdir(__DIR__ . '\download\scheduled\\' . $folderName, 0777);
@@ -28,14 +35,14 @@ if (isset($_SESSION['username'])) {
         <h2>Grupos</h2>
         <section class="table_body">
         <?php
-            $result = my_query("SELECT grupos.id_grupo, grupos.grupo, GROUP_CONCAT(DISTINCT id_sensor) AS id_sensors FROM location, grupos WHERE location.grupo = grupos.id_grupo GROUP BY grupo ORDER BY id_grupo;");
+            $result = my_query("SELECT sensor.id_sensor, `group`.id_group, `group`.group_name FROM sensor INNER JOIN `group` ON sensor.id_group = `group`.id_group ORDER BY `group`.`group_name`;");
             
             $grupos = array();
             $gruposSensores = array();
             
             foreach ($result as $row) {
-                $id = $row["id_grupo"];
-                $grupo = $row["grupo"];
+                $id = $row["id_group"];
+                $grupo = $row["group_name"];
                 $sensors = $row["id_sensors"];
                 
                 if (!isset($gruposSensores[$grupo])) {
@@ -68,7 +75,7 @@ if (isset($_SESSION['username'])) {
             echo '</tbody>';
             echo '</table>';
             
-            ?>
+        ?>
         </section>
     </div> 
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -87,11 +94,12 @@ if (isset($_SESSION['username'])) {
                 <p>Tipo de Agendamento</p>
                 <select name="periodoSelecionado" id="periodo" required>
                     <option value="">Selecione uma opção</option>
-                    <option value="MINUTE">Minuto a Minuto</option>
-                    <option value="HOURLY">Hora a Hora</option>
-                    <option value="DAILY">Diariamente</option>
-                    <option value="WEEKLY">Semanalmente</option>
-                    <option value="MONTHLY">Mensalmente</option>
+                    <?php 
+                        $result = my_query("SELECT * FROM interval");
+                        foreach ($result as $row) {
+                            echo '<option value="' . $row["id_interval"] . '">' . $row["interval_name"] . '</option>';
+                        }
+                    ?>
                 </select>
                 
                 <div class="button-container">
@@ -104,7 +112,22 @@ if (isset($_SESSION['username'])) {
 
                 <section class="table_body">
                     <?php
-                        $result = my_query("SELECT * FROM hora ORDER BY periodo_geracao;");
+                        $result = my_query(
+                            "SELECT
+                                i.interval_name,
+                                e.generation_format,
+                                GROUP_CONCAT(s.id_sensor SEPARATOR ', ') AS sensor_list
+                            FROM
+                                plantdb_new.export e
+                            JOIN
+                                plantdb_new.interval i ON e.id_interval = i.id_interval
+                            JOIN
+                                plantdb_new.export_sensor es ON e.id_export = es.id_export
+                            JOIN
+                                plantdb_new.sensor s ON es.id_sensor = s.id_sensor
+                            GROUP BY
+                                e.id_export;"
+                        );
 
                         echo '<table>';
                         echo '<thead>';
@@ -116,25 +139,9 @@ if (isset($_SESSION['username'])) {
                             foreach ($result as $row) {
                                 echo '<tr>';
                                 echo '<td class="button-container-table"><a class="button-table delete" href="deleteScheduled.php?id=' . $row["id_hora"] . '">Eliminar</a><a class="button-table" href="download/scheduled/' . $row["id_hora"] . '/">Ver ' . ($row["tipo_geracao"] == 0 ? 'CSV' : 'JSON') . 's</a></td>';
-                                switch ($row["periodo_geracao"]) {
-                                    case "MINUTE":
-                                        echo '<td>Minuto a Minuto</td>';
-                                        break;
-                                    case "HOURLY":
-                                        echo '<td>Hora a Hora</td>';
-                                        break;
-                                    case "DAILY":
-                                        echo '<td>Diariamente</td>';
-                                        break;
-                                    case "WEEKLY":
-                                        echo '<td>Semanalmente</td>';
-                                        break;
-                                    case "MONTHLY":
-                                        echo '<td>Mensalmente</td>';
-                                        break;
-                                }
-                                echo '<td>' . ($row["tipo_geracao"] == 0 ? 'CSV' : 'JSON') . '</td>';
-                                echo '<td>' . $row["sensores"] . '</td>';
+                                echo '<td>' . $row["interval_name"] . '</td>';
+                                echo '<td>' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . '</td>';
+                                echo '<td>' . $row["sensor_list"] . '</td>';
                                 echo '</tr>';
                             }
                         }

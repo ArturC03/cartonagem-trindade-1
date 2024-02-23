@@ -96,13 +96,15 @@ if (isset($_SESSION['username'])) {
 
 		$password = sha1($pass);
 
-		$result = my_query("SELECT * from users WHERE email LIKE '{$username}' AND password LIKE '{$password}' LIMIT 1;");
+		$result = my_query("SELECT * from user WHERE email = '$username' AND password = '$password';");
 
-		if (!count($result) == 1) {
-			header("location:login.php?msg1=failed");
+		if (!count($result) >= 1) {
+			echo "<script>alert('Username or password incorretos!');
+            window.location.href='login.php';
+            </script>";
 
 		} else {
-			$_SESSION['username']=$result[0]['email'];
+			$_SESSION['username']=$result[0]['id_user'];
 			header('location: home.php');
 		}
 	}
