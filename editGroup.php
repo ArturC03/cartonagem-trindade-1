@@ -7,10 +7,11 @@ if (isset($_SESSION['username'])) {
 	$id = $_GET['id'];
 
 if(isset($_POST['completeYes'])) {
+	$flag = 1;
 	$grupo = $_POST['grupo'];
 	$sensores = $_POST['sensores'];
 	
-	$result = my_query("UPDATE group SET group_name = '$grupo', id_user = '" . $_SESSION['username'] . "' WHERE id_group = '$id';");
+	$result = my_query("UPDATE `group` SET group_name = '$grupo', id_user = '" . $_SESSION['username'] . "' WHERE id_group = '$id';");
 
 	if ($result == 0) {
 		$flag = 0;
@@ -38,7 +39,7 @@ if(isset($_POST['completeYes'])) {
 	}
 } 
 
-$result = my_query("SELECT group.group_name FROM group WHERE id_group = '$id';");
+$result = my_query("SELECT `group`.group_name FROM `group` WHERE id_group = '$id';");
 $result2 = my_query("SELECT id_sensor FROM sensor;");
 $result3 = my_query("SELECT sensor.id_sensor FROM sensor WHERE id_group = '$id';");
 
@@ -59,7 +60,7 @@ if (count($result3) > 0) {
 		<input type="hidden" name="id" value="<?php echo $id;?>">
 
 		<label for="grupo" class="form-label">Nome do Grupo:</label>
-		<input type="text" id="grupo" name="grupo" class="form-input" value="<?php echo $result[0]['group_name'];?>" required>
+		<input type="text" id="grupo" name="grupo" class="form-input" value="<?php echo $result[0]['group_name']; ?>" required>
 
 		<div class="sensor-update">
 			<?php 

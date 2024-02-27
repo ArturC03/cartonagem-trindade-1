@@ -88,6 +88,7 @@ CREATE TABLE `user`(
     `email` VARCHAR(150) NOT NULL,
     `password` VARCHAR(300) NOT NULL,
     `id_type` INT UNSIGNED NOT NULL,
+    `token` VARCHAR(32) NULL,
     `last_edited_by` INT UNSIGNED NOT NULL,
     `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -95,6 +96,8 @@ ALTER TABLE
     `user` ADD UNIQUE `user_username_unique`(`username`);
 ALTER TABLE
     `user` ADD UNIQUE `user_email_unique`(`email`);
+    ALTER TABLE
+    `user` ADD UNIQUE `user_token_unique`(`token`);
 CREATE TABLE `export`(
     `id_export` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_interval` VARCHAR(10) NOT NULL,

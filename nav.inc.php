@@ -1,3 +1,8 @@
+<?php
+  if (isset($_SESSION['username'])) {
+    $username = my_query("SELECT username FROM user WHERE id_user = '" . $_SESSION['username'] . "';")[0]['username'];
+  }  
+?>
 <script src="js/nav.js"></script>
 
 <div class="full-menu">
@@ -14,7 +19,7 @@
     <div>
       <img id="dropbtn1" class="dropbtn" src="images/toolbox.svg" alt="">
       <div id="dropdown1" class="dropdown-content">
-        <a href="manageSensors.php">Gerir Nós</a>
+        <a href="manageSensors.php">Gerir Sensores</a>
         <a href="manageUser.php">Gerir Utilizadores</a>
         <a href="manageGroup.php">Gerir Grupos</a>
         <a href="csvtimes.php">Exportar Automático</a>
@@ -52,7 +57,7 @@
       <div id="dropdown2" class="dropdown-content">
         <?php
         if(isset($_SESSION['username'])){
-          echo '<a href="manageUser.php">' . $_SESSION['username'] . '</a>';
+          echo '<a href="manageUser.php">' . $username . '</a>';
           echo '<a href="logout.php">Logout</a>';
         }else{
           echo '<a href="login.php">Login</a>';

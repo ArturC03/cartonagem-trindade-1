@@ -14,14 +14,18 @@ if (isset($_SESSION['username'])) {
 
         $result = my_query("INSERT INTO export (id_export, id_interval, generation_format, id_user) VALUES ( '$folderName', '" . $_POST['periodoSelecionado'] . "', '" . ($_POST['submit'] == 'CSV' ? 0 : 1) . "', " . $_SESSION['username'] . ");");
         if (!$result) {
-            die('Erro ao criar o agendamento');
+            echo "<script>alert('Erro ao criar o agendamento');
+            window.location.href = 'csvtimes.php';
+            </script>";
         }
 
         foreach ($sensoresSelecionados as $sensor) {
-            $result2 = my_query("INSERT INTO export_sensor (id_export, id_sensor) VALUES ('$folderName', " . $sensor . ");");
+            $result2 = my_query("INSERT INTO export_sensor (id_export, id_sensor) VALUES ('$folderName', '" . $sensor . "');");
 
             if (!$result2) {
-                die('Erro ao criar o agendamento');
+                echo "<script>alert('Erro ao criar o agendamento');
+                window.location.href = 'csvtimes.php';
+                </script>";
             }
         }
 
@@ -35,7 +39,20 @@ if (isset($_SESSION['username'])) {
         <h2>Grupos</h2>
         <section class="table_body">
         <?php
-            $result = my_query("SELECT sensor.id_sensor, `group`.id_group, `group`.group_name FROM sensor INNER JOIN `group` ON sensor.id_group = `group`.id_group ORDER BY `group`.`group_name`;");
+            $result = my_query(
+                "SELECT
+                    `group`.id_group,
+                    `group`.group_name,
+                    GROUP_CONCAT(sensor.id_sensor SEPARATOR ', ') AS sensor_list
+                FROM
+                    `group`
+                INNER JOIN
+                    sensor ON `group`.id_group = sensor.id_group
+                GROUP BY
+                    `group`.group_name
+                ORDER BY
+                    `group`.group_name ASC;"
+            );
             
             $grupos = array();
             $gruposSensores = array();
@@ -43,7 +60,7 @@ if (isset($_SESSION['username'])) {
             foreach ($result as $row) {
                 $id = $row["id_group"];
                 $grupo = $row["group_name"];
-                $sensors = $row["id_sensors"];
+                $sensors = $row["sensor_list"];
                 
                 if (!isset($gruposSensores[$grupo])) {
                     $gruposSensores[$grupo] = array();
@@ -95,7 +112,7 @@ if (isset($_SESSION['username'])) {
                 <select name="periodoSelecionado" id="periodo" required>
                     <option value="">Selecione uma opção</option>
                     <?php 
-                        $result = my_query("SELECT * FROM interval");
+                        $result = my_query("SELECT * FROM `interval`");
                         foreach ($result as $row) {
                             echo '<option value="' . $row["id_interval"] . '">' . $row["interval_name"] . '</option>';
                         }
@@ -114,6 +131,7 @@ if (isset($_SESSION['username'])) {
                     <?php
                         $result = my_query(
                             "SELECT
+                                e.id_export,
                                 i.interval_name,
                                 e.generation_format,
                                 GROUP_CONCAT(s.id_sensor SEPARATOR ', ') AS sensor_list
@@ -138,7 +156,7 @@ if (isset($_SESSION['username'])) {
                         if (count($result) != 0) {    
                             foreach ($result as $row) {
                                 echo '<tr>';
-                                echo '<td class="button-container-table"><a class="button-table delete" href="deleteScheduled.php?id=' . $row["id_hora"] . '">Eliminar</a><a class="button-table" href="download/scheduled/' . $row["id_hora"] . '/">Ver ' . ($row["tipo_geracao"] == 0 ? 'CSV' : 'JSON') . 's</a></td>';
+                                echo '<td class="button-container-table"><a class="button-table delete" href="deleteScheduled.php?id=' . $row["id_export"] . '">Eliminar</a><a class="button-table" href="download/scheduled/' . $row["id_export"] . '/">Ver ' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . 's</a></td>';
                                 echo '<td>' . $row["interval_name"] . '</td>';
                                 echo '<td>' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . '</td>';
                                 echo '<td>' . $row["sensor_list"] . '</td>';

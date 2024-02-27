@@ -76,6 +76,7 @@ if (isset($_SESSION['username'])) {
             <?php
             $result = my_query(
                 "SELECT
+                    `group`.id_group,
                     `group`.group_name,
                     GROUP_CONCAT(sensor.id_sensor SEPARATOR ', ') AS sensor_list
                 FROM
@@ -92,9 +93,9 @@ if (isset($_SESSION['username'])) {
             $gruposSensores = array();
             
             foreach ($result as $row) {
-                $id = $row["id_grupo"];
-                $grupo = $row["grupo"];
-                $sensors = $row["id_sensors"];
+                $id = $row["id_group"];
+                $grupo = $row["group_name"];
+                $sensors = $row["sensor_list"];
                 
                 if (!isset($gruposSensores[$grupo])) {
                     $gruposSensores[$grupo] = array();

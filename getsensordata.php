@@ -11,7 +11,7 @@ $result = my_query(
     l.size_y,
     sr.date,
     sr.time,
-    sr.temperature
+    ROUND(sr.temperature) AS temperatura_int
     FROM 
         location l
     INNER JOIN 

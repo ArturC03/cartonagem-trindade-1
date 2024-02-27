@@ -24,7 +24,7 @@ function load_data() {
                             <tr>  
                                 <td>${row["id_sensor"]}</td>
                                 <td>${new Date(row["date"]).toLocaleDateString('en-GB')}</td>
-                                <td>${row["hour"]}</td>
+                                <td>${row["time"]}</td>
                                 <td>${String(row["temperature"]).replace(/^0+/, '')}</td>
                                 <td>${String(row["humidity"]).replace(/^0+/, '')}</td>
                                 <td>${String(row["pressure"]).replace(/^0+/, '')}</td>

@@ -15,7 +15,7 @@ if(isset($_POST['completeYes'])) {
 	$username = $_POST['username'];
 	$pass = $_POST['new-password'] ; 
 	$email = $_POST['email'] ; 
-	$userType = $_POST['admin'] == 'yes' ? 1 : 0;
+	$userType = $_POST['admin'] == 'yes' ? '1' : '2';
 
 	if (empty($pass))
 	{
@@ -33,7 +33,7 @@ if(isset($_POST['completeYes'])) {
 	} else {
 		$password = sha1($pass);
 		
-		if (my_query("UPDATE `user` SET `username`='$username', `email`='$email', `user_type`='$userType', `password`='$password', last_edited_by = '" . $_SESSION['username'] . "' WHERE id_user='" . $_SESSION['id'] . "'") == 1) {
+		if (my_query("UPDATE `user` SET `username`='$username', `email`='$email', `id_type`='$userType', `password`='$password', last_edited_by = '" . $_SESSION['username'] . "' WHERE id_user='" . $_SESSION['id'] . "'") == 1) {
 			unset($_SESSION['id']);
 			echo "<script type='text/javascript'>
 			alert('Dados de utilizador atualizados com sucesso!!')
@@ -82,8 +82,8 @@ $result = my_query("SELECT * FROM user where id_user='" . $_SESSION['id'] . "';"
 		<p class="radio-question">Conceder permissões de administrador?</p>
 
 		<div class="radio-group" id="permitions">
-			<label for="adminYes" class="radio-label"><input type="radio" id="adminYes" name="admin" value="yes" <?php if ($result[0]['user_type']== '1') echo "checked";?>>Sim</label>
-			<label for="adminNo" class="radio-label"><input type="radio" id="adminNo" name="admin" value="no" <?php if ($result[0]['user_type']== '0') echo "checked";?>>Não</label>
+			<label for="adminYes" class="radio-label"><input type="radio" id="adminYes" name="admin" value="yes" <?php if ($result[0]['id_type']== '1') echo "checked";?>>Sim</label>
+			<label for="adminNo" class="radio-label"><input type="radio" id="adminNo" name="admin" value="no" <?php if ($result[0]['id_type']== '2') echo "checked";?>>Não</label>
 		</div>
 
 		<button type="submit" class="form-button" name="completeYes">Salvar</button>

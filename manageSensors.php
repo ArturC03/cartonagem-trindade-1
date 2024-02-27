@@ -6,7 +6,7 @@ if (isset($_SESSION['username'])) {
 ?>
     <main class="table">
         <section class="table_header">
-            <h1 class="title">Gerir Nós</h1>
+            <h1 class="title">Gerir Sensores</h1>
         </section>
         
         <section class="table_body">
