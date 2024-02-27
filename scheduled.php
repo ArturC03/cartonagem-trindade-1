@@ -3,7 +3,7 @@ include 'config.inc.php';
 
 $periodo_geracao = $argv[1];
 
-$result = my_query("SELECT * FROM hora WHERE periodo_geracao = '" . $periodo_geracao . "';");
+$result = my_query("SELECT * FROM export WHERE id_interval = '" . $periodo_geracao . "';");
 
 if ($periodo_geracao == "MINUTE") {
     $min_datetime = new DateTime(date('Y-m-d H:i:00', strtotime('-2 minute')));
@@ -24,17 +24,17 @@ if ($periodo_geracao == "MINUTE") {
 
 foreach ($result as $row) {
     $result2 = my_query(
-        "SELECT id_sensor, date, hour, temperature, humidity, pressure, altitude, eCO2, eTVOC " .
-        "FROM sensors " .
+        "SELECT id_sensor, date, time, temperature, humidity, pressure, altitude, eCO2, eTVOC " .
+        "FROM sensor_reading " .
         "WHERE id_sensor IN ('" . (mb_strpos($row['sensores'], ',') ? implode('\',\'', explode(',', $row['sensores'])) : $row['sensores']) . "') " .
-        "AND sensors.date BETWEEN '" . $min_datetime->format('Y-m-d') . "' AND '" . $max_datetime->format('Y-m-d') . "' " .
-        "AND sensors.hour BETWEEN '" . $min_datetime->format('H:i:s') . "' AND '" . $max_datetime->format('H:i:s') . "';"
+        "AND sensor_reading.date BETWEEN '" . $min_datetime->format('Y-m-d') . "' AND '" . $max_datetime->format('Y-m-d') . "' " .
+        "AND sensor_reading.time BETWEEN '" . $min_datetime->format('H:i:s') . "' AND '" . $max_datetime->format('H:i:s') . "';"
     );
 
     if (count($result2) > 0) {
         $fileName = __DIR__ . "/download/scheduled/" . $row['id_hora'] . "/" . $row['num_ficheiros'];
 
-        if ($row['tipo_geracao'] == 0) {
+        if ($row['generation_format'] == 0) {
             // Generate CSV
             $fileName .= ".csv";
             $file = fopen($fileName, 'w');
@@ -57,7 +57,7 @@ foreach ($result as $row) {
                 
                 fputcsv($file, $row2, ';');
             }
-        } else if ($row['tipo_geracao'] == 1) {
+        } else if ($row['generation_format'] == 1) {
             // Generate JSON
             $fileName .= ".json";
             $file = fopen($fileName, 'w');
@@ -85,7 +85,7 @@ foreach ($result as $row) {
         }
 
         fclose($file);
-        if (my_query("UPDATE hora SET num_ficheiros = " . ($row['num_ficheiros'] + 1) . " WHERE id_hora = " . $row['id_hora'] . ";") == 0) {
+        if (my_query("UPDATE export SET existing_files = " . ($row['existing_files'] + 1) . " WHERE id_export = " . $row['id_export'] . ";") == 0) {
             echo "<script>alert(Erro ao atualizar o número de ficheiros, por favor contacte o administrador da BD.); window.location = 'csvtimes.php'</script>";
         }
     }

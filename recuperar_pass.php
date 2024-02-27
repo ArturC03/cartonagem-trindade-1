@@ -5,8 +5,8 @@ if(isset($_POST['completeYes'])) {
   $pass = $_POST['new-password'];
   $password = sha1($pass);
   
-  if (my_query("UPDATE users SET password='$password' WHERE token='" . $_SESSION['token'] . "'") == 1) {
-    my_query("UPDATE users SET token=NULL WHERE token='" . $_SESSION['token'] . "'");
+  if (my_query("UPDATE user SET password='$password' WHERE token='" . $_SESSION['token'] . "'") == 1) {
+    my_query("UPDATE user SET token=NULL WHERE token='" . $_SESSION['token'] . "'");
     unset($_SESSION['token']);
     
     echo "<script type='text/javascript'>
@@ -22,7 +22,7 @@ if(isset($_POST['completeYes'])) {
 if (isset($_GET['token'])) {
     $_SESSION['token'] = $_GET['token'];
     
-    $result = my_query("SELECT * FROM users WHERE token = '" . $_SESSION['token'] . "'");
+    $result = my_query("SELECT * FROM user WHERE token = '" . $_SESSION['token'] . "'");
     if (count($result) > 0) {
         include 'header.inc.php';
 

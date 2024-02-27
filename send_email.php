@@ -10,7 +10,7 @@ include 'config.inc.php';
 $data = array();
 
 try{
-    $result = my_query("SELECT * from users WHERE email = '" . $_POST['email'] . "';");
+    $result = my_query("SELECT * from user WHERE email = '" . $_POST['email'] . "';");
 
     if (count($result) > 0) {
         $mail = new PHPMailer(true);
@@ -27,7 +27,7 @@ try{
         $mail->addAddress($_POST['email']);
         
         $token = bin2hex(random_bytes(16));
-        if (my_query("UPDATE users SET token = '" . $token . "' WHERE email = '" . $_POST['email'] . "';") == 0) {
+        if (my_query("UPDATE user SET token = '" . $token . "' WHERE email = '" . $_POST['email'] . "';") == 0) {
             throw new Exception('Erro ao atualizar a base de dados');
         }
         

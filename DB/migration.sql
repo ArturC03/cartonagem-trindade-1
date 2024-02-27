@@ -8,8 +8,8 @@ CREATE TABLE `sensor`(
     `id_group` INT UNSIGNED NULL,
     `status` TINYINT(1) NOT NULL,
     `id_user` INT UNSIGNED NOT NULL,
-    `last_edited_at` DATETIME NOT NULL
-);
+    `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 ALTER TABLE
     `sensor` ADD PRIMARY KEY(`id_sensor`);
 CREATE TABLE `location`(
@@ -19,37 +19,40 @@ CREATE TABLE `location`(
     `size_x` INT NULL,
     `size_y` INT NULL,
     `id_user` INT UNSIGNED NOT NULL,
-    `last_edited_at` DATETIME NOT NULL
-);
+    `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 CREATE TABLE `error_log`(
     `id_log` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_error` INT UNSIGNED NOT NULL,
     `error_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `id_user` INT UNSIGNED NULL
-);
+) ENGINE=InnoDB;
 CREATE TABLE `user_type`(
     `id_type` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `type` VARCHAR(20) NOT NULL
-);
+) ENGINE=InnoDB;
 ALTER TABLE
     `user_type` ADD UNIQUE `user_type_type_unique`(`type`);
 CREATE TABLE `error`(
     `id_error` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `error` TEXT NOT NULL
-);
+) ENGINE=InnoDB;
 CREATE TABLE `group`(
     `id_group` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `group_name` VARCHAR(100) NOT NULL,
     `id_user` INT UNSIGNED NOT NULL,
-    `last_edited_at` DATETIME NOT NULL
-);
+    `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 ALTER TABLE
     `group` ADD UNIQUE `group_group_name_unique`(`group_name`);
 CREATE TABLE `interval`(
-    `id_interval` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `interval_code` VARCHAR(10) NOT NULL,
+    `id_interval` VARCHAR(10) NOT NULL,
     `interval_name` VARCHAR(30) NOT NULL
-);
+) ENGINE=InnoDB;
+ALTER TABLE
+    `interval` ADD PRIMARY KEY(`id_interval`);
+ALTER TABLE
+    `interval` ADD UNIQUE `interval_interval_name_unique`(`interval_name`);
 CREATE TABLE `sensor_reading`(
     `id_reading` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_sensor` VARCHAR(4) NOT NULL,
@@ -78,40 +81,43 @@ CREATE TABLE `sensor_reading`(
     `f_Write` VARCHAR(3) NOT NULL,
     `f_Close` VARCHAR(3) NOT NULL,
     `f_Dismount` VARCHAR(4) NOT NULL
-);
+) ENGINE=InnoDB;
 CREATE TABLE `user`(
     `id_user` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(30) NOT NULL,
     `email` VARCHAR(150) NOT NULL,
     `password` VARCHAR(300) NOT NULL,
     `id_type` INT UNSIGNED NOT NULL,
+    `token` VARCHAR(32) NULL,
     `last_edited_by` INT UNSIGNED NOT NULL,
-    `last_edited_at` DATETIME NOT NULL
-);
+    `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 ALTER TABLE
     `user` ADD UNIQUE `user_username_unique`(`username`);
 ALTER TABLE
     `user` ADD UNIQUE `user_email_unique`(`email`);
+    ALTER TABLE
+    `user` ADD UNIQUE `user_token_unique`(`token`);
 CREATE TABLE `export`(
     `id_export` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `id_interval` INT UNSIGNED NOT NULL,
+    `id_interval` VARCHAR(10) NOT NULL,
     `generation_format` TINYINT(1) NOT NULL,
-    `existing_files` INT NOT NULL,
+    `existing_files` INT NOT NULL DEFAULT 0,
     `id_user` INT UNSIGNED NOT NULL,
-    `edited_at` DATETIME NOT NULL
-);
+    `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 CREATE TABLE `export_sensor`(
     `id_export_sensor` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_sensor` VARCHAR(4) NOT NULL,
     `id_export` INT UNSIGNED NOT NULL
-);
+) ENGINE=InnoDB;
 CREATE TABLE `site_settings`(
     `id_setting` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(30) NOT NULL,
     `value` TEXT NOT NULL,
     `id_user` INT UNSIGNED NOT NULL,
-    `last_edited_at` DATETIME NOT NULL
-);
+    `last_edited_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 ALTER TABLE
     `sensor` ADD CONSTRAINT `sensor_id_group_foreign` FOREIGN KEY(`id_group`) REFERENCES `group`(`id_group`) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE
@@ -143,46 +149,45 @@ ALTER TABLE
 ALTER TABLE
     `user` ADD CONSTRAINT `user_last_edited_by_foreign` FOREIGN KEY(`last_edited_by`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 
-INSERT INTO `plantdb_new`.`user_type`
+INSERT INTO `plantdb_new`.`user_type` (`id_type`, `type`)
 VALUES
 ('1', 'Admin'),
 ('2', 'User');
 
-INSERT INTO `plantdb_new`.`user`
-SELECT `user_id`, `username`, `email`, `password`, IF(`user_type` = 0, 2, 1), '2', NOW() FROM `plantdb`.`users`;
+INSERT INTO `plantdb_new`.`user` (`id_user`, `username`, `email`, `password`, `id_type`, `last_edited_by`)
+SELECT `user_id`, `username`, `email`, `password`, IF(`user_type` = 0, 2, 1), '2' FROM `plantdb`.`users`;
 
-INSERT INTO `plantdb_new`.`location`
-SELECT `location_id`,`location_x`,`location_y`,`size_x`,`size_y`, '2', NOW()
+INSERT INTO `plantdb_new`.`location` (`id_location`, `location_x`, `location_y`, `size_x`, `size_y`, `id_user`)
+SELECT `location_id`,`location_x`,`location_y`,`size_x`,`size_y`, '2'
 FROM `plantdb`.`location`;
 
-INSERT INTO `plantdb_new`.`group`
-SELECT *, '2', NOW() FROM `plantdb`.`grupos`;
+INSERT INTO `plantdb_new`.`group` (`id_group`, `group_name`, `id_user`)
+SELECT *, '2' FROM `plantdb`.`grupos`;
 
-INSERT INTO `plantdb_new`.`interval`
+INSERT INTO `plantdb_new`.`interval` (`id_interval`, `interval_name`)
 VALUES
-('1', 'MINUTE', 'Minuto a Minuto'),
-('2', 'HOURLY', 'Hora a Hora'),
-('3', 'DAILY', 'Diariamente'),
-('4', 'WEEKLY', 'Semanalmente'),
-('5', 'MONTHLY', 'Mensalmente');
+('MINUTE', 'Minuto a Minuto'),
+('HOURLY', 'Hora a Hora'),
+('DAILY', 'Diariamente'),
+('WEEKLY', 'Semanalmente'),
+('MONTHLY', 'Mensalmente');
 
-INSERT INTO `plantdb_new`.`export`
-SELECT h.`id_hora`, i.`id_interval`, h.`tipo_geracao`, h.`num_ficheiros`, '2', NOW()
+INSERT INTO `plantdb_new`.`export` (`id_export`, `id_interval`, `generation_format`, `existing_files`, `id_user`)
+SELECT h.`id_hora`, i.`id_interval`, h.`tipo_geracao`, h.`num_ficheiros`, '2'
 FROM `plantdb`.`hora` h
-JOIN `plantdb_new`.`interval` i ON h.`periodo_geracao` = i.`interval_code`;
+JOIN `plantdb_new`.`interval` i ON h.`periodo_geracao` = i.`id_interval`;
 
-INSERT INTO `plantdb_new`.`site_settings`
-SELECT *, '2', NOW() FROM `plantdb`.`site_settings`;
+INSERT INTO `plantdb_new`.`site_settings` (`id_setting`, `name`, `value`, `id_user`)
+SELECT *, '2' FROM `plantdb`.`site_settings`;
 
-INSERT INTO `plantdb_new`.`sensor`
+INSERT INTO `plantdb_new`.`sensor` (`id_sensor`, `description`, `id_location`, `id_group`, `status`, `id_user`)
 SELECT DISTINCT
     `plantdb`.`sensors`.`id_sensor`,
     '' AS `description`,
     `plantdb`.`location`.`location_id`,
     `plantdb`.`location`.`grupo`,
     `plantdb`.`location`.`status`,
-    '2',
-    NOW()
+    '2'
 FROM
     `plantdb`.`sensors`
 LEFT JOIN

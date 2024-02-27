@@ -22,18 +22,18 @@ if (isset($_SESSION['username'])) {
                 </thead>
                 <tbody>
                     <?php                        
-                        $result = my_query("SELECT user_id, username, email,  IF(user_type = '1','Admin','Utilizador') as permissoes FROM users");
+                        $result = my_query("SELECT user.*, user_type.type FROM user INNER JOIN user_type ON user.id_type = user_type.id_type ORDER BY user.username ASC");
                         foreach ($result as $row)  
                         {   
                             echo '  
                             <tr> 
                             <td>'. $row["username"]. '</td>
                             <td>'. $row["email"]. '</td>  
-                            <td>'. $row["permissoes"]. '</td> 
+                            <td>'. $row["type"]. '</td> 
                             <td>
                             <div class="button-container">
-                            <a type="button" class="button-table" href="editUser.php?id='. $row["user_id"].'" >Editar</a>
-                            <a type="button" class="button-table delete" id="a_id" href="deleteUser.php?id='. $row["user_id"].'" >Eliminar</a>
+                            <a type="button" class="button-table" href="editUser.php?id='. $row["id_user"].'" >Editar</a>
+                            <a type="button" class="button-table delete" id="a_id" href="deleteUser.php?id='. $row["id_user"].'" >Eliminar</a>
                             </div>
                             </td>  
                             </tr>  

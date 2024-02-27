@@ -39,7 +39,7 @@ if (isset($_SESSION['username'])) {
                                 <h2>Login</h2>
                                 <div class="input-box">
                                     <span class="icon"><i class='bx bxs-user-circle'></i></span>
-                                    <input type="email" name="username" placeholder=" " required>
+                                    <input type="text" name="username" placeholder=" " required>
                                     <label>Email</label>
                                 </div>
                                 
@@ -96,13 +96,15 @@ if (isset($_SESSION['username'])) {
 
 		$password = sha1($pass);
 
-		$result = my_query("SELECT * from users WHERE email LIKE '{$username}' AND password LIKE '{$password}' LIMIT 1;");
+		$result = my_query("SELECT * from user WHERE (email = '$username' OR username = '$username') AND password = '$password';");
 
-		if (!count($result) == 1) {
-			header("location:login.php?msg1=failed");
+		if (!count($result) >= 1) {
+			echo "<script>alert('Username or password incorretos!');
+            window.location.href='login.php';
+            </script>";
 
 		} else {
-			$_SESSION['username']=$result[0]['email'];
+			$_SESSION['username']=$result[0]['id_user'];
 			header('location: home.php');
 		}
 	}

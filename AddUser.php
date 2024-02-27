@@ -9,28 +9,30 @@ if (isset($_SESSION['username'])) {
 		$pass = $_POST['new-password'] ; 
 		$password = sha1($pass);
 		$email = $_POST['email'] ; 
-		$userType = $_POST['permitions'] == 'yes' ? '1' : '0';
-		$sqlCheck = "SELECT email FROM users WHERE email='$email'";
-		$res = my_query($sqlCheck);
+		$userType = $_POST['permitions'] == 'yes' ? '1' : '2';
+		$sqlCheck1 = "SELECT email FROM user WHERE email='$email'";
+		$sqlCheck2 = "SELECT username FROM user WHERE username='$username'";
 	
-		if (count($res) != 0)
+		if (count(my_query($sqlCheck1)) != 0 || count(my_query($sqlCheck2)) != 0)
 		{
 			echo "<script type='text/javascript'>
-			alert('O email inserido já existe!')
+			alert('O utilizador inserido já existe!')
 			window.location = 'addUser.php';</script>";
 		}
 		else
 		{
-			$sql = "INSERT INTO `users`(`username`, `email`, `user_type`, `password`, `token`) VALUES ('$username','$email','$userType','$password', '')";
+			$sql = "INSERT INTO user (username, email, password, id_type, last_edited_by) VALUES ('$username', '$email', '$password', '$userType', ". $_SESSION['username'] . ")";
 
-			if (my_query($sql) >= 1) {
+			if (my_query($sql, 1) >= 1) {
 				echo "<script type='text/javascript'>
 				alert('Novo utilizador adicionado com sucesso!')
 				window.location = 'manageUser.php';</script>";
 			} else {
 				echo "<script type='text/javascript'>
-				alert(Erro na criação so novo utilizador! Tente outra vez! "  . $arrConfig['conn']->error . ")";
+				alert('Erro na criação do novo utilizador! Tente outra vez! "  . $arrConfig['conn']->error . "');
+				window.location = 'addUser.php';</script>";
 			} 
+
 		}
 	} 	
 ?>
