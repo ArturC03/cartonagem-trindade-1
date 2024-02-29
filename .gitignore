@@ -2,7 +2,7 @@
 !/download/scheduled
 /download/scheduled/*
 !/download/scheduled/.htaccess
-/PRINTS/
+/PRINTS/*
 /vendor/
 /composer.phar
 /composer.json
