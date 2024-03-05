@@ -2,9 +2,10 @@
 
 .graph-containers {
     max-width: 99vw;
+    max-height: 89vh;
     position: relative; 
-    width: calc(89vw + 34px); 
-    height: calc(89vh + 34px);
+    width: 89vw; 
+    height: 89vh;
     display: flex;
     flex-direction: row;
     justify-content: center;

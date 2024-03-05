@@ -26,24 +26,43 @@ $.ajax({
     
     const image = new Image();
     image.src = 'images/plantas/plantaV1.png';
-    let imageWidth = 999;
-    let imageHeight = 708;
+    let imageWidth = response[0].size_x;
+    let imageHeight = response[0].size_y;
     console.log(imageWidth, imageHeight);
 
-    // const plugin = {
-    //   id: 'customCanvasBackgroundImage',
-    //   beforeDraw: (chart) => {
-    //     if (image.complete) {
-    //       const ctx = chart.ctx;
-    //       const {top, left, width, height} = chart.chartArea;
-    //       const x = left + width / 2 - image.width / 2;
-    //       const y = top + height / 2 - image.height / 2;
-    //       ctx.drawImage(image, x, y);
-    //     } else {
-    //       image.onload = () => chart.draw();
-    //     }
-    //   }
-    // };
+    const plugin = {
+      id: 'customCanvasBackgroundImage',
+      beforeDraw: (chart) => {
+        if (image.complete) {
+          const ctx = chart.ctx;
+          const {top, left, width, height} = chart.chartArea;
+          
+          // Calculate the aspect ratios of the image and the chart area
+          const imageRatio = image.width / image.height;
+          const chartRatio = width / height;
+
+          let newWidth, newHeight;
+
+          // If the image ratio is greater than the chart ratio, set the width of the image to the width of the chart area and scale the height to maintain the aspect ratio
+          // Otherwise, set the height of the image to the height of the chart area and scale the width to maintain the aspect ratio
+          if (imageRatio > chartRatio) {
+            newWidth = width;
+            newHeight = width / imageRatio;
+          } else {
+            newHeight = height;
+            newWidth = height * imageRatio;
+          }
+
+          // Calculate the x and y coordinates to center the image in the chart area
+          const x = left - 34 + (width - newWidth) / 2;
+          const y = top + (height - newHeight) / 2;
+
+          ctx.drawImage(image, x, y, newWidth, newHeight);
+        } else {
+          image.onload = () => chart.draw();
+        }
+      }
+    };
 
     Chart.defaults.plugins.legend.display = false;
 
@@ -54,21 +73,28 @@ $.ajax({
       },
       options: {
         maintainAspectRatio: true,
-        aspectRatio: imageWidth / imageHeight,
+        // aspectRatio: imageWidth / imageHeight,
         scales: {
           x: {
+            bounds: 'ticks',
+            ticks: {
+              precision: 5,
+            },
             min: 0,
-            max: imageWidth,
-            display: false,
+            max: 100,
+            display: true,
             grid: {
               display: false,
             },
           },
           y: {
+            ticks: {
+              precision: 5,
+            },
             min: 0,
-            max: imageHeight,
+            max: 100,
             reverse: true,
-            display: false,
+            display: true,
             grid: {
               display: false,
             },
@@ -94,8 +120,9 @@ $.ajax({
       // plugins: [plugin]
     });
   },
-  error: function() {
+  error: function(error) {
     alert('Erro ao carregar dados dos sensores.');
+    console.log(error);
   },
   complete: function() {
     $('.loader').addClass("d-none");

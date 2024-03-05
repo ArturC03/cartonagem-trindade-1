@@ -39,40 +39,30 @@ if (isset($_POST['completeYes'])) {
 ?>
 <form method="post" id="SetLocation" name="SetLocation" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $_GET['id']; ?>" onsubmit="return confirm('Pretende guardar a nova localização?');" >
     <div>
+        <?php
+            $id = $_GET['id'];
+            $sqlC = "SELECT location_x,location_y, size_x, size_y  FROM location INNER JOIN sensor ON sensor.id_location = location.id_location WHERE sensor.id_sensor='$id'";
+            $result = my_query($sqlC);
+            $x = $result[0]['location_x'] * ($result[0]['size_x'] / $arrConfig['originalImageWidth']);
+            $y = $result[0]['location_y'] * ($result[0]['size_y'] / $arrConfig['originalImageHeight']);
+        ?>
         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-        <input type="hidden" name="location_x" id="location_x">
-        <input type="hidden" name="location_y" id="location_y">
-        <input type="hidden" name="size_x" id="size_x">
-        <input type="hidden" name="size_y" id="size_y">
+        <input type="hidden" name="location_x" id="location_x" value="<?php echo $x ?>">
+        <input type="hidden" name="location_y" id="location_y" value="<?php echo $y ?>">
+        <input type="hidden" name="size_x" id="size_x" value="<?php echo $arrConfig['originalImageWidth'] ?>">
+        <input type="hidden" name="size_y" id="size_y" value="<?php echo $arrConfig['originalImageHeight'] ?>">
         
         <h2>Definir Localização para o nó <?php echo $_GET['id']; ?></h2>
     </div>
     <div>
-        <?php
-        // FUNCIONALIDADE DESATIVADA DE MOSTRAR CIRCULO NA LOCALIZACAO 1
-        // $id = $_GET['id'];
-        // $sqlC = "SELECT location_x,location_y, size_x, size_y  FROM location WHERE id_sensor='$id'";
-        // $result = $mysqli->query($sqlC);
-        // while ($row = mysqli_fetch_array($result)) {
-        //     $x = $row['location_x'] * ($row['size_x'] / $originalImageWidth);
-        //     $y = $row['location_y'] * ($row['size_y'] / $originalImageHeight);
-        // }
-        ?>
-        <svg xmlns="http://www.w3.org/2000/svg">
-            <image id="image" href="<?php echo $arrConfig['imageFactory'] ?>" />
-            <?php
-            // FUNCIONALIDADE DESATIVADA DE MOSTRAR CIRCULO NA LOCALIZACAO 2
-            // if ($x != null && $y != null) {
-            //     echo '<circle id="circle" cx="' . $x . '" cy="' . $y . '" r="10" fill="#FF5733" />';
-            // }
-            ?>
-        </svg>
+        <div class="canvas-container" style="aspect-ratio: <?php echo $arrConfig['originalImageWidth'] ?> / <?php echo $arrConfig['originalImageHeight'] ?>">
+            <canvas id="factory" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);"></canvas>
+        </div>
     </div>
     <button type="submit" id="submit" name="completeYes" value="Guardar">Guardar</button>   
 </form>
 
 <script src="js/EditLocation.js"></script>
-<script src="js/setImageSize.js"></script>
 <?php
 include('footer.inc.php');
 }else{

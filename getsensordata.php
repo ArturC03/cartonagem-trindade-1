@@ -34,17 +34,16 @@ $result = my_query(
 // Cria um array para armazenar os dados dos sensores
 $data = array();
 
-$scaleWidth = 999;
-$scaleHeight = 708;
-
 // Adiciona cada linha do resultado da consulta ao array
 foreach ($result as $row) {
     $data[] = array(
-        'x' => $row['location_x'] / $row['size_x'] * $scaleWidth,
-        'y' => $row['location_y'] / $row['size_y'] * $scaleHeight,
+        'x' => $row['location_x'],
+        'y' => $row['location_y'],
         'radius' => intval($arrConfig['cloud_radius']),
         'value' => $row['temperatura_int'] == 0 ? 1 : $row['temperatura_int'],
         'label' => $row['id_sensor'],
+        'size_x' => $arrConfig['originalImageWidth'],
+        'size_y' => $arrConfig['originalImageHeight']
     );
 }
 
