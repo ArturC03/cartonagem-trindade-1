@@ -16,6 +16,7 @@ $result = my_query("SELECT * from site_settings");
 foreach ($result as $row) {
   $arrConfig[$row['name']] = $row['value'];
 }
+$arrConfig['imageFactory'] = 'images/plantas/plantaV3-noBG.png';
 
 $viewportWidth = 0.62;
 
@@ -28,7 +29,7 @@ if (!isset($_SESSION['screenWidth'])) {
 
 $viewportWidthPixels = $_SESSION['screenWidth'] * $viewportWidth;
 
-$originalImageWidth = getimagesize('images/plantaV3.png')[0];
-$originalImageHeight = getimagesize('images/plantaV3.png')[1];
+$originalImageWidth = getimagesize($arrConfig['imageFactory'])[0];
+$originalImageHeight = getimagesize($arrConfig['imageFactory'])[1];
 
 $heightInPixels = ($viewportWidthPixels / $originalImageWidth) * $originalImageHeight;

@@ -133,7 +133,7 @@ ALTER TABLE
 ALTER TABLE
     `export_sensor` ADD CONSTRAINT `export_sensor_id_export_foreign` FOREIGN KEY(`id_export`) REFERENCES `export`(`id_export`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE
-    `sensor` ADD CONSTRAINT `sensor_id_location_foreign` FOREIGN KEY(`id_location`) REFERENCES `location`(`id_location`) ON UPDATE CASCADE ON DELETE CASCADE;
+    `sensor` ADD CONSTRAINT `sensor_id_location_foreign` FOREIGN KEY(`id_location`) REFERENCES `location`(`id_location`) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE
     `error_log` ADD CONSTRAINT `error_log_id_user_foreign` FOREIGN KEY(`id_user`) REFERENCES `user`(`id_user`) ON UPDATE CASCADE ON DELETE NO ACTION;
 ALTER TABLE

@@ -2,15 +2,24 @@
 
 .graph-containers {
     max-width: 99vw;
+    position: relative; 
+    width: calc(89vw + 34px); 
+    height: calc(89vh + 34px);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background-color: white;
 }
 
 .d-none {
     display: none;
+}
+
+#factory {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 @media screen and (max-width: 960px) {

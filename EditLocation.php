@@ -8,10 +8,10 @@ if (isset($_POST['completeYes'])) {
 	$id_exists = false;
 	$id_sensor = $_POST['id'];
 
-	$location_x = $_POST['location_x'];
-	$location_y = $_POST['location_y'];
     $size_x = $_POST['size_x'];
     $size_y = $_POST['size_y'];
+	$location_x = $_POST['location_x'];
+	$location_y = $_POST['location_y'];
 	$res = my_query("SELECT id_location FROM sensor WHERE id_sensor = '$id_sensor';");
     
 	if ($res[0]['id_location'] != null) {
@@ -58,8 +58,8 @@ if (isset($_POST['completeYes'])) {
         //     $y = $row['location_y'] * ($row['size_y'] / $originalImageHeight);
         // }
         ?>
-        <svg width="<?php echo $viewportWidth * 100; ?>vw" height="<?php echo $heightInPixels; ?>" xmlns="http://www.w3.org/2000/svg">
-            <image id="image" width="<?php echo $viewportWidth * 100; ?>vw" height="<?php echo $heightInPixels; ?>" href="images/plantaV3.png" />
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <image id="image" href="<?php echo $arrConfig['imageFactory'] ?>" />
             <?php
             // FUNCIONALIDADE DESATIVADA DE MOSTRAR CIRCULO NA LOCALIZACAO 2
             // if ($x != null && $y != null) {

@@ -6,15 +6,13 @@ include('header.inc.php');
 ?>
 
 <div class="graph-containers">
-  <div id='heatMap1'>
-    <svg width="<?php echo $viewportWidth * 100; ?>vw" height="<?php echo $heightInPixels; ?>" xmlns="http://www.w3.org/2000/svg">
-      <image id="image" width="<?php echo $viewportWidth * 100; ?>vw" height="<?php echo $heightInPixels; ?>" href="images/plantaV3-noBG.png" />
-    </svg>
-    <div class="loader">
-      <div class="justify-content-center jimu-primary-loading"></div>
-    </div>
-  </div>
-  <div id='GradTemperature'>
+    <canvas id='factory' class="d-none" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);">
+    </canvas>
+    <canvas id='temp' class="d-none">
+    </canvas>
+</div>
+<div class="loader">
+  <div class="justify-content-center jimu-primary-loading"></div>
 </div>
 <script src="js/home.js"></script>
 

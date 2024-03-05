@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
         </form>
         
         <div class="modal image-container">
-            <img id="modalImage" src="images/plantaV3.png" alt="Imagem Ampliada">
+            <img id="modalImage" src="<?php echo $arrConfig['imageFactory'] ?>" alt="Imagem Ampliada">
         </div>
     </div>
     <script src="js/archive.js"></script>

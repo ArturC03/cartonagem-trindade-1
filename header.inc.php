@@ -17,8 +17,7 @@ include("config.inc.php");
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/heatmap.js/2.0.0/heatmap.min.js" integrity="sha512-FpvmtV53P/z7yzv1TAIVH7PNz94EKXs5aV6ts/Zi+B/VeGU5Xwo6KIbwpTgKc0d4urD/BtkK50IC9785y68/AA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src='http://cdn.zingchart.com/zingchart.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/setScreenWidth.js"></script>
 
     <title><?php echo $arrConfig['site_title'];?></title>

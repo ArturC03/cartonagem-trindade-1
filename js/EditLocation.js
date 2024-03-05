@@ -27,5 +27,7 @@ function createCircle(center, diameter) {
 
     inputX.value = center.x;
     inputY.value = center.y;
+    console.log(inputX.value);
+    console.log(inputY.value);
     return `<circle id="circle" cx="${center.x}" cy="${center.y}" r="${diameter/2}" fill="#${color}"></circle>`;
 }

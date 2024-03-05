@@ -15,6 +15,20 @@ form {
     position: absolute;
 }
 
+svg {
+    width: 89vw;
+    height: auto;
+    aspect-ratio: 999 / 708;
+}
+
+#image {
+    padding-left: 34px;
+    padding-bottom: 30px;
+    width: 89vw;
+    height: auto;
+    aspect-ratio: 999 / 708;
+}
+
 h2 {
     margin-bottom: 10px;
 }
