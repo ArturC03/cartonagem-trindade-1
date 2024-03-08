@@ -6,7 +6,7 @@ if (isset($_SESSION['username'])) {
 
 if (isset($_POST['completeYes'])) {
 	$id_exists = false;
-	$id_sensor = $_POST['id'];
+	$id_sensor = $_POST['id-sensor'];
 
     $size_x = $_POST['size_x'];
     $size_y = $_POST['size_y'];
@@ -46,11 +46,12 @@ if (isset($_POST['completeYes'])) {
             $x = $result[0]['location_x'] * ($result[0]['size_x'] / $arrConfig['originalImageWidth']);
             $y = $result[0]['location_y'] * ($result[0]['size_y'] / $arrConfig['originalImageHeight']);
         ?>
-        <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+        <input type="hidden" name="id-sensor" id="id-sensor" value="<?php echo $_GET['id']; ?>">
         <input type="hidden" name="location_x" id="location_x" value="<?php echo $x ?>">
         <input type="hidden" name="location_y" id="location_y" value="<?php echo $y ?>">
         <input type="hidden" name="size_x" id="size_x" value="<?php echo $arrConfig['originalImageWidth'] ?>">
         <input type="hidden" name="size_y" id="size_y" value="<?php echo $arrConfig['originalImageHeight'] ?>">
+        <input type="hidden" name="cloud_radius" id="cloud_radius" value="<?php echo $arrConfig['cloud_radius'] ?>">
         
         <h2>Definir Localização para o nó <?php echo $_GET['id']; ?></h2>
     </div>

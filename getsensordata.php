@@ -11,7 +11,12 @@ $result = my_query(
     l.size_y,
     sr.date,
     sr.time,
-    ROUND(sr.temperature) AS temperatura_int
+    ROUND(sr.temperature) AS temperatura_int,
+    sr.temperature,
+    sr.humidity,
+    sr.pressure,
+    sr.eTVOC,
+    sr.eCO2
     FROM 
         location l
     INNER JOIN 
@@ -40,7 +45,14 @@ foreach ($result as $row) {
         'x' => $row['location_x'],
         'y' => $row['location_y'],
         'radius' => intval($arrConfig['cloud_radius']),
-        'value' => $row['temperatura_int'] == 0 ? 1 : $row['temperatura_int'],
+        'temperature_int' => $row['temperatura_int'] == 0 ? 1 : $row['temperatura_int'],
+        'humidity' => ltrim($row['humidity'], '0'),
+        'pressure' => ltrim($row['pressure'], '0'),
+        'eTVOC' => ltrim($row['eTVOC'], '0'),
+        'eCO2' => ltrim($row['eCO2'], '0'),
+        'temperature_decimal' => ltrim($row['temperature'], '0'),
+        'date' => date('d/m/Y', strtotime($row['date'])),
+        'time' => $row['time'],
         'label' => $row['id_sensor'],
         'size_x' => $arrConfig['originalImageWidth'],
         'size_y' => $arrConfig['originalImageHeight']

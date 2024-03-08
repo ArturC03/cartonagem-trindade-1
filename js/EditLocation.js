@@ -1,6 +1,8 @@
-const svg = document.querySelector("svg");
+const factory = document.getElementById("factory");
+const id = document.getElementById("id-sensor");
 const inputX = document.getElementById("location_x");
 const inputY = document.getElementById("location_y");
+const inputR = document.getElementById("cloud_radius");
 const lastX = inputX.value;
 const lastY = inputY.value;
 
@@ -10,10 +12,10 @@ let imageWidth = 1688;
 let imageHeight = 629;
 console.log(imageWidth, imageHeight);
 
-const tooltip = (tooltipItems) => {
+const tooltip = (context) => {
     var text = [];
-    text.push("X: " + tooltipItems[0].parsed.x);
-    text.push("Y: " + tooltipItems[0].parsed.y);
+    text.push("X: " + context.parsed.x);
+    text.push("Y: " + context.parsed.y);
     return text;
 }
 
@@ -24,12 +26,12 @@ const chart = new Chart(factory, {
     data: {
         datasets: [
             {
-                label: "Location",
+                label: id.value,
                 data: [
                     {
                         x: lastX,
                         y: lastY,
-                        r: 20,
+                        r: inputR.value,
                     },
                 ],
                 backgroundColor: "rgba(255, 99, 132, 0.6)",
@@ -66,17 +68,27 @@ const chart = new Chart(factory, {
                 },
             },
         },
-    },
-    plugins: {
-        tooltip: {
-            callbacks: {
-                
+        plugins: {
+            tooltip: {
+                displayColors: false,
+                callbacks: {
+                    title: function (context) {
+                        return context[0].dataset.label;
+                    },
+                    label: function (context) {
+                        var label = "";
+                        if (context.parsed.x !== null && context.parsed.y !== null) {
+                            label += "X: " + Math.round((context.parsed.x + Number.EPSILON) * 100) / 100 + ", Y: " + Math.round((context.parsed.y + Number.EPSILON) * 100) / 100;
+                        }
+                        return label;
+                    },
+                },
             },
         },
     },
 });
 
-document.getElementById("factory").addEventListener("click", function (event) {
+factory.addEventListener("click", function (event) {
     var rect = this.getBoundingClientRect();
     var x = event.clientX - rect.left;
     var y = event.clientY - rect.top;
