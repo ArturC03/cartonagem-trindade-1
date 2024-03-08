@@ -13,8 +13,6 @@ include('header.inc.php');
     <div>
       <canvas id='temp'>
       </canvas>
-      <canvas id='temp-ticks'>
-      </canvas>
     </div>
 </div>
 <div class="loader">

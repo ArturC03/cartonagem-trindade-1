@@ -122,7 +122,6 @@ $.ajax({
 const temp = document.getElementById("temp");
 const temp_ticks = document.getElementById("temp-ticks");
 const ctx_temp = temp.getContext("2d");
-const ctx_temp_ticks = temp_ticks.getContext("2d");
 const gradient = ctx_temp.createLinearGradient(0, temp.height, 0, 0);
 const colors = [
   "#e6e6ff",
@@ -138,23 +137,10 @@ const colors = [
 ];
 
 for (var i = 0; i < colors.length; i++) {
-  // Calculate the position of the color stop
   var position = i / (colors.length - 1);
 
-  // Add the color stop
   gradient.addColorStop(position, colors[i]);
 }
-
-const plugin = {
-  id: 'customCanvasBackgroundColor',
-  beforeDraw: (chart, args, options) => {
-    const { ctx, chartArea, width, height } = chart;
-    ctx.save();
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, width, height);
-    ctx.restore();
-  }
-};
 
 new Chart(temp, {
   type: "line",
@@ -172,46 +158,7 @@ new Chart(temp, {
     ],
   },
   options: {
-    aspectRatio: 3 / 35,
-    legend: {
-      display: false,
-    },
-    scales: {
-      x: {
-        display: false,
-      },
-      y: {
-        display: false,
-        min: 0,
-        max: 35,
-      },
-    },
-    events: [],
-    plugins: {
-      tooltip: {
-        enabled: false,
-      },
-    },
-  },
-});
-
-new Chart(temp_ticks, {
-  type: "line",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        label: "Temperatura",
-        data: [],
-        borderColor: ["rgba(0, 0, 0)"],
-        tension: 0.1,
-        fill: false,
-        pointRadius: 0.00001,
-      },
-    ],
-  },
-  options: {
-    aspectRatio: 3 / 35,
+    aspectRatio: 2.25 / 35,
     legend: {
       display: false,
     },
@@ -226,14 +173,14 @@ new Chart(temp_ticks, {
         border: {
           display: false,
         },
+        grid: {
+          display: true,
+        },
         ticks: {
           color: "black",
           font: {
-            size: 12,
+            size: 11,
           },
-        },
-        grid: {
-          display: false,
         },
       },
     },
