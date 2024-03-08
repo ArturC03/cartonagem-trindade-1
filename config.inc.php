@@ -16,7 +16,7 @@ $result = my_query("SELECT * from site_settings");
 foreach ($result as $row) {
   $arrConfig[$row['name']] = $row['value'];
 }
-$arrConfig['imageFactory'] = 'images/plantas/plantaV1.png';
+$arrConfig['imageFactory'] = 'images/plantas/plantaV3-noBG.png';
 
 $viewportWidth = 0.62;
 

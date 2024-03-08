@@ -18,6 +18,7 @@ form {
 .canvas-container {
     width: 89vw;
     height: auto;
+    max-height: 87vh;
 }
 
 #factory {

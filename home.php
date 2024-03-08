@@ -6,10 +6,16 @@ include('header.inc.php');
 ?>
 
 <div class="graph-containers">
-    <canvas id='factory' class="d-none" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);">
-    </canvas>
-    <canvas id='temp' class="d-none">
-    </canvas>
+    <div>
+      <canvas id='factory' class="d-none" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);">
+      </canvas>
+    </div>
+    <div>
+      <canvas id='temp'>
+      </canvas>
+      <canvas id='temp-ticks'>
+      </canvas>
+    </div>
 </div>
 <div class="loader">
   <div class="justify-content-center jimu-primary-loading"></div>
