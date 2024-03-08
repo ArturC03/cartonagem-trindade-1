@@ -10,39 +10,12 @@ let imageWidth = 1688;
 let imageHeight = 629;
 console.log(imageWidth, imageHeight);
 
-const plugin = {
-    id: "customCanvasBackgroundImage",
-    beforeDraw: (chart) => {
-        if (image.complete) {
-            const ctx = chart.ctx;
-            const { top, left, width, height } = chart.chartArea;
-
-            // Calculate the aspect ratios of the image and the chart area
-            const imageRatio = image.width / image.height;
-            const chartRatio = width / height;
-
-            let newWidth, newHeight;
-
-            // If the image ratio is greater than the chart ratio, set the width of the image to the width of the chart area and scale the height to maintain the aspect ratio
-            // Otherwise, set the height of the image to the height of the chart area and scale the width to maintain the aspect ratio
-            if (imageRatio > chartRatio) {
-                newWidth = width;
-                newHeight = width / imageRatio;
-            } else {
-                newHeight = height;
-                newWidth = height * imageRatio;
-            }
-
-            // Calculate the x and y coordinates to center the image in the chart area
-            const x = left + (width - newWidth) / 2;
-            const y = top + (height - newHeight) / 2;
-
-            ctx.drawImage(image, x, y, newWidth, newHeight);
-        } else {
-            image.onload = () => chart.draw();
-        }
-    },
-};
+const tooltip = (tooltipItems) => {
+    var text = [];
+    text.push("X: " + tooltipItems[0].parsed.x);
+    text.push("Y: " + tooltipItems[0].parsed.y);
+    return text;
+}
 
 Chart.defaults.plugins.legend.display = false;
 
@@ -67,7 +40,6 @@ const chart = new Chart(factory, {
     },
     options: {
         maintainAspectRatio: true,
-        // aspectRatio: imageWidth / imageHeight,
         scales: {
             x: {
                 bounds: "ticks",
@@ -76,7 +48,7 @@ const chart = new Chart(factory, {
                 },
                 min: 0,
                 max: 100,
-                display: true,
+                display: false,
                 grid: {
                     display: false,
                 },
@@ -88,7 +60,7 @@ const chart = new Chart(factory, {
                 min: 0,
                 max: 100,
                 reverse: true,
-                display: true,
+                display: false,
                 grid: {
                     display: false,
                 },
@@ -97,10 +69,11 @@ const chart = new Chart(factory, {
     },
     plugins: {
         tooltip: {
-            enabled: false,
+            callbacks: {
+                
+            },
         },
     },
-    // plugins: [plugin],
 });
 
 document.getElementById("factory").addEventListener("click", function (event) {
