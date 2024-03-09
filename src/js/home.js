@@ -1,10 +1,22 @@
 const factory = document.getElementById("factory");
 const ctx_factory = factory.getContext("2d");
+const colors = [
+  "#e6e6ff",
+  "#d4d4ff",
+  "#b3c0f3",
+  "#99cdcc",
+  "#80ea96",
+  "#80ff66",
+  "#a5ff4d",
+  "#ddff33",
+  "#ffb91a",
+  "#ff0300",
+];
 
 Chart.defaults.plugins.legend.display = false;
 
 $.ajax({
-  url: "getsensordata.php",
+  url: "tools/getsensordata.php",
   dataType: "json",
   Type: "GET",
   success: function (response) {
@@ -108,87 +120,76 @@ $.ajax({
         },
       },
     });
+
+    const temp = document.getElementById("temp");
+    const ctx_temp = temp.getContext("2d");
+    const gradient = ctx_temp.createLinearGradient(0, temp.height, 0, 0);
+    
+
+    for (var i = 0; i < colors.length; i++) {
+      var position = i / (colors.length - 1);
+
+      gradient.addColorStop(position, colors[i]);
+    }
+
+    new Chart(temp, {
+      type: "line",
+      data: {
+        labels: ["", ""],
+        datasets: [
+          {
+            label: "Temperatura",
+            data: [0, 0],
+            borderColor: ["rgba(0, 0, 0)"],
+            tension: 0.1,
+            fill: false,
+            pointRadius: 0.00001,
+          },
+        ],
+      },
+      options: {
+        aspectRatio: 2.25 / 35,
+        legend: {
+          display: false,
+        },
+        scales: {
+          x: {
+            display: false,
+          },
+          y: {
+            display: true,
+            min: 0,
+            max: 35,
+            border: {
+              display: false,
+            },
+            grid: {
+              display: true,
+            },
+            ticks: {
+              color: "black",
+              font: {
+                size: 11,
+              },
+            },
+          },
+        },
+        events: [],
+        plugins: {
+          tooltip: {
+            enabled: false,
+          },
+        },
+      },
+    });
   },
   error: function (error) {
     alert("Erro ao carregar dados dos sensores.");
     console.log(error);
   },
   complete: function () {
-    $(".loader").addClass("d-none");
-    $("#factory").removeClass("d-none");
-  },
-});
-
-const temp = document.getElementById("temp");
-const temp_ticks = document.getElementById("temp-ticks");
-const ctx_temp = temp.getContext("2d");
-const gradient = ctx_temp.createLinearGradient(0, temp.height, 0, 0);
-const colors = [
-  "#e6e6ff",
-  "#d4d4ff",
-  "#b3c0f3",
-  "#99cdcc",
-  "#80ea96",
-  "#80ff66",
-  "#a5ff4d",
-  "#ddff33",
-  "#ffb91a",
-  "#ff0300",
-];
-
-for (var i = 0; i < colors.length; i++) {
-  var position = i / (colors.length - 1);
-
-  gradient.addColorStop(position, colors[i]);
-}
-
-new Chart(temp, {
-  type: "line",
-  data: {
-    labels: ["", ""],
-    datasets: [
-      {
-        label: "Temperatura",
-        data: [0, 0],
-        borderColor: ["rgba(0, 0, 0)"],
-        tension: 0.1,
-        fill: false,
-        pointRadius: 0.00001,
-      },
-    ],
-  },
-  options: {
-    aspectRatio: 2.25 / 35,
-    legend: {
-      display: false,
-    },
-    scales: {
-      x: {
-        display: false,
-      },
-      y: {
-        display: true,
-        min: 0,
-        max: 35,
-        border: {
-          display: false,
-        },
-        grid: {
-          display: true,
-        },
-        ticks: {
-          color: "black",
-          font: {
-            size: 11,
-          },
-        },
-      },
-    },
-    events: [],
-    plugins: {
-      tooltip: {
-        enabled: false,
-      },
-    },
+    $('div:has(.loading)').addClass("hidden");
+    $("#factory").removeClass("hidden");
+    $("#temp").removeClass("hidden");
   },
 });

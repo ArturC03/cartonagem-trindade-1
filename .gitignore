@@ -1,8 +1,10 @@
-/download/*
-!/download/scheduled
-/download/scheduled/*
-!/download/scheduled/.htaccess
-/PRINTS/*
+/src/download/*
+!/src/download/scheduled
+/src/download/scheduled/*
+!/src/download/scheduled/.htaccess
+/PRINTS/
 /vendor/
 /composer.phar
 /composer.json
+/node_modules/*
+/package.json
