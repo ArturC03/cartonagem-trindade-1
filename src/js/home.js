@@ -59,8 +59,8 @@ $.ajax({
             r: item.radius,
           },
         ],
-        backgroundColor: heatMapColorforValue(35, 0.6),
-        borderColor: heatMapColorforValue(35)
+        backgroundColor: heatMapColorforValue(item.temperature_decimal, 0.6),
+        borderColor: heatMapColorforValue(item.temperature_decimal)
       };
     });
 
@@ -157,9 +157,9 @@ $.ajax({
     humidityAvg.innerHTML = humidityAvgValue.toFixed(2) + " %";
     pressureAvg.innerHTML = pressureAvgValue.toFixed(2) + " hPa";
 
-    tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.8);
-    humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.8, 40, 60);
-    pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.8, 1013, 1017);
+    tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.5);
+    humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.5, 40, 60);
+    pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.5, 1013, 1017);
     tempAvg.style.borderColor = getColorForData(tempAvgValue, 0);
     humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, 40, 60);
     pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, 1013, 1017);

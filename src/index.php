@@ -18,9 +18,13 @@ $average3 = 20;
     <div class="absolute top-10 right-10 flex flex-col justify-center align-center p-4 shadow-md rounded-lg">
         <h1 class="text-2xl font-semibold">Médias</h1>
 
-        <div id="tempAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8rem" role="progressbar"><?php echo $average1; ?> ºC</div>
-        <div id="humidityAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8rem" role="progressbar"><?php echo $average2; ?> %</div>
-        <div id="pressureAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8rem" role="progressbar"><?php echo $average3; ?> hPa</div>
+        <div id="tempAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8vw" role="progressbar"><?php echo $average1; ?> ºC</div>
+        <div id="humidityAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8vw" role="progressbar"><?php echo $average2; ?> %</div>
+        <div id="pressureAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8vw" role="progressbar"><?php echo $average3; ?> hPa</div>
+    
+        <div class="divider"></div>
+        <h1 class="text-2xl font-semibold">Legenda</h1>
+
     </div>
 </div>
 
