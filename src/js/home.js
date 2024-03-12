@@ -12,6 +12,8 @@ const colors = [
   "#ffb91a",
   "#ff0300",
 ];
+const imgX = document.getElementById("image-width").innerHTML;
+const imgY = document.getElementById("image-height").innerHTML;
 
 Chart.defaults.plugins.legend.display = false;
 
@@ -42,7 +44,7 @@ $.ajax({
         datasets: datasets,
       },
       options: {
-        maintainAspectRatio: true,
+        aspectRatio: imgX / imgY,
         scales: {
           x: {
             bounds: "ticks",
@@ -103,81 +105,19 @@ $.ajax({
                 label.push(
                   "Pressão: " +
                     response[context[0].datasetIndex].pressure +
-                    "hPa"
+                    " hPa"
                 );
                 if (response[context[0].datasetIndex].eCO2 != "") {
                   label.push(
-                    "TVOC: " + response[context[0].datasetIndex].eTVOC + "ppb"
+                    "TVOC: " + response[context[0].datasetIndex].eTVOC + " ppb"
                   );
                   label.push(
-                    "CO2: " + response[context[0].datasetIndex].eCO2 + "ppm"
+                    "CO2: " + response[context[0].datasetIndex].eCO2 + " ppm"
                   );
                 }
                 return label;
               },
             },
-          },
-        },
-      },
-    });
-
-    const temp = document.getElementById("temp");
-    const ctx_temp = temp.getContext("2d");
-    const gradient = ctx_temp.createLinearGradient(0, temp.height, 0, 0);
-    
-
-    for (var i = 0; i < colors.length; i++) {
-      var position = i / (colors.length - 1);
-
-      gradient.addColorStop(position, colors[i]);
-    }
-
-    new Chart(temp, {
-      type: "line",
-      data: {
-        labels: ["", ""],
-        datasets: [
-          {
-            label: "Temperatura",
-            data: [0, 0],
-            borderColor: ["rgba(0, 0, 0)"],
-            tension: 0.1,
-            fill: false,
-            pointRadius: 0.00001,
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.25 / 35,
-        legend: {
-          display: false,
-        },
-        scales: {
-          x: {
-            display: false,
-          },
-          y: {
-            display: true,
-            min: 0,
-            max: 35,
-            border: {
-              display: false,
-            },
-            grid: {
-              display: true,
-            },
-            ticks: {
-              color: "black",
-              font: {
-                size: 11,
-              },
-            },
-          },
-        },
-        events: [],
-        plugins: {
-          tooltip: {
-            enabled: false,
           },
         },
       },

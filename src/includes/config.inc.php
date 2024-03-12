@@ -17,3 +17,5 @@ foreach ($result as $row) {
     $arrConfig[$row['name']] = $row['value'];
 }
 $arrConfig['imageFactory'] = 'images/plantas/plantaV3-noBG.png';
+$arrConfig['originalImageWidth'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[0];
+$arrConfig['originalImageHeight'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[1];

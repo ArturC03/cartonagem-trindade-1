@@ -1,13 +1,26 @@
 <?php
 require "content/header.inc.php";
+
+$average1 = 20;
+$average2 = 65;
+$average3 = 20;
 ?>
 
-<div class="flex justify-between max-h-[90vh] items-stretch lg:items-center flex-col lg:flex-row p-3">
-    <div class="w-[89vw] h-full">
-        <canvas id='factory' class="hidden bg-[url(<?php echo $arrConfig['imageFactory'] ?>)] bg-contain bg-no-repeat"></canvas>
+<div id="data" class="hidden">
+    <div id="image-width"><?php echo $arrConfig['originalImageWidth'] ?></div>
+    <div id="image-height"><?php echo $arrConfig['originalImageHeight'] ?></div>
+</div>
+
+<div class="relative flex justify-center align-center w-screen max-h-[90vh] items-stretch lg:items-center flex-col lg:flex-row p-3">
+    <div class="w-[70vw]">
+        <canvas id='factory' class="hidden bg-contain bg-no-repeat" style="background-image: url('<?php echo $arrConfig['imageFactory'] ?>')"></canvas>
     </div>
-    <div class="w-[4vw] h-full">
-        <canvas id='temp' class="hidden bg-[linear-gradient(to top, #e6e6ff, #d4d4ff, #b3c0f3, #99cdcc, #80ea96, #80ff66, #a5ff4d, #ddff33, #ffb91a, #ff0300)]"></canvas>
+    <div class="absolute top-10 right-10 flex flex-col justify-center align-center p-4 shadow-md rounded-lg">
+        <h1 class="text-2xl font-semibold">Médias</h1>
+
+        <div class="radial-progress mt-10 first:mt-0 text-green-500" style="--value:<?php echo 100 * $average1 / 35; ?>" role="progressbar"><?php echo $average1; ?> ºC</div>
+        <div class="radial-progress mt-10 first:mt-0 text-red-600" style="--value:<?php echo $average2 ?>" role="progressbar"><?php echo $average2; ?> %</div>
+        <div class="radial-progress mt-10 first:mt-0 text-yellow-300" style="--value:<?php echo 100 * $average3 / 35; ?>" role="progressbar"><?php echo $average3; ?> Pa</div>
     </div>
 </div>
 

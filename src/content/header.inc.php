@@ -15,7 +15,7 @@ require __DIR__ . "/../includes/config.inc.php";
 
     <title><?php echo $arrConfig['site_title'];?></title>
 </head>
-<body>
+<body class="w-screen h-screen">
     <?php
         require "content/nav.inc.php";
     ?>
