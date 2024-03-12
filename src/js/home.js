@@ -1,19 +1,40 @@
+function heatMapColorforValue(value, opacity = 1){
+  var h;
+  if (value <= 20) {
+    h = 180 - (value / 20) * 60;
+  } else {
+    h = 120 - ((value - 20) / 15) * 120;
+  }
+  return "hsla(" + h + ", 100%, 50%, " + opacity + ")";
+}
+
+function getColorForData(temp, opacity, dataMin = 20, dataMax = 25, diff = 5) {
+  var colorGood = "rgba(0, 255, 0, ";
+  var colorBad = "rgba(255, 0, 0, ";
+  var colorMedium = "rgba(255, 255, 0, ";
+
+  if (temp < dataMin || temp > dataMax) {
+    if (temp < Math.abs(dataMin - diff) || temp > Math.abs(dataMax + diff)) {
+      return colorBad + opacity + ")";
+    } else {
+      return colorMedium + opacity + ")";
+    }
+  } else {
+    return colorGood + opacity + ")";
+  }
+}
+
 const factory = document.getElementById("factory");
 const ctx_factory = factory.getContext("2d");
-const colors = [
-  "#e6e6ff",
-  "#d4d4ff",
-  "#b3c0f3",
-  "#99cdcc",
-  "#80ea96",
-  "#80ff66",
-  "#a5ff4d",
-  "#ddff33",
-  "#ffb91a",
-  "#ff0300",
-];
 const imgX = document.getElementById("image-width").innerHTML;
 const imgY = document.getElementById("image-height").innerHTML;
+const tempAvg = document.getElementById("tempAvg");
+const humidityAvg = document.getElementById("humidityAvg");
+const pressureAvg = document.getElementById("pressureAvg");
+
+var tempSum = 0;
+var humiditySum = 0;
+var pressureSum = 0;
 
 Chart.defaults.plugins.legend.display = false;
 
@@ -23,8 +44,12 @@ $.ajax({
   Type: "GET",
   success: function (response) {
     var datasets = $.map(response, function (item, index) {
-      console.log(item.label);
-      var colorIndex = Math.floor(item.temperature * 10);
+      tempSum += parseFloat(item.temperature_decimal);
+      humiditySum += parseFloat(item.humidity);
+      pressureSum += parseFloat(item.pressure);
+
+      console.log(heatMapColorforValue(item.temperature_decimal / 35));
+
       return {
         label: item.label,
         data: [
@@ -34,7 +59,8 @@ $.ajax({
             r: item.radius,
           },
         ],
-        backgroundColor: colors[colorIndex],
+        backgroundColor: heatMapColorforValue(35, 0.6),
+        borderColor: heatMapColorforValue(35)
       };
     });
 
@@ -122,6 +148,31 @@ $.ajax({
         },
       },
     });
+
+    var tempAvgValue = tempSum / response.length;
+    var humidityAvgValue = humiditySum / response.length;
+    var pressureAvgValue = pressureSum / response.length;
+
+    tempAvg.innerHTML = tempAvgValue.toFixed(2) + " °C";
+    humidityAvg.innerHTML = humidityAvgValue.toFixed(2) + " %";
+    pressureAvg.innerHTML = pressureAvgValue.toFixed(2) + " hPa";
+
+    tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.8);
+    humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.8, 40, 60);
+    pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.8, 1013, 1017);
+    tempAvg.style.borderColor = getColorForData(tempAvgValue, 0);
+    humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, 40, 60);
+    pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, 1013, 1017);
+
+    var tempPercentage = ((tempAvgValue - 0) / (35 - 0)) * 100;
+    var pressurePercentage = (Math.abs(pressureAvgValue - 1013) / (1017 - 1013)) * 100;
+
+    console.log(tempPercentage);
+    console.log(pressurePercentage);
+
+    tempAvg.style.setProperty("--value", tempPercentage);
+    humidityAvg.style.setProperty("--value", humidityAvgValue);
+    pressureAvg.style.setProperty("--value", pressurePercentage);
   },
   error: function (error) {
     alert("Erro ao carregar dados dos sensores.");

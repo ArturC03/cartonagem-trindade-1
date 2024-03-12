@@ -18,9 +18,9 @@ $average3 = 20;
     <div class="absolute top-10 right-10 flex flex-col justify-center align-center p-4 shadow-md rounded-lg">
         <h1 class="text-2xl font-semibold">Médias</h1>
 
-        <div class="radial-progress mt-10 first:mt-0 text-green-500" style="--value:<?php echo 100 * $average1 / 35; ?>" role="progressbar"><?php echo $average1; ?> ºC</div>
-        <div class="radial-progress mt-10 first:mt-0 text-red-600" style="--value:<?php echo $average2 ?>" role="progressbar"><?php echo $average2; ?> %</div>
-        <div class="radial-progress mt-10 first:mt-0 text-yellow-300" style="--value:<?php echo 100 * $average3 / 35; ?>" role="progressbar"><?php echo $average3; ?> Pa</div>
+        <div id="tempAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8rem" role="progressbar"><?php echo $average1; ?> ºC</div>
+        <div id="humidityAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8rem" role="progressbar"><?php echo $average2; ?> %</div>
+        <div id="pressureAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8rem" role="progressbar"><?php echo $average3; ?> hPa</div>
     </div>
 </div>
 
