@@ -21,12 +21,12 @@ if (isset($_SESSION['username'])) {
 
             if (count($result) > 0) {
                 if (isset($_POST['botaoCSV'])) {
-                    $fileName = "download/dados_sensores.csv";
+                    $fileName = __DIR__ . "/download/dados_sensores.csv";
                     $file = fopen($fileName, 'w');
                     fputcsv($file, array('id_sensors', 'Data', 'Hora', 'Temperatura', 'Humidade','Pressão', 'Altitude', 'CO2','TVOC'),';');
                     $contentType = 'text/csv';
                 } else if (isset($_POST['botaoJSON'])) {
-                    $fileName = "download/dados_sensores.json";
+                    $fileName = __DIR__ . "/download/dados_sensores.json";
                     $file = fopen($fileName, 'w');
                     $contentType = 'application/json';
                 }

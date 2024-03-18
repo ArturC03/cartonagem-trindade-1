@@ -8,7 +8,7 @@ if (isset($_SESSION['username'])) {
         $sensoresSelecionados = $_POST['sensores'];
         $folderName = rand(100000, 999999);
 
-        while (file_exists('download/scheduled/' . $folderName)) {
+        while (file_exists(__DIR__ . '/download/scheduled/' . $folderName)) {
             $folderName = rand(100000, 999999);
         }
 
