@@ -22,7 +22,7 @@ if (isset($_SESSION['username'])) {
         <div class="w-screen h-screen flex flex-col justify-center items-center">
             <div class="card min-[400px]:w-96 w-11/12 h-[560px] bg-base-100 shadow-xl flex justify-between">
                 <figure class="px-10 pt-10">
-                    <img src="images/trindade.png" alt="Shoes" class="w-32 h-32" />
+                    <img src="images/trindade.png" class="w-32 h-32" />
                 </figure>
                 <form class="card-body flex-none items-center text-center">
                     <h2 class="card-title">Recuperar Password</h2>

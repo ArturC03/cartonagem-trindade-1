@@ -157,9 +157,9 @@ $.ajax({
     humidityAvg.innerHTML = humidityAvgValue.toFixed(2) + " %";
     pressureAvg.innerHTML = pressureAvgValue.toFixed(2) + " hPa";
 
-    tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.5);
-    humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.5, 40, 60);
-    pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.5, 1013, 1017);
+    tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 1);
+    humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 1, 40, 60);
+    pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 1, 1013, 1017);
     tempAvg.style.borderColor = getColorForData(tempAvgValue, 0);
     humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, 40, 60);
     pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, 1013, 1017);

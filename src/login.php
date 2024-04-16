@@ -23,14 +23,14 @@ if (isset($_SESSION['username'])) {
             <div class="w-screen h-screen flex flex-col justify-center items-center">
                 <div class="card min-[400px]:w-96 w-11/12 h-[560px] bg-base-100 shadow-xl">
                     <figure class="px-10 pt-10">
-                        <img src="images/trindade.png" alt="Shoes" class="w-32 h-32" />
+                        <img src="images/trindade.png" class="w-32 h-32" />
                     </figure>
-                    <form action="" class="card-body items-center text-center">
+                    <form action="." method="post" class="card-body items-center text-center">
                         <h2 class="card-title">Login</h2>
                         <p>Bem-vindo à nossa página.</p>
-                        <input type="text" placeholder="Email" class="input input-bordered mb-4 w-full max-w-xs" />
-                        <input type="password" placeholder="Password" class="input input-bordered mb-4 w-full max-w-xs" />
-                        <button class="btn btn-primary w-full max-w-xs text-base mb-3">Login</button>
+                        <input type="text" placeholder="Email" name="username" class="input input-bordered mb-4 w-full max-w-xs" />
+                        <input type="password" placeholder="Password" name="password" class="input input-bordered mb-4 w-full max-w-xs" />
+                        <button type="submit" name="submit" class="btn btn-primary w-full max-w-xs text-base mb-3">Login</button>
                         <a class="link link-hover" href="recover.php">Esqueceste-te da tua password?</a>
                     </form>
                 </div>
@@ -66,7 +66,7 @@ if (isset($_SESSION['username'])) {
             </script>";
         } else {
             $_SESSION['username'] = $result[0]['id_user'];
-            header('location: home.php');
+            header('location: index.php');
         }
     }
 }
