@@ -1,10 +1,10 @@
 <?php
-require __DIR__ . 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-include 'config.inc.php';
+require 'includes/config.inc.php';
 
 $data = array();
 
@@ -41,11 +41,10 @@ try{
         $mail->isHTML(true);
         $mail->send();
 
-        $data['success'] = true;
     }
+    $data['success'] = true;
 }catch(Exception $e){
     $data['success'] = false;
     $data['error'] = $e->getMessage();
 }
-
 echo json_encode($data);

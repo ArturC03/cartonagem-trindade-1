@@ -1,75 +1,39 @@
 <?php
+require 'includes/config.inc.php';
+
 if (isset($_SESSION['username'])) {
-    $username = my_query("SELECT username FROM user WHERE id_user = '" . $_SESSION['username'] . "';")[0]['username'];
-}
-?>
+    header('Location: index.php');
+} else {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<div class="flex w-full">
-    <div class="navbar bg-base-100">
-        <div class="navbar-start">
-            <div class="dropdown">
-                <div tabindex="0" role="button" class="btn btn-ghost">
-                    <svg class="swap-on w-6" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 5H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M3 12H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M3 19H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </div>
-                <ul tabindex="0" class="menu menu-xs md:menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <h2 class="menu-title md:hidden"><?php echo $arrConfig['site_title']; ?></h2>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="archive.php">Arquivo</a></li>
-                    <li><a href="export.php">Exportar</a></li>
-                </ul>
-            </div>
-            <a class="btn btn-ghost no-animation text-xl hidden md:inline-flex"><?php echo $arrConfig['site_title']; ?></a>
-        </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/login.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/tailwind.css">
+        <title>Recuperar Password</title>
+    </head>
 
-        <div class="navbar-center hidden">
-            <ul class="menu menu-horizontal px-1 rounded-full">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="archive.php">Arquivo</a></li>
-                <li><a href="exportManual.php">Exportar</a></li>
-            </ul>
-        </div>
-        <div class="navbar-end">
-            <div class="dropdown dropdown-end">
-                <a role="button" tabindex="1" class="btn btn-circle btn-ghost">
-                    <svg class="w-6" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 1C5 0.447715 5.44772 0 6 0H9C9.55228 0 10 0.447715 10 1V2H14C14.5523 2 15 2.44772 15 3V6C15 6.8888 14.6131 7.68734 14 8.23608V11.5C14 12.3284 13.3284 13 12.5 13H2.5C1.67157 13 1 12.3284 1 11.5V8.2359C0.38697 7.68721 0 6.88883 0 6V3C0 2.44772 0.447716 2 1 2H5V1ZM9 1V2H6V1H9ZM1 3H5H5.5H9.5H10H14V6C14 6.654 13.6866 7.23467 13.1997 7.6004C12.8655 7.85144 12.4508 8 12 8H8V7.5C8 7.22386 7.77614 7 7.5 7C7.22386 7 7 7.22386 7 7.5V8H3C2.5493 8 2.1346 7.85133 1.80029 7.60022C1.31335 7.23446 1 6.65396 1 6V3ZM7 9H3C2.64961 9 2.31292 8.93972 2 8.82905V11.5C2 11.7761 2.22386 12 2.5 12H12.5C12.7761 12 13 11.7761 13 11.5V8.82915C12.6871 8.93978 12.3504 9 12 9H8V9.5C8 9.77614 7.77614 10 7.5 10C7.22386 10 7 9.77614 7 9.5V9Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                    </svg>
-                </a>
-                <ul tabindex="1" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a href="manageSensors.php">Gerir Sensores</a></li>
-                    <li><a href="manageUser.php">Gerir Utilizadores</a></li>
-                    <li><a href="manageGroup.php">Gerir Grupos</a></li>
-                    <li><a href="exportAuto.php">Exportar Automático</a></li>
-                    <li><a href="settings.php">Definições</a></li>
-                </ul>
+    <body class="bg-base-300">
+        <div class="w-screen h-screen flex flex-col justify-center items-center">
+            <div class="card min-[400px]:w-96 w-11/12 h-[560px] bg-base-100 shadow-xl flex justify-between">
+                <figure class="px-10 pt-10">
+                    <img src="images/trindade.png" alt="Shoes" class="w-32 h-32" />
+                </figure>
+                <form class="card-body flex-none items-center text-center">
+                    <h2 class="card-title">Recuperar Password</h2>
+                    <p class="">Insere o teu e-mail para recuperares a tua conta.</p>
+                    <input id="recoverEmail" type="text" placeholder="Email" class="input input-bordered mb-4 w-full max-w-xs" />
+                    <button id="submitRecuperar" class="btn btn-primary w-full max-w-xs text-base mb-3">Recuperar Password</button>
+                    <a class="link link-hover" href="login.php">Voltar</a>
+                </form>
             </div>
 
-            <div class="dropdown dropdown-end">
-                <a role="button" tabindex="2" class="btn btn-circle btn-ghost">
-                    <svg class="w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 20V19C5 15.134 8.13401 12 12 12V12C15.866 12 19 15.134 19 19V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </a>
-                <ul tabindex="2" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <?php
-                    if (isset($_SESSION['username'])) {
-                        echo '<h2 class="menu-title"><a>' . $username . '</a></h2>';
-                        echo '<li><a href="logout.php">Logout</a></li>';
-                    } else {
-                        echo '<li><a href="login.php">Login</a></li>';
-                    }
-                    ?>
-                </ul>
-            </div>
-
-            <div class="divider divider-horizontal m-0"></div>
-
-            <div class="flex justify-center">
+            <div class="flex justify-center mt-3">
                 <label class="swap swap-rotate btn btn-circle btn-ghost">
                     <input type="checkbox" class="theme-controller" value="dark" />
 
@@ -82,7 +46,18 @@ if (isset($_SESSION['username'])) {
                     </svg>
                 </label>
             </div>
-
         </div>
-    </div>
-</div>
+        <div class="toast toast-center">
+            <div role="alert" class="alert alert-success hidden justify-center items-center" id="recoverSuccess">
+                <span>Email enviado com sucesso!</span>
+            </div>
+            <div role="alert" class="alert alert-error hidden justify-center items-center" id="recoverError">
+                <span>Ocorreu um erro!</span>
+            </div>
+        </div>
+    </body>
+    <script src="js/recover.js"></script>
+    </html>
+    <?php
+}
+?>
