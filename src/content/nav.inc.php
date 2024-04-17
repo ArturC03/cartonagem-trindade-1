@@ -22,7 +22,7 @@ if (isset($_SESSION['username'])) {
                     <li><a href="export.php">Exportar</a></li>
                 </ul>
             </div>
-            <a class="btn btn-ghost no-animation text-xl hidden md:inline-flex"><?php echo $arrConfig['site_title']; ?></a>
+            <a href="index.php" class="btn btn-ghost no-animation text-xl hidden md:inline-flex"><?php echo $arrConfig['site_title']; ?></a>
         </div>
 
         <div class="navbar-center hidden">

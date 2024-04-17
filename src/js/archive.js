@@ -20,29 +20,3 @@ $('#submit').on('click', function(e) {
         }
     }
 });
-
-const draggable = new Draggable.Draggable(document.querySelectorAll('.draggable'), {
-    draggable: '.draggable',
-    handle: '.handle',
-    delay: 200,
-    onEnd: function () {
-        this.trigger('dragged');
-    }
-});
-
-const dropzone = new Draggable.Droppable(document.querySelectorAll('.dropzone'), {
-    dropzone: '.dropzone',
-    draggable: '.draggable',
-    delay: 200,
-    onDrop: function () {
-        this.trigger('dropped');
-    }
-});
-
-dropzone.on('dropped', function () {
-    console.log('Dropped');
-});
-
-draggable.on('dragged', function () {
-    console.log('Dragged');
-});
