@@ -31,7 +31,7 @@ $average3 = 20;
 <div class="h-screen w-screen fixed top-0 flex items-center justify-center z-10">
     <span class="loading loading-ring loading-lg"></span>
 </div>
-<script src="js/home.js"></script>
+<script src="js/index.js"></script>
 
 <?php
 require "content/footer.inc.html";

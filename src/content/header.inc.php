@@ -12,6 +12,7 @@ require __DIR__ . "/../includes/config.inc.php";
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
 
     <title><?php echo $arrConfig['site_title'];?></title>
 </head>
