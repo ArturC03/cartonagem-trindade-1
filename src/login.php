@@ -4,8 +4,7 @@ require 'includes/config.inc.php';
 if (isset($_SESSION['username'])) {
     header('Location: index.php');
 } else {
-    if (!isset($_POST['submit'])) {
-        ?>
+    ?>
         <!DOCTYPE html>
         <html lang="en">
 
@@ -25,12 +24,12 @@ if (isset($_SESSION['username'])) {
                     <figure class="px-10 pt-10">
                         <img src="images/trindade.png" class="w-32 h-32" />
                     </figure>
-                    <form action="." method="post" class="card-body items-center text-center">
+                    <form class="card-body items-center text-center">
                         <h2 class="card-title">Login</h2>
                         <p>Bem-vindo à nossa página.</p>
-                        <input type="text" placeholder="Email" name="username" class="input input-bordered mb-4 w-full max-w-xs" />
-                        <input type="password" placeholder="Password" name="password" class="input input-bordered mb-4 w-full max-w-xs" />
-                        <button type="submit" name="submit" class="btn btn-primary w-full max-w-xs text-base mb-3">Login</button>
+                        <input type="text" placeholder="Email" id="username" class="input input-bordered mb-4 w-full max-w-xs" />
+                        <input type="password" placeholder="Password" id="password" class="input input-bordered mb-4 w-full max-w-xs" />
+                        <button id="submitLogin" class="btn btn-primary w-full max-w-xs text-base mb-3">Login</button>
                         <a class="link link-hover" href="recover.php">Esqueceste-te da tua password?</a>
                     </form>
                 </div>
@@ -49,25 +48,14 @@ if (isset($_SESSION['username'])) {
                     </label>
                 </div>
             </div>
+            <div class="toast toast-center">
+                <div role="alert" class="alert alert-error hidden justify-center items-center" id="loginError">
+                    <span>Email ou password errados!</span>
+                </div>
+            </div>
         </body>
+        <script src="js/login.js"></script>
         </html>
         <?php
-    } else {
-        $username = $_POST['username'];
-        $pass = $_POST['password'];
-
-        $password = sha1($pass);
-
-        $result = my_query("SELECT * from user WHERE (email = '$username' OR username = '$username') AND password = '$password';");
-
-        if (!count($result) >= 1) {
-            echo "<script>alert('Username or password incorretos!');
-            window.location.href='login.php';
-            </script>";
-        } else {
-            $_SESSION['username'] = $result[0]['id_user'];
-            header('location: index.php');
-        }
-    }
 }
 ?>

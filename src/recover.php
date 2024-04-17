@@ -24,7 +24,7 @@ if (isset($_SESSION['username'])) {
                 <figure class="px-10 pt-10">
                     <img src="images/trindade.png" class="w-32 h-32" />
                 </figure>
-                <form class="card-body flex-none items-center text-center">
+                <form class="card-body items-center text-center">
                     <h2 class="card-title">Recuperar Password</h2>
                     <p class="">Insere o teu e-mail para recuperares a tua conta.</p>
                     <input id="recoverEmail" type="text" placeholder="Email" class="input input-bordered mb-4 w-full max-w-xs" />

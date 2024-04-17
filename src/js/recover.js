@@ -5,7 +5,7 @@ $('#submitRecuperar').on('click', function(e) {
 
 function sendEmail() {
     $.ajax({
-        url: "send_email.php",
+        url: "backend/send_email.php",
         type: "POST",
         dataType: "html",
         data: {

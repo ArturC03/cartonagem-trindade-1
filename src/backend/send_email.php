@@ -1,10 +1,10 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'includes/config.inc.php';
+require '../includes/config.inc.php';
 
 $data = array();
 
