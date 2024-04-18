@@ -2,7 +2,7 @@
 require 'content/header.inc.php';
 
 if (isset($_SESSION['username'])) {
-    ?>
+?>
     <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
         <div class="card card-side min-[400px]:w-96 w-11/12 lg:w-[90%] shadow-xl lg:h-full bg-base-300 justify-center">
             <form action="consultaTabela.php" method="POST" class="card-body w-full max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-base-100">
@@ -28,62 +28,57 @@ if (isset($_SESSION['username'])) {
                 <h3 class="font-bold text-2xl">Seleção de sensores</h3>
                 <div class="mt-3 w-full h-[70%]">
                     <form action="" class="h-full overflow-auto [&>*]:mb-3">
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
-                        <div tabindex="0" class="collapse bg-base-200"> 
-                            <div class="collapse-title text-xl font-medium">
-                                Focus me to see content
-                            </div>
-                            <div class="collapse-content"> 
-                                <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                            </div>
-                        </div>
+                        <?php
+                        $groupQuery = "SELECT g.group_name FROM `group` g";
+                        $groupResult = my_query($groupQuery);
+                        $flag = true;
+
+                        if (count($groupResult) > 0) {
+                            foreach ($groupResult as $groupRow) {
+                                $groupName = $groupRow['group_name'];
+                                ?>
+                                <div tabindex="0" class="collapse collapse-arrow bg-base-200">
+                                    <input type="radio" name="accordionSensors" <?php $flag == true ? 'checked="checked"' : '' ?> /> 
+                                    <div class="collapse-title text-xl font-medium pr-5">
+                                        <?php echo $groupName; ?>
+                                    </div>
+                                    <?php
+                                    $sensorQuery = "SELECT s.id_sensor
+                                                    FROM sensor s
+                                                    INNER JOIN `group` g ON g.id_group = s.id_group
+                                                    WHERE g.group_name = '$groupName'";
+
+                                    $sensorResult = my_query($sensorQuery);
+                                    ?>
+                                    <div class="collapse-content">
+                                        <div class="form-control">
+                                            <label class="label cursor-pointer">
+                                                <span class="label-text">Selecionar Tudo</span> 
+                                                <input type="checkbox" name="selectAll" class="checkbox" />
+                                            </label>
+                                        </div>
+                                        <?php
+                                        if (count($sensorResult) > 0) {
+                                            foreach ($sensorResult as $sensorRow) {
+                                                $sensorName = $sensorRow['id_sensor'];
+                                                ?>
+                                                    <div class="form-control">
+                                                        <label class="label cursor-pointer">
+                                                            <span class="label-text"><?php echo $sensorName; ?></span> 
+                                                            <input type="checkbox" name="<?php echo $sensorName; ?>" class="checkbox" />
+                                                        </label>
+                                                    </div>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <?php
+                                $flag = false;
+                            }
+                        }
+                        ?>
                     </form>
                 </div>
                 <div class="">
@@ -95,7 +90,7 @@ if (isset($_SESSION['username'])) {
         </dialog>
     </div>
     <script src="js/archive.js"></script>
-    <?php
+<?php
     include 'content/footer.inc.html';
 } else {
     header('Location: login.php');

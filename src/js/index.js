@@ -185,6 +185,6 @@ $.ajax({
   },
 });
 
-$(window).on('resize', function() {
-  location.reload();
-});
+// $(window).on('resize', function() {
+//   location.reload();
+// });

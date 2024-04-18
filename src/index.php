@@ -15,14 +15,14 @@ $average3 = 20;
     <div class="w-[70vw]">
         <canvas id='factory' class="hidden bg-contain bg-no-repeat" style="background-image: url('<?php echo $arrConfig['imageFactory'] ?>')"></canvas>
     </div>
-    <div class="absolute top-10 right-10 flex flex-col justify-center align-center p-4 shadow-md rounded-lg bg-base-100">
+    <div class="absolute top-10 right-10 flex flex-col justify-center align-center p-4 border-l-2 border-base-300 pl-8 bg-base-100 text-center">
         <h1 class="text-2xl font-semibold">Médias</h1>
 
         <div id="tempAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8vw" role="progressbar"><?php echo $average1; ?> ºC</div>
         <div id="humidityAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8vw" role="progressbar"><?php echo $average2; ?> %</div>
         <div id="pressureAvg" class="radial-progress mt-10 first:mt-0 border-8 text-black" style="--size:8vw" role="progressbar"><?php echo $average3; ?> hPa</div>
     
-        <div class="divider"></div>
+        <div class="divider before:bg-base-300 after:bg-base-300"></div>
         <h1 class="text-2xl font-semibold">Legenda</h1>
 
     </div>

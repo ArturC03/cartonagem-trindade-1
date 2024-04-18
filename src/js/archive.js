@@ -20,3 +20,29 @@ $('#submit').on('click', function(e) {
         }
     }
 });
+
+$(document).on('click', 'input[type="checkbox"]', function () {
+    var $collapse = $(this).closest('.collapse');
+    var $checkboxes = $collapse.find('.collapse-content input[type="checkbox"]');
+    var $todos = $collapse.find('input[name="selectAll"]');
+
+    if (!this.checked) {
+        $todos.prop("checked", false);
+    }
+
+    if ($checkboxes.not($todos).filter(':checked').length === $checkboxes.length - 1 && !$todos.is(":checked") && !$(this).is($todos)) {
+        $todos.prop("checked", true);
+    }
+});
+
+$(document).on('click', 'input[name="selectAll"]', function(){
+    var $collapse = $(this).closest('.collapse');
+    var $checkboxes = $collapse.find('.collapse-content input[type="checkbox"]');
+    var $todos = $collapse.find('input[name="selectAll"]');
+
+    if ($(this).is(":checked")){
+        $checkboxes.prop("checked", true);
+    } else {
+        $checkboxes.prop("checked", false);
+    }
+});
