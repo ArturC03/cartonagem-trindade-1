@@ -46,3 +46,41 @@ $(document).on('click', 'input[name="selectAll"]', function(){
         $checkboxes.prop("checked", false);
     }
 });
+
+function selectSensors() {
+    clearSensorSelection();
+
+    var $modalForm = $('#modalForm');
+    var $checkboxes = $modalForm.find('input[type="checkbox"]');
+
+    var selectedSensors = [];
+    $checkboxes.each(function() {
+        if (this.checked && $(this).attr('name') !== 'selectAll') {
+            selectedSensors.push($(this).attr('name'));
+        }
+    });
+
+    var mainForm = $('#mainForm');
+    var checkboxes = mainForm.find('input[type="checkbox"]');
+
+    var strSensors = "";
+
+    selectedSensors.forEach(function(item) {
+        var checkbox = checkboxes.filter('[name="' + item + '"]');
+        checkbox.prop('checked', true);
+    });
+
+    selectedSensors.forEach(function(item) {
+        strSensors += item + ', ';
+    });
+
+    strSensors = strSensors.slice(0, -2);
+    $('#sensorsText').attr("placeholder", strSensors);
+}
+
+function clearSensorSelection() {
+    var $mainForm = $('#mainForm');
+    var $checkboxes = $mainForm.find('input[type="checkbox"]');
+
+    $checkboxes.prop('checked', false);
+}

@@ -6,7 +6,7 @@ function load_data() {
     $('.loader').removeClass("d-none");
     setTimeout(function() {
         $.ajax({
-            url: "load_data.php",
+            url: "backend/load_data.php",
             method: 'POST',
             data: { offset: offset == -1 ? $('.table-body table > tbody > tr').length : offset,
                     sql: document.getElementById('sql').textContent
