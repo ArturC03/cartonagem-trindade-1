@@ -1,5 +1,5 @@
-<?php 
-include 'config.inc.php';
+<?php
+require '../includes/config.inc.php';
 
 $periodo_geracao = $argv[1];
 

@@ -58,7 +58,6 @@ if (isset($_SESSION['username'])) {
         <script src="js/consultaTabela.js"></script>
         <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
             <div class="card w-[90%] h-[80vh] bg-base-300 shadow-xl">
-                
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h2 class="card-title">Pesquisa</h2>

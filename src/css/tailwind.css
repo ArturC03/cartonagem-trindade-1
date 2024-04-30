@@ -1973,6 +1973,10 @@ html {
   .btn-success {
     --btn-color: var(--fallback-su);
   }
+
+  .btn-error {
+    --btn-color: var(--fallback-er);
+  }
 }
 
 @supports (color: color-mix(in oklab, black, black)) {
@@ -2032,12 +2036,22 @@ html {
   .btn-success {
     --btn-color: var(--su);
   }
+
+  .btn-error {
+    --btn-color: var(--er);
+  }
 }
 
 .btn-success {
   --tw-text-opacity: 1;
   color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
   outline-color: var(--fallback-su,oklch(var(--su)/1));
+}
+
+.btn-error {
+  --tw-text-opacity: 1;
+  color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-er,oklch(var(--er)/1));
 }
 
 .btn.glass {
@@ -3549,6 +3563,14 @@ details.collapse summary::-webkit-details-marker {
   max-height: 90vh;
 }
 
+.max-h-\[70vh\] {
+  max-height: 70vh;
+}
+
+.max-h-\[65vh\] {
+  max-height: 65vh;
+}
+
 .w-0 {
   width: 0px;
 }
@@ -3597,12 +3619,24 @@ details.collapse summary::-webkit-details-marker {
   width: 100vw;
 }
 
+.w-40 {
+  width: 10rem;
+}
+
 .max-w-5xl {
   max-width: 64rem;
 }
 
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-96 {
+  max-width: 24rem;
+}
+
+.max-w-40 {
+  max-width: 10rem;
 }
 
 .cursor-pointer {
@@ -3625,12 +3659,20 @@ details.collapse summary::-webkit-details-marker {
   justify-content: flex-start;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .overflow-auto {
@@ -3688,6 +3730,16 @@ details.collapse summary::-webkit-details-marker {
 .bg-base-300 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
+}
+
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -3785,6 +3837,11 @@ details.collapse summary::-webkit-details-marker {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-base-100 {
+  --tw-text-opacity: 1;
+  color: var(--fallback-b1,oklch(var(--b1)/var(--tw-text-opacity)));
 }
 
 .shadow {
