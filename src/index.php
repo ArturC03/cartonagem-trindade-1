@@ -25,6 +25,11 @@ $average3 = 20;
         <div class="divider before:bg-base-300 after:bg-base-300"></div>
         <h1 class="text-2xl font-semibold">Legenda</h1>
 
+        <div class="w-full h-10 rounded-xl bg-gradient-to-r from-[hsla(180,100%,50%,0.8)] via-[hsla(120,100%,50%,0.8)] to-[hsla(0,100%,50%,0.8)] mt-3"></div>
+        <div class="w-full flex justify-between items-center">
+            <span>0ºC</span>
+            <span>35ºC</span>
+        </div>
     </div>
 </div>
 

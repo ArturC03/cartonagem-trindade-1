@@ -3,12 +3,12 @@ var tableBody;
 var flag = false;
 
 function load_data() {
-    $('.loader').removeClass("d-none");
+    $('div:has(.loading)').removeClass("hidden");
     setTimeout(function() {
         $.ajax({
             url: "backend/load_data.php",
             method: 'POST',
-            data: { offset: offset == -1 ? $('.table-body table > tbody > tr').length : offset,
+            data: { offset: offset == -1 ? $('#table_body table > tbody > tr').length : offset,
                     sql: document.getElementById('sql').textContent
                 },
             dataType: 'json',
@@ -32,7 +32,7 @@ function load_data() {
                                 <td>${String(row["eTVOC"]).replace(/^0+/, '')}</td>
                             </tr>
                         `;
-                        $('.table_body table > tbody').append(newRow);
+                        $('#table_body table > tbody').append(newRow);
                     });
                 } else {
                     flag = true;
@@ -40,14 +40,14 @@ function load_data() {
                 }
             },
             complete: function() {
-                $('.loader').addClass("d-none");
+                $('div:has(.loading)').addClass("hidden");
             }
         })
     }, 800)
 }
 
 function sendToCSV() {
-    $('.loader').removeClass("d-none");
+    $('div:has(.loading)').addClass("hidden");
     setTimeout(function() {
         $.ajax({
             url: "obter_CSV.php",
@@ -59,14 +59,14 @@ function sendToCSV() {
             },
             complete: function () {
                 document.location.href = "download/dados.csv";
-                $('.loader').addClass("d-none");
+                $('div:has(.loading)').addClass("hidden");
             }
         })
     }, 800)
 }
 
 function sendToJSON() {
-    $('.loader').removeClass("d-none");
+    $('div:has(.loading)').addClass("hidden");
     setTimeout(function() {
         $.ajax({
             url: "obter_JSON.php",
@@ -82,7 +82,7 @@ function sendToJSON() {
                 link.download = "dados.json";
                 link.click();
                 link.remove();
-                $('.loader').addClass("d-none");
+                $('div:has(.loading)').addClass("hidden");
             }
         })
     }, 800)
@@ -90,14 +90,14 @@ function sendToJSON() {
 
 $(function() {
     if (!flag) {
-        tableBody = $('.table_body');
+        tableBody = $('#table_body');
         load_data();
         $("#table_body").scroll(function() {
             var scrollHeight = tableBody[0].scrollHeight;
             var _scrolled = tableBody.scrollTop() + tableBody.innerHeight();
 
             if (scrollHeight - _scrolled <= 0.1 * scrollHeight) {
-                if ($('.loader').is(':visible') == false){
+                if ($('div:has(.loading)').is(':visible') == false){
                     load_data();
                 }
             }
@@ -107,7 +107,7 @@ $(function() {
     $("#column").on("change", function() {
         offset = -1;
         $('#order').val("0");
-        $('.table_body table > tbody').empty();
+        $('#table_body table > tbody').empty();
 
         switch (this.value) {
             case "":
@@ -134,9 +134,9 @@ $(function() {
         }
 
         if (this.value != "") {
-            document.getElementById('order').classList.remove('d-none');
+            document.getElementById('order').classList.remove('hidden');
         } else {
-            document.getElementById('order').classList.add('d-none');
+            document.getElementById('order').classList.add('hidden');
         }
 
         load_data();
@@ -144,7 +144,7 @@ $(function() {
 
     $("#order").on("change", function() {
         offset = -1;
-        $('.table_body table > tbody').empty();
+        $('#table_body table > tbody').empty();
 
         switch (this.value) {
             case "0":

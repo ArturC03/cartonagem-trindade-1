@@ -53,74 +53,72 @@ if (isset($_SESSION['username'])) {
     FROM sensor_reading s where " . $comp2 . $datas . "s.id_sensor in $sensores ORDER BY date, time ASC";
         $sql2 = "SELECT distinct s.id_sensor, s.date, s.time, s.temperature, s.humidity, s.pressure, s.altitude, s.eCO2, s.eTVOC FROM sensor_reading s where " . $comp2 . $datas . "s.id_sensor in $sensores order by date, time ASC";
         ?>
-        <p id="sql" class="d-none"><?php echo $sql; ?></p>
-        <p id="sql2" class="d-none"><?php echo $sql2; ?></p>
+        <p id="sql" class="hidden"><?php echo $sql; ?></p>
+        <p id="sql2" class="hidden"><?php echo $sql2; ?></p>
         <script src="js/consultaTabela.js"></script>
-        <main class="table">
-            <section class="table_header">
-                <h1 class="title">Pesquisa</h1>
+        <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
+            <div class="card w-[90%] h-[80vh] bg-base-100 shadow-xl">
+                
+                <div class="card-body">
+                    <div class="flex justify-between items-center">
+                        <h2 class="card-title">Pesquisa</h2>
+                        <div>
+                            <div class="dropdown dropdown-end">
+                                <a role="button" tabindex="1" class="btn btn-circle btn-ghost">
+                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                                </a>
+                                <ul tabindex="1" class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-10">
+                                    <li><button class="learn-more" onclick="sendToCSV();">Obter CSV</button></li>
+                                    <li><button class="learn-more" onclick="sendToJSON();">Obter JSON</button></li>
+                                </ul>
+                            </div>
+                            <a href="archive.php" class="btn btn-sm btn-circle btn-ghost">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            </a>
+                        </div>
+                    </div>
 
-                <div class="custom-select-wrapper">
-                    <label for="column">Ordenar por:</label>
-                    <select name="column" id="column" class="custom-select">
-                        <option value="">Predefinido (Data e Hora)</option>
-                        <option value="0" class="custom-option">ID</option>
-                        <option value="1" class="custom-option">Temperatura (ºC)</option>
-                        <option value="2" class="custom-option">Humidade (%)</option>
-                        <option value="3" class="custom-option">Pressão (HPA)</option>
-                        <option value="4" class="custom-option">CO2 (PPM)</option>
-                        <option value="5" class="custom-option">TVOC (PPB)</option>
-                    </select>
+                    <div class="flex flex-col md:flex-row justify-start md:items-center [&>*]:mr-3 [&>*]:mb-2">
+                        <label for="column">Ordenar por:</label>
+                        <select name="column" id="column" class="select select-bordered w-full max-w-xs">
+                            <option value="">Predefinido (Data e Hora)</option>
+                            <option value="0">ID</option>
+                            <option value="1">Temperatura (ºC)</option>
+                            <option value="2">Humidade (%)</option>
+                            <option value="3">Pressão (HPA)</option>
+                            <option value="4">CO2 (PPM)</option>
+                            <option value="5">TVOC (PPB)</option>
+                        </select>
 
-                    <select name="order" id="order" class="custom-select d-none">
-                        <option value="0">Descendente</option>
-                        <option value="1">Ascendente</option>
-                    </select>
+                        <select name="order" id="order" class="select select-bordered w-full max-w-xs hidden">
+                            <option value="0">Descendente</option>
+                            <option value="1">Ascendente</option>
+                        </select>
+                    </div>
+                    <div class="overflow-x-auto max-h-[50vh] md:max-h-[60vh]" id="table_body">
+                        <table class="table table-pin-rows table-zebra">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Data</th>
+                                    <th>Hora</th>
+                                    <th>Temperatura (ºC)</th>
+                                    <th>Humidade (%)</th>
+                                    <th>Pressão (HPA)</th>
+                                    <th>CO2 (PPM)</th>
+                                    <th>TVOC (PPB)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </section>
-            <section class="table_body" id="table_body">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Data</th>
-                            <th>Hora</th>
-                            <th>Temperatura (ºC)</th>
-                            <th>Humidade (%)</th>
-                            <th>Pressão (HPA)</th>
-                            <th>CO2 (PPM)</th>
-                            <th>TVOC (PPB)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <div class="loader">
-                    <div class="justify-content-center jimu-primary-loading"></div>
-                </div>
-            </section>
-
-            <section class="button-container">
-                <button class="learn-more" onclick="sendToCSV();">
-                    <div class="circle">
-                        <div class="icon arrow"></div>
-                    </div>
-                    <span class="button-text">Obter CSV</span>
-                </button>
-                <button class="learn-more" onclick="sendToJSON();">
-                    <div class="circle">
-                        <div class="icon arrow"></div>
-                    </div>
-                    <span class="button-text">Obter JSON</span>
-                </button>
-                <button class="learn-more" onclick="window.location.href='archive.php';">
-                    <div class="circle">
-                        <div class="icon arrow"></div>
-                    </div>
-                    <span class="button-text">Voltar</span>
-                </button>
-            </section>
-        </main>
+            </div>
+        </div>
+        <div class="h-screen w-screen fixed top-0 flex items-center justify-center z-10">
+            <span class="loading loading-ring loading-lg"></span>
+        </div>
         <?php
     }
     include 'content/footer.inc.html';
