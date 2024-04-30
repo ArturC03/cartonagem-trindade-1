@@ -15,7 +15,7 @@ if (isset($_SESSION['username'])) {
                         <path d="M3 19H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </div>
-                <ul tabindex="0" class="menu menu-xs md:menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52">
                     <h2 class="menu-title md:hidden"><?php echo $arrConfig['site_title']; ?></h2>
                     <li><a href="index.php">Home</a></li>
                     <li><a href="archive.php">Pesquisa</a></li>
