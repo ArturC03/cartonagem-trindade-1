@@ -57,7 +57,7 @@ if (isset($_SESSION['username'])) {
         <p id="sql2" class="hidden"><?php echo $sql2; ?></p>
         <script src="js/consultaTabela.js"></script>
         <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
-            <div class="card w-[90%] h-[80vh] bg-base-100 shadow-xl">
+            <div class="card w-[90%] h-[80vh] bg-base-300 shadow-xl">
                 
                 <div class="card-body">
                     <div class="flex justify-between items-center">
