@@ -6,7 +6,7 @@ $result2 = my_query($sql);
 $fileName = 'download/dados.csv';
 
 $file = fopen($fileName, 'w');
-fputcsv($file, array('id_sensors', 'Data', 'Hora', 'Temperatura', 'Humidade','Pressão', 'Altitude', 'CO2','TVOC'),';');
+fputcsv($file, array('id_sensors', 'Data', 'Hora', 'Temperatura', 'Humidade','Pressão', 'Altitude', 'CO2', 'TVOC'), ';');
 foreach ($result2 as $row) {
     $formattedTemperature = ltrim(sprintf("%.3f", $row['temperature']), '0');
     $row['temperature'] = $formattedTemperature;

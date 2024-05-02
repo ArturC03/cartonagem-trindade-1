@@ -34,7 +34,7 @@ try{
         
         if ($_POST['tipo'] == '1') {
             $mail->Subject = 'Recuperar a password';
-            $mail->Body = '<img src="cid:logo" alt="Logo Cartonagem Trindade"><br>Clique no link para recuperar a sua password: <a href="http://localhost/cartonagem-trindade/recuperar_pass.php?token='.$token.'">Recuperar</a>';
+            $mail->Body = '<img src="cid:logo" alt="Logo Cartonagem Trindade"><br>Clique no link para recuperar a sua password: <a href="http://localhost/cartonagem-trindade/recoverForm.php?token='.$token.'">Recuperar</a>';
         }
         
         $mail->AddEmbeddedImage($imagePath, 'logo');
