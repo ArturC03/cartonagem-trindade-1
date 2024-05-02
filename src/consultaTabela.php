@@ -2,11 +2,11 @@
 require 'includes/config.inc.php';
 
 if (isset($_SESSION['username'])) {
-    include 'content/header.inc.php';
-
     if (!isset($_POST['mindate']) || !isset($_POST['maxdate'])) {
         header('Location: archive.php');
     } else {
+        include 'content/header.inc.php';
+        
         foreach ($_POST as $k => $v) {
             if ($v == "on") {
                 $ids[] = $k;

@@ -1,9 +1,13 @@
 <?php
-require 'content/header.inc.php';
+require 'includes/config.inc.php';
 
 if (isset($_SESSION['username'])) {
     if (isset($_POST['submit'])) {
-        $sensoresSelecionados = $_POST['sensores'];
+        foreach ($_POST as $k => $v) {
+            if ($v == "on") {
+                $sensoresSelecionados[] = $k;
+            }
+        }
         $folderName = rand(100000, 999999);
 
         while (file_exists(__DIR__ . '/download/scheduled/' . $folderName)) {
@@ -29,8 +33,9 @@ if (isset($_SESSION['username'])) {
 
         mkdir(__DIR__ . '\download\scheduled\\' . $folderName, 0777);
 
-        header('Location: csvtimes.php');
+        header('Location: exportAuto.php');
     } else {
+        include 'content/header.inc.php';
         ?>
         <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
             <div class="card card-side min-[400px]:w-96 w-11/12 lg:w-[90%] shadow-xl lg:h-full bg-base-300 justify-center">
@@ -66,8 +71,8 @@ if (isset($_SESSION['username'])) {
                     </select>
 
                     <div class="flex justify-between items-center w-full max-w-xs gap-2">
-                        <button type="submit" name="botaoCSV" class="btn btn-primary w-[48%]">Agendar CSV</button>
-                        <button type="submit" name="botaoJSON" class="btn btn-primary w-[48%]">Agendar JSON</button>
+                        <button type="submit" name="submit" value="CSV" class="btn btn-primary w-[48%]">Agendar CSV</button>
+                        <button type="submit" name="submit" value="JSON" class="btn btn-primary w-[48%]">Agendar JSON</button>
                     </div>
                     <a class="link mt-6" href="exportedList.php">Ver Agendamentos</a>
                 </form>

@@ -24,14 +24,6 @@ if (isset($_SESSION['username'])) {
             </div>
             <a href="index.php" class="btn btn-ghost no-animation text-xl hidden md:inline-flex"><?php echo $arrConfig['site_title']; ?></a>
         </div>
-
-        <div class="navbar-center hidden">
-            <ul class="menu menu-horizontal px-1 rounded-full">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="archive.php">Arquivo</a></li>
-                <li><a href="exportManual.php">Exportação</a></li>
-            </ul>
-        </div>
         <div class="navbar-end">
             <div class="dropdown dropdown-end">
                 <a role="button" tabindex="1" class="btn btn-circle btn-ghost">

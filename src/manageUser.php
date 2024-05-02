@@ -1,8 +1,7 @@
 <?php
-require 'includes/config.inc.php';
+require 'content/header.inc.php';
 
 if (isset($_SESSION['username'])) {
-    include 'content/header.inc.php';
     ?>
     <script src="js/manageUser.js"></script>
     <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
