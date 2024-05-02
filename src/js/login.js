@@ -5,7 +5,7 @@ $('#submitLogin').on('click', function(e) {
 
 function loginAJAX() {
     $.ajax({
-        url: "backend/treat_login.php",
+        url: $(location).prop('href') + "backend/treat_login.php",
         type: "POST",
         dataType: "html",
         data: {
