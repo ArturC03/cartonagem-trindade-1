@@ -3,10 +3,10 @@ require 'includes/config.inc.php';
 
 if (isset($_SESSION['username'])) {
     if (!isset($_POST['mindate']) || !isset($_POST['maxdate'])) {
-        header('Location: archive.php');
+        header('Location: search.php');
     } else {
         include 'content/header.inc.php';
-        
+
         foreach ($_POST as $k => $v) {
             if ($v == "on") {
                 $ids[] = $k;
@@ -55,7 +55,7 @@ if (isset($_SESSION['username'])) {
         ?>
         <p id="sql" class="hidden"><?php echo $sql; ?></p>
         <p id="sql2" class="hidden"><?php echo $sql2; ?></p>
-        <script src="js/consultaTabela.js"></script>
+        <script src="js/searchResults.js"></script>
         <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
             <div class="card w-[90%] h-[80vh] bg-base-300 shadow-xl">
                 <div class="card-body">
@@ -71,7 +71,7 @@ if (isset($_SESSION['username'])) {
                                     <li><button class="learn-more" onclick="sendToJSON();">Obter JSON</button></li>
                                 </ul>
                             </div>
-                            <a href="archive.php" class="btn btn-sm btn-circle btn-ghost">
+                            <a href="search.php" class="btn btn-sm btn-circle btn-ghost">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                             </a>
                         </div>

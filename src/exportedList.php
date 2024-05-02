@@ -55,7 +55,7 @@ if (isset($_SESSION['username'])) {
                             <td>
                                 <div class="flex justify-end items-center gap-2">
                                     <a class="btn btn-primary w-40 text-base-100" id="a_id" href="exportedSingle.php?id=' . $row["id_export"] . '" >Ver ' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . 's</a>
-                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="deleteScheduled.php?id=' . $row["id_export"] . '" >Eliminar</a>
+                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="backend/delete_scheduled.php?id=' . $row["id_export"] . '" >Eliminar</a>
                                 </div>
                             </td>  
                             </tr>  

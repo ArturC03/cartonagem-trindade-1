@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
                 <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52">
                     <h2 class="menu-title md:hidden"><?php echo $arrConfig['site_title']; ?></h2>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="archive.php">Pesquisa</a></li>
+                    <li><a href="search.php">Pesquisa</a></li>
                     <li><a href="exportManual.php">Exportação</a></li>
                 </ul>
             </div>

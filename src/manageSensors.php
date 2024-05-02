@@ -39,7 +39,7 @@ if (isset($_SESSION['username'])) {
                                     <td>
                                         <div class="flex justify-end items-center gap-2">
                                             <a type="button" class="btn btn-primary text-base-100 w-40" href=\'editLocation.php?id=' . $row["id_sensor"] . '\'">Editar</a>
-                                            <a type="button" id="state-button" class="btn w-40 text-base-100 ' . ($row["status"] == 1 ? "btn-success" : "btn-error") . '" href=\'changeSensorStatus.php?id=' . $row["id_sensor"] . '&status=' . $row["status"] . '\'">' . ($row["status"] == 1 ? "Ativo" : "Inativo") . '</a>
+                                            <a type="button" id="state-button" class="btn w-40 text-base-100 ' . ($row["status"] == 1 ? "btn-success" : "btn-error") . '" href=\'backend/change_sensor_status.php?id=' . $row["id_sensor"] . '&status=' . $row["status"] . '\'">' . ($row["status"] == 1 ? "Ativo" : "Inativo") . '</a>
                                         </div>
                                     </td>
                                 </tr>';

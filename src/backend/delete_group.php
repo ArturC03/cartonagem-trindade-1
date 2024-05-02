@@ -1,5 +1,6 @@
 <?php
-include('config.inc.php');
+require "../includes/config.inc.php";
+
 $id = $_GET['id'];
 
 if (my_query("DELETE FROM `group` WHERE id_group = '$id';") == 1) {

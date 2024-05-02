@@ -39,7 +39,7 @@ var pressureSum = 0;
 Chart.defaults.plugins.legend.display = false;
 
 $.ajax({
-  url: "tools/getsensordata.php",
+  url: "backend/getsensordata.php",
   dataType: "json",
   Type: "GET",
   success: function (response) {

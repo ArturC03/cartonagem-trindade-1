@@ -40,7 +40,7 @@ if (isset($_SESSION['username'])) {
                             <td>
                                 <div class="flex justify-end items-center gap-2">
                                     <a class="btn btn-primary w-40 text-base-100" href="editUser.php?id=' . $row["id_user"] . '" >Editar</a>
-                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="deleteUser.php?id=' . $row["id_user"] . '" >Eliminar</a>
+                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="backend/delete_user.php?id=' . $row["id_user"] . '" >Eliminar</a>
                                 </div>
                             </td>  
                             </tr>  

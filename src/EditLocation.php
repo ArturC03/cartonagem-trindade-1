@@ -63,7 +63,7 @@ if (isset($_POST['completeYes'])) {
     <button type="submit" id="submit" name="completeYes" value="Guardar">Guardar</button>   
 </form>
 
-<script src="js/EditLocation.js"></script>
+<script src="js/editLocation.js"></script>
 <?php
 include('footer.inc.php');
 }else{

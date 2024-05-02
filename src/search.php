@@ -5,7 +5,7 @@ if (isset($_SESSION['username'])) {
     ?>
     <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
         <div class="card card-side min-[400px]:w-96 w-11/12 lg:w-[90%] shadow-xl lg:h-full bg-base-300 justify-center">
-            <form action="consultaTabela.php" method="POST" id="mainForm" class="card-body w-full max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-base-100">
+            <form action="searchResults.php" method="POST" id="mainForm" class="card-body w-full max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-base-100">
                 <h2 class="card-title mb-6">Pesquisa</h2>
 
                 <?php
@@ -103,7 +103,7 @@ if (isset($_SESSION['username'])) {
             </div>
         </dialog>
     </div>
-    <script src="js/archive.js"></script>
+    <script src="js/search.js"></script>
     <?php
     include 'content/footer.inc.html';
 } else {

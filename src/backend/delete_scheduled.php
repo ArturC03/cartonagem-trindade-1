@@ -1,5 +1,5 @@
 <?php
-require "includes/config.inc.php";
+require "../includes/config.inc.php";
 
 $id = $_GET['id'];
 

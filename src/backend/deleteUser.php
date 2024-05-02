@@ -1,5 +1,6 @@
 <?php
-include('config.inc.php');
+require "../includes/config.inc.php";
+
 $id = $_GET['id'];
 
 if (my_query("SELECT COUNT(*) AS user_num FROM user WHERE id_type = 1")[0]['user_num'] == 1 && my_query("SELECT id_type FROM user WHERE id_user = '$id'")[0]['id_type'] == 1) {

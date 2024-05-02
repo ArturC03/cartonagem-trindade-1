@@ -44,7 +44,7 @@ if (isset($_SESSION['username'])) {
                             <td>
                                 <div class="flex justify-end items-center gap-2">
                                     <a class="btn btn-primary w-40 text-base-100" href="editGroup.php?id=' . $row["id_group"] . '" >Editar</a>
-                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="deleteGroup.php?id=' . $row["id_group"] . '" >Eliminar</a>
+                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="backend/delete_group.php?id=' . $row["id_group"] . '" >Eliminar</a>
                                 </div>
                             </td>  
                             </tr>  

@@ -1,5 +1,5 @@
 <?php
-include('config.inc.php');
+require '../includes/config.inc.php';
 
 $sql = $_POST["sql"];
 $result2 = my_query($sql);
@@ -25,6 +25,6 @@ foreach ($result2 as $row) {
     $formattedTvoc = ltrim(sprintf("%.3f", $row['eTVOC']), '0');
     $row['eTVOC'] = $formattedTvoc;
     
-    fputcsv($file, $row,';');
+    fputcsv($file, $row, ';');
 }
 fclose($file);
