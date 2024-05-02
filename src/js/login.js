@@ -5,7 +5,7 @@ $('#submitLogin').on('click', function(e) {
 
 function loginAJAX() {
     $.ajax({
-        url: $(location).prop('href') + "backend/treat_login.php",
+        url: $(location).attr("origin") + "/cartonagem-trindade/backend/treat_login.php",
         type: "POST",
         dataType: "html",
         data: {

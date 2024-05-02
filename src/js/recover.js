@@ -5,7 +5,7 @@ $('#submitRecuperar').on('click', function(e) {
 
 function sendEmail() {
     $.ajax({
-        url: $(location).prop('href') + "backend/send_email.php",
+        url: $(location).attr("origin") + "/cartonagem-trindade/backend/send_email.php",
         type: "POST",
         dataType: "html",
         data: {

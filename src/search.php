@@ -104,6 +104,7 @@ if (isset($_SESSION['username'])) {
         </dialog>
     </div>
     <script src="js/search.js"></script>
+    <script src="js/sensorsModal.js"></script>
     <?php
     include 'content/footer.inc.html';
 } else {

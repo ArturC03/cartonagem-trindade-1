@@ -38,8 +38,11 @@ var pressureSum = 0;
 
 Chart.defaults.plugins.legend.display = false;
 
+console.log($(location).attr("pathname"));
+console.log($(location).attr("origin"));
+
 $.ajax({
-  url: $(location).prop('href') + "backend/getsensordata.php",
+  url: $(location).attr("origin") + "/cartonagem-trindade/backend/getsensordata.php",
   dataType: "json",
   Type: "GET",
   success: function (response) {

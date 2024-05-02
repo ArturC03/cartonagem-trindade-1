@@ -3408,6 +3408,18 @@ details.collapse summary::-webkit-details-marker {
   height: 100vh;
 }
 
+.h-\[360px\] {
+  height: 360px;
+}
+
+.h-\[400px\] {
+  height: 400px;
+}
+
+.h-\[460px\] {
+  height: 460px;
+}
+
 .max-h-\[50vh\] {
   max-height: 50vh;
 }

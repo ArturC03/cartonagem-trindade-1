@@ -6,7 +6,7 @@ function load_data() {
     $('div:has(.loading)').removeClass("hidden");
     setTimeout(function() {
         $.ajax({
-            url: $(location).prop('href') + "backend/load_data.php",
+            url: $(location).attr("origin") + "/cartonagem-trindade/backend/load_data.php",
             method: 'POST',
             data: { offset: offset == -1 ? $('#table_body table > tbody > tr').length : offset,
                     sql: document.getElementById('sql').textContent
@@ -50,7 +50,7 @@ function sendToCSV() {
     $('div:has(.loading)').addClass("hidden");
     setTimeout(function() {
         $.ajax({
-            url: $(location).prop('href') + "backend/get_CSV.php",
+            url: $(location).attr("origin") + "/cartonagem-trindade/backend/get_CSV.php",
             method: 'POST',
             data: { sql: document.getElementById('sql2').textContent},
             dataType: 'json',
@@ -69,7 +69,7 @@ function sendToJSON() {
     $('div:has(.loading)').addClass("hidden");
     setTimeout(function() {
         $.ajax({
-            url: $(location).prop('href') + "backend/get_JSON.php",
+            url: $(location).attr("origin") + "/cartonagem-trindade/backend/get_JSON.php",
             method: 'POST',
             data: { sql: document.getElementById('sql2').textContent},
             dataType: 'json',
