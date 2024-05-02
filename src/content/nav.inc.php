@@ -19,7 +19,7 @@ if (isset($_SESSION['username'])) {
                     <h2 class="menu-title md:hidden"><?php echo $arrConfig['site_title']; ?></h2>
                     <li><a href="index.php">Home</a></li>
                     <li><a href="archive.php">Pesquisa</a></li>
-                    <li><a href="export.php">Exportar</a></li>
+                    <li><a href="exportManual.php">Exportação</a></li>
                 </ul>
             </div>
             <a href="index.php" class="btn btn-ghost no-animation text-xl hidden md:inline-flex"><?php echo $arrConfig['site_title']; ?></a>
@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
             <ul class="menu menu-horizontal px-1 rounded-full">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="archive.php">Arquivo</a></li>
-                <li><a href="exportManual.php">Exportar</a></li>
+                <li><a href="exportManual.php">Exportação</a></li>
             </ul>
         </div>
         <div class="navbar-end">
@@ -43,7 +43,7 @@ if (isset($_SESSION['username'])) {
                     <li><a href="manageSensors.php">Gerir Sensores</a></li>
                     <li><a href="manageUser.php">Gerir Utilizadores</a></li>
                     <li><a href="manageGroup.php">Gerir Grupos</a></li>
-                    <li><a href="exportAuto.php">Exportar Automático</a></li>
+                    <li><a href="exportAuto.php">Exportação Agendada</a></li>
                     <li><a href="settings.php">Definições</a></li>
                 </ul>
             </div>
