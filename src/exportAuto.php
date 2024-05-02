@@ -147,7 +147,7 @@ if (isset($_SESSION['username'])) {
                 </div>
             </dialog>
         </div>
-        <script src="js/csvtools.js"></script>
+        <script src="js/export.js"></script>
         <?php
         include 'content/footer.inc.html';
     }
