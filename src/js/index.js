@@ -73,6 +73,7 @@ $.ajax({
         datasets: datasets,
       },
       options: {
+        maintainAspectRatio: true,
         aspectRatio: imgX / imgY,
         scales: {
           x: {

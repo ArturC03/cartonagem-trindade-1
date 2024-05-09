@@ -9,7 +9,7 @@ if (isset($_SESSION['username'])) {
         <div class="card w-[90%] h-[80vh] bg-base-300 shadow-xl">
             <div class="card-body">
                 <div class="flex justify-between items-center">
-                    <h2 class="card-title">Gerir Grupos</h2>
+                    <h2 class="card-title">Gerir Agendamentos</h2>
                     <a href="exportAuto.php" class="btn btn-sm btn-circle btn-ghost">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                     </a>

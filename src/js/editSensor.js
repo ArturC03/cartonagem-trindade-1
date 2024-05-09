@@ -5,12 +5,8 @@ const inputY = document.getElementById("location_y");
 const inputR = document.getElementById("cloud_radius");
 const lastX = inputX.value;
 const lastY = inputY.value;
-
-const image = new Image();
-image.src = "images/plantas/plantaV1.png";
-let imageWidth = 1688;
-let imageHeight = 629;
-console.log(imageWidth, imageHeight);
+const imgX = document.getElementById("image-width").innerHTML;
+const imgY = document.getElementById("image-height").innerHTML;
 
 const tooltip = (context) => {
     var text = [];
@@ -42,6 +38,7 @@ const chart = new Chart(factory, {
     },
     options: {
         maintainAspectRatio: true,
+        aspectRatio: imgX / imgY,
         scales: {
             x: {
                 bounds: "ticks",
@@ -106,7 +103,7 @@ factory.addEventListener("click", function (event) {
         dataset.data.push({
             x: xValue,
             y: yValue,
-            r: 20,
+            r: inputR.value,
         });
     });
 
