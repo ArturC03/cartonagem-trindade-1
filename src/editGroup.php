@@ -62,7 +62,7 @@ if (isset($_SESSION['username'])) {
     ?>
     <div class="w-screen h-full max-h-[90vh] flex flex-col justify-center items-center">
         <div class="card min-[400px]:w-96 w-11/12 h-[400px] bg-base-300 shadow-xl">
-            <form class="card-body items-center text-center" action="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $_SESSION['id'] ?>" method="post">
+            <form class="card-body items-center text-center" action="<?php echo basename($_SERVER['PHP_SELF']) . '?id=' . $_SESSION['id'] ?>" method="post">
                 <h2 class="card-title">Editar Grupo</h2>
                 <p>Edita os dados do grupo.</p>
 

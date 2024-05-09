@@ -60,9 +60,10 @@ if (isset($_SESSION['username'])) {
 
                 <input type="text" class="input input-bordered w-full max-w-xs" disabled value="<?php echo $_GET['id']; ?>">
 
-                <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-6 mt-2" name="description" placeholder="Descrição"></textarea>
+                <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-4 mt-2" name="description" placeholder="Descrição"></textarea>
                 
-                <button class="btn btn-primary" type="submit" name="submit" value="Guardar">Guardar</button>
+                <button class="btn btn-primary w-full max-w-xs mb-3" type="submit" name="submit" value="Guardar">Guardar</button>
+                <a class="link link-hover" href="manageSensors.php">Voltar</a>
             </form>
             <div class="w-[70vw] flex items-center">
                 <canvas id="factory" class="hidden lg:block bg-contain bg-no-repeat h-full" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);"></canvas>
