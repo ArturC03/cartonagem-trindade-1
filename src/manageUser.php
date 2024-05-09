@@ -3,7 +3,7 @@ require 'content/header.inc.php';
 
 if (isset($_SESSION['username'])) {
     ?>
-    <script src="js/manageUser.js"></script>
+    <script src="js/checkDeletion.js"></script>
     <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
         <div class="card w-[90%] h-[80vh] bg-base-300 shadow-xl">
             <div class="card-body">
@@ -40,7 +40,7 @@ if (isset($_SESSION['username'])) {
                             <td>
                                 <div class="flex justify-end items-center gap-2">
                                     <a class="btn btn-primary w-40 text-base-100" href="editUser.php?id=' . $row["id_user"] . '" >Editar</a>
-                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="backend/delete_user.php?id=' . $row["id_user"] . '" >Eliminar</a>
+                                    <a class="btn btn-error w-40 text-base-100" id="delete_user" href="backend/delete_user.php?id=' . $row["id_user"] . '" >Eliminar</a>
                                 </div>
                             </td>  
                             </tr>  

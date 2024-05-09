@@ -4,7 +4,7 @@ require 'includes/config.inc.php';
 if (isset($_SESSION['username'])) {
     include 'content/header.inc.php';
     ?>
-    <script src="js/manageGroup.js"></script>
+    <script src="js/checkDeletion.js"></script>
     <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
         <div class="card w-[90%] h-[80vh] bg-base-300 shadow-xl">
             <div class="card-body">
@@ -54,8 +54,8 @@ if (isset($_SESSION['username'])) {
                             <td>' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . '</td>
                             <td>
                                 <div class="flex justify-end items-center gap-2">
-                                    <a class="btn btn-primary w-40 text-base-100" id="a_id" href="exportedSingle.php?id=' . $row["id_export"] . '" >Ver ' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . 's</a>
-                                    <a class="btn btn-error w-40 text-base-100" id="a_id" href="backend/delete_scheduled.php?id=' . $row["id_export"] . '" >Eliminar</a>
+                                    <a class="btn btn-primary w-40 text-base-100" href="exportedSingle.php?id=' . $row["id_export"] . '" >Ver ' . ($row["generation_format"] == 0 ? 'CSV' : 'JSON') . 's</a>
+                                    <a class="btn btn-error w-40 text-base-100" id="delete_exported" href="backend/delete_scheduled.php?id=' . $row["id_export"] . '" >Eliminar</a>
                                 </div>
                             </td>  
                             </tr>  
