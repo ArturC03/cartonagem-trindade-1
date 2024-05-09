@@ -13,4 +13,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 RewriteCond %{HTTP_HOST} ^(?:www\.)?([a-z0-9-]+\.[a-z]+)
-ErrorDocument 404 http://localhost/cartonagem-trindade/src/404.html
+ErrorDocument 404 http://localhost/cartonagem-trindade/404.php

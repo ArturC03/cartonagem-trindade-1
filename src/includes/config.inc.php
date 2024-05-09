@@ -19,3 +19,4 @@ foreach ($result as $row) {
 $arrConfig['imageFactory'] = 'images/plantas/plantaV3-noBG.png';
 $arrConfig['originalImageWidth'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[0];
 $arrConfig['originalImageHeight'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[1];
+$_SESSION['previous_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
