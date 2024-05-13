@@ -16,6 +16,18 @@ const tooltip = (context) => {
 }
 
 Chart.defaults.plugins.legend.display = false;
+var data;
+if (lastX != -1 && lastY != -1) {
+    data = [
+        {
+            x: lastX,
+            y: lastY,
+            r: inputR.value,
+        },
+    ];
+} else {
+    data = [];
+}
 
 const chart = new Chart(factory, {
     type: "bubble",
@@ -23,13 +35,7 @@ const chart = new Chart(factory, {
         datasets: [
             {
                 label: id.value,
-                data: [
-                    {
-                        x: lastX,
-                        y: lastY,
-                        r: inputR.value,
-                    },
-                ],
+                data: data,
                 backgroundColor: "rgba(255, 99, 132, 0.6)",
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,

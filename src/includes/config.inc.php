@@ -20,3 +20,10 @@ $arrConfig['imageFactory'] = 'images/plantas/plantaV3-noBG.png';
 $arrConfig['originalImageWidth'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[0];
 $arrConfig['originalImageHeight'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[1];
 $_SESSION['previous_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+$pagesWhiteList = array('login.php', 'recover.php', 'recoverForm.php', 'index.php', '', '404.php');
+
+if (!isset($_SESSION['username']) && (!in_array(basename($_SERVER['PHP_SELF']), $pagesWhiteList) && !str_contains($_SERVER['PHP_SELF'], 'backend'))) {
+    header('Location: login.php');
+    exit;
+}
