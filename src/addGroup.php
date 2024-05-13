@@ -42,7 +42,7 @@ $result2 = my_query("SELECT id_sensor FROM sensor WHERE id_group IS NULL;");
             <input type="text" placeholder="Grupo" id="grupo" name="grupo" class="input input-bordered w-full max-w-xs" required />
             <div class="w-full max-w-xs flex justify-between join mb-4">
                 <input type="text" placeholder="Nenhum sensor selecionado" id="sensorsText" class="input input-bordered w-2/3 text-center join-item" disabled />
-                <button class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
+                <button type="button" class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
             </div>
             
             <button type="submit" name="completeYes" id="submitLogin" class="btn btn-primary w-full max-w-xs text-base mb-3">Criar Grupo</button>

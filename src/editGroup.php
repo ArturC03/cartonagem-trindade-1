@@ -81,7 +81,7 @@ if (count($result3) > 0) {
             <!-- FALTA COLOCAR OS VALORES DOS SENSORES JÁ ATRIBUÍDOS AO GRUPO -->
             <div class="w-full max-w-xs flex justify-between join mb-4">
                 <input type="text" placeholder="Nenhum sensor selecionado" id="sensorsText" class="input input-bordered w-2/3 text-center join-item" disabled />
-                <button class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
+                <button type="button" class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
             </div>
             
             <button type="submit" name="completeYes" id="submitLogin" class="btn btn-primary w-full max-w-xs text-base mb-3">Editar Grupo</button>
