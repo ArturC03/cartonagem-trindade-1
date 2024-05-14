@@ -32,8 +32,7 @@ $average3 = 20;
         </div>
     </div>
 </div>
-
-<div class="h-screen w-screen fixed top-0 flex items-center justify-center z-10">
+<div class="fixed top-1/2 left-1/2 z-10">
     <span class="loading loading-ring loading-lg"></span>
 </div>
 <script src="js/index.js"></script>

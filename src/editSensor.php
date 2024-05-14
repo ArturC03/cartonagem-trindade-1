@@ -39,8 +39,8 @@ if (isset($_POST['submit'])) {
     <div id="image-height"><?php echo $arrConfig['originalImageHeight'] ?></div>
 </div>
 <div class="w-screen h-full max-h-[90vh] flex justify-center items-center">
-    <div class="card card-side min-[400px]:w-96 w-11/12 lg:w-[90%] shadow-xl lg:h-full bg-base-300 justify-center">
-        <form class="card-body w-full max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-base-100" method="post" id="SetLocation" name="SetLocation" enctype="multipart/form-data" action="<?php  echo basename($_SERVER['PHP_SELF']) ?>?id=<?php echo $_GET['id']; ?>">
+    <div class="card lg:card-side w-11/12 lg:w-[90%] shadow-xl h-full bg-base-300 justify-center">
+        <form class="card-body w-full lg:max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-b-0 border-base-100 border-b-8" method="post" id="SetLocation" name="SetLocation" enctype="multipart/form-data" action="<?php  echo basename($_SERVER['PHP_SELF']) ?>?id=<?php echo $_GET['id']; ?>">
             <?php
             $id = $_GET['id'];
             $sqlC = "SELECT location_x,location_y, size_x, size_y  FROM location INNER JOIN sensor ON sensor.id_location = location.id_location WHERE sensor.id_sensor='$id'";
@@ -69,8 +69,8 @@ if (isset($_POST['submit'])) {
             <button class="btn btn-primary w-full max-w-xs mb-3" type="submit" name="submit" value="Guardar">Guardar</button>
             <a class="link link-hover" href="manageSensors.php">Voltar</a>
         </form>
-        <div class="w-[70vw] flex items-center">
-            <canvas id="factory" class="hidden lg:block bg-contain bg-no-repeat h-full" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);"></canvas>
+        <div class="w-full lg:w-[70vw] flex items-center justify-center lg:justify-normal">
+            <canvas id="factory" class="bg-contain bg-no-repeat h-full" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);"></canvas>
         </div>
     </div>
 </div>
