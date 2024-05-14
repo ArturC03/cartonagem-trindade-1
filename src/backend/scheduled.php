@@ -86,7 +86,7 @@ foreach ($result as $row) {
 
         fclose($file);
         if (my_query("UPDATE export SET existing_files = " . ($row['existing_files'] + 1) . " WHERE id_export = " . $row['id_export'] . ";") == 0) {
-            echo "<script>alert(Erro ao atualizar o número de ficheiros, por favor contacte o administrador da BD.); window.location = 'csvtimes.php'</script>";
+            echo "<script>alert(Erro ao atualizar o número de ficheiros, por favor contacte o administrador da BD.); window.location = '../csvtimes.php'</script>";
         }
     }
     
