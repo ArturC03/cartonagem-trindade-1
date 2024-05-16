@@ -7,14 +7,17 @@ if (isset($_POST['submit'])) {
 
     $size_x = $_POST['size_x'];
     $size_y = $_POST['size_y'];
+    $description = $_POST['description'];
     $location_x = $_POST['location_x'];
     $location_y = $_POST['location_y'];
     $res = my_query("SELECT id_location FROM sensor WHERE id_sensor = '$id_sensor';");
 
+    $update = my_query("UPDATE sensor SET description = '$description' WHERE id_sensor = '$id_sensor';");
+
     if ($res[0]['id_location'] != null) {
         if (my_query("UPDATE `location` SET `location_x`=$location_x,`location_y`=$location_y,`size_x`=$size_x,`size_y`=$size_y, id_user = '" . $_SESSION['username'] . "' where `id_location` = '"  . $res[0]['id_location'] . "';") == 1) {
             echo "<script type='text/javascript'>
-        alert('Localização atualizada com sucesso!')
+        alert('Sensor atualizado com sucesso!')
         window.location = 'manageSensor.php';</script>";
         } else {
             echo "Error: " . $arrConfig['conn']->error;
@@ -23,7 +26,7 @@ if (isset($_POST['submit'])) {
         if (my_query("INSERT INTO location (location_x, location_y, size_x, size_y, id_user) VALUES ('$location_x', '$location_y', '$size_x', '$size_y', '" . $_SESSION['username'] . "')", 1) >= 1) {
             if (my_query("UPDATE sensor SET id_location = LAST_INSERT_ID(), id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$id_sensor';", 1) == 1) {
                 echo "<script type='text/javascript'>
-            alert('Nova localização adicionada com sucesso!')
+            alert('Sensor atualizado com sucesso!')
             window.location = 'manageSensor.php';</script>";
             } else {
                 echo "Error: " . $arrConfig['conn']->error;
@@ -43,7 +46,7 @@ if (isset($_POST['submit'])) {
         <form class="card-body w-full lg:max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-b-0 border-base-100 border-b-8" method="post" id="SetLocation" name="SetLocation" enctype="multipart/form-data" action="<?php  echo basename($_SERVER['PHP_SELF']) ?>?id=<?php echo $_GET['id']; ?>">
             <?php
             $id = $_GET['id'];
-            $sqlC = "SELECT location_x,location_y, size_x, size_y  FROM location INNER JOIN sensor ON sensor.id_location = location.id_location WHERE sensor.id_sensor='$id'";
+            $sqlC = "SELECT location_x,location_y, size_x, size_y, `description`  FROM location INNER JOIN sensor ON sensor.id_location = location.id_location WHERE sensor.id_sensor='$id'";
             $result = my_query($sqlC);
             if (count($result) > 0) {
                 $x = $result[0]['location_x'] * ($result[0]['size_x'] / $arrConfig['originalImageWidth']);
@@ -64,7 +67,7 @@ if (isset($_POST['submit'])) {
 
             <input type="text" class="input input-bordered w-full max-w-xs" disabled value="<?php echo $_GET['id']; ?>">
 
-            <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-4 mt-2" name="description" placeholder="Descrição"></textarea>
+            <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-4 mt-2" name="description" placeholder="Descrição"><?php echo $result[0]['description']; ?></textarea>
             
             <button class="btn btn-primary w-full max-w-xs mb-3" type="submit" name="submit" value="Guardar">Guardar</button>
             <a class="link link-hover" href="manageSensor.php">Voltar</a>
