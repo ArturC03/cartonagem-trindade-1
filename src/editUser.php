@@ -55,8 +55,8 @@ $result = my_query("SELECT * FROM user where id_user='" . $_SESSION['id'] . "';"
             <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
             <input type="text" placeholder="Username" id="username" name="username" class="input input-bordered mb-4 w-full max-w-xs" value="<?php echo $result[0]['username']; ?>" required />
             <input type="text" placeholder="Email" id="email" name="email" class="input input-bordered mb-4 w-full max-w-xs" value="<?php echo $result[0]['email']; ?>" required />
-            <input type="password" placeholder="Password" id="new-password" name="new-password" class="input input-bordered mb-4 w-full max-w-xs" required />
-            <input type="password" placeholder="Confirmar Password" id="confirm-password" name="confirm-password" class="input input-bordered mb-4 w-full max-w-xs" required />
+            <input type="password" placeholder="Password" id="new-password" name="new-password" class="input input-bordered mb-4 w-full max-w-xs" />
+            <input type="password" placeholder="Confirmar Password" id="confirm-password" name="confirm-password" class="input input-bordered mb-4 w-full max-w-xs" />
             <div class="form-control w-full max-w-xs">
                 <label class="label cursor-pointer">
                     <span class="label-text">Administrador</span> 

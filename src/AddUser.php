@@ -17,7 +17,7 @@ if (isset($_POST['completeYes'])) {
     } else {
         $sql = "INSERT INTO user (username, email, password, id_type, last_edited_by) VALUES ('$username', '$email', '$password', '$userType', " . $_SESSION['username'] . ")";
 
-        if (my_query($sql, 1) >= 1) {
+        if (my_query($sql) >= 1) {
             echo "<script type='text/javascript'>
             alert('Novo utilizador adicionado com sucesso!')
             window.location = 'manageUser.php';</script>";
