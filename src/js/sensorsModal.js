@@ -52,7 +52,11 @@ function selectSensors() {
     });
 
     strSensors = strSensors.slice(0, -2);
-    $('#sensorsText').attr("placeholder", strSensors);
+    if (strSensors.length === 0) {
+        strSensors = "Nenhum sensor selecionado";
+    } else {
+        $('#sensorsText').attr("placeholder", strSensors);
+    }
 }
 
 function clearSensorSelection() {
@@ -61,3 +65,5 @@ function clearSensorSelection() {
 
     $checkboxes.prop('checked', false);
 }
+
+selectSensors();

@@ -1,9 +1,13 @@
 <?php
-require 'content/header.inc.php';
+require 'includes/config.inc.php';
 
 if (isset($_POST['completeYes'])) {
     $grupo = $_POST['grupo'];
-    $sensores = $_POST['sensores'];
+    foreach ($_POST as $k => $v) {
+        if ($v == "on") {
+            $sensores[] = $k;
+        }
+    }
 
     $result = my_query("INSERT INTO `group` (`group_name`,`id_user`) VALUES ('$grupo', '" . $_SESSION['username'] . "');");
 
@@ -17,11 +21,13 @@ if (isset($_POST['completeYes'])) {
     header('Location: manageGroup.php');
 }
 
+require 'content/header.inc.php';
+
 $result2 = my_query("SELECT id_sensor FROM sensor WHERE id_group IS NULL;");
 ?>
 <div class="w-screen h-full max-h-[90vh] flex flex-col justify-center items-center">
     <div class="card min-[400px]:w-96 w-11/12 h-[400px] bg-base-300 shadow-xl">
-        <form class="card-body items-center text-center" action="" method="post">
+        <form class="card-body items-center text-center" action="" method="post" id="mainForm">
             <h2 class="card-title">Criar Grupo</h2>
             <p>Insere os dados do novo grupo.</p>
 

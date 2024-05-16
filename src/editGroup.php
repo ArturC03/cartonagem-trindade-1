@@ -1,33 +1,33 @@
 <?php
 require 'includes/config.inc.php';
 
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $_SESSION['id'] = $_GET['id'];
-} else if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-} else {
-    header("location:manageUser.php");
+if (!isset($_GET['id'])) {
+    header("location:manageGroup.php");
 }
-
-require 'content/header.inc.php';
 
 if (isset($_POST['completeYes'])) {
     $flag = 1;
     $grupo = $_POST['grupo'];
-    $sensores = $_POST['sensores'];
+    $sensores = array();
+    foreach ($_POST as $k => $v) {
+        if ($v == "on") {
+            $sensores[] = $k;
+        }
+    }
 
-    $result = my_query("UPDATE `group` SET group_name = '$grupo', id_user = '" . $_SESSION['username'] . "' WHERE id_group = '$_SESSION[id]';");
+    $result = my_query("UPDATE `group` SET group_name = '$grupo', id_user = '" . $_SESSION['username'] . "' WHERE id_group = '$_GET[id]';");
 
     if ($result == 0) {
         $flag = 0;
     }
 
-    $result = my_query("UPDATE sensor SET id_group = NULL, id_user = '" . $_SESSION['username'] . "' WHERE id_group = '$_SESSION[id]';");
+    $result = my_query("UPDATE sensor SET id_group = NULL, id_user = '" . $_SESSION['username'] . "' WHERE id_group = '$_GET[id]';");
 
     if ($result == 0) {
         $flag = 0;
     }
     foreach ($sensores as $s) {
-        $result = my_query("UPDATE sensor SET id_group = '$_SESSION[id]', id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$s';");
+        $result = my_query("UPDATE sensor SET id_group = '$_GET[id]', id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$s';");
 
         if ($result == 0) {
             $flag = 0;
@@ -35,19 +35,19 @@ if (isset($_POST['completeYes'])) {
     }
 
     if ($flag == 0) {
-        unset($_SESSION['id']);
         echo "<script type='text/javascript'>
     alert('Erro ao atualizar os dados do grupo!!')
     window.location = 'manageGroup.php';</script>";
     } else {
-        unset($_SESSION['id']);
         header('Location: manageGroup.php');
     }
 }
 
-$result = my_query("SELECT `group`.group_name FROM `group` WHERE id_group = '$_SESSION[id]';");
+require 'content/header.inc.php';
+
+$result = my_query("SELECT `group`.group_name FROM `group` WHERE id_group = '$_GET[id]';");
 $result2 = my_query("SELECT id_sensor FROM sensor;");
-$result3 = my_query("SELECT sensor.id_sensor FROM sensor WHERE id_group = '$_SESSION[id]';");
+$result3 = my_query("SELECT sensor.id_sensor FROM sensor WHERE id_group = '$_GET[id]';");
 
 if (count($result3) > 0) {
     foreach ($result3 as $row) {
@@ -59,7 +59,7 @@ if (count($result3) > 0) {
 ?>
 <div class="w-screen h-full max-h-[90vh] flex flex-col justify-center items-center">
     <div class="card min-[400px]:w-96 w-11/12 h-[400px] bg-base-300 shadow-xl">
-        <form class="card-body items-center text-center" action="<?php echo basename($_SERVER['PHP_SELF']) . '?id=' . $_SESSION['id'] ?>" method="post">
+        <form class="card-body items-center text-center" action="<?php echo basename($_SERVER['PHP_SELF']) . '?id=' . $_GET['id'] ?>" method="post" id="mainForm">
             <h2 class="card-title">Editar Grupo</h2>
             <p>Edita os dados do grupo.</p>
 
@@ -71,14 +71,13 @@ if (count($result3) > 0) {
                 foreach ($sensorResult as $sensorRow) {
                     $sensorName = $sensorRow['id_sensor'];
                     ?>
-                    <input type="checkbox" name="<?php echo $sensorName; ?>" class="hidden" />
+                    <input type="checkbox" name="<?php echo $sensorName; ?>" class="hidden" <?php echo (in_array($sensorName, $sensores_list)) ? "checked" : "" ?> />
                     <?php
                 }
             }                    
             ?>
 
             <input type="text" placeholder="Grupo" id="grupo" name="grupo" class="input input-bordered w-full max-w-xs" value="<?php echo $result[0]['group_name']; ?>" required />
-            <!-- FALTA COLOCAR OS VALORES DOS SENSORES JÁ ATRIBUÍDOS AO GRUPO -->
             <div class="w-full max-w-xs flex justify-between join mb-4">
                 <input type="text" placeholder="Nenhum sensor selecionado" id="sensorsText" class="input input-bordered w-2/3 text-center join-item" disabled />
                 <button type="button" class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
@@ -158,7 +157,7 @@ if (count($result3) > 0) {
                                     <div class="form-control">
                                         <label class="label cursor-pointer">
                                             <span class="label-text">Selecionar Tudo</span> 
-                                            <input type="checkbox" name="selectAll" class="checkbox" />
+                                            <input type="checkbox" name="selectAll" class="checkbox" <?php echo ($groupName == $result[0]['group_name'] ? "checked" : "") ?> />
                                         </label>
                                     </div>
                                     <?php
@@ -169,7 +168,7 @@ if (count($result3) > 0) {
                                                 <div class="form-control">
                                                     <label class="label cursor-pointer">
                                                         <span class="label-text"><?php echo $sensorName; ?></span> 
-                                                        <input type="checkbox" name="<?php echo $sensorName; ?>" class="checkbox" />
+                                                        <input type="checkbox" name="<?php echo $sensorName; ?>" class="checkbox" <?php echo ($groupName == $result[0]['group_name'] ? "checked" : "") ?> />
                                                     </label>
                                                 </div>
                                             <?php
