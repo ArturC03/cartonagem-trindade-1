@@ -78,8 +78,9 @@ if (count($result3) > 0) {
             ?>
 
             <input type="text" placeholder="Grupo" id="grupo" name="grupo" class="input input-bordered w-full max-w-xs" value="<?php echo $result[0]['group_name']; ?>" required />
-            <div class="w-full max-w-xs flex justify-between join mb-4">
+            <div class="w-full max-w-xs flex justify-between join mb-4 relative">
                 <input type="text" placeholder="Nenhum sensor selecionado" id="sensorsText" class="input input-bordered w-2/3 text-center join-item" disabled />
+                <input type="checkbox" class="-z-50 absolute left-1/4 bottom-0" id="sensorError" value="ERROR">
                 <button type="button" class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
             </div>
             

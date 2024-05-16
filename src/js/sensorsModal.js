@@ -15,7 +15,6 @@ $(document).on('click', 'input[type="checkbox"]', function () {
 $(document).on('click', 'input[name="selectAll"]', function(){
     var $collapse = $(this).closest('.collapse');
     var $checkboxes = $collapse.find('.collapse-content input[type="checkbox"]');
-    var $todos = $collapse.find('input[name="selectAll"]');
 
     if ($(this).is(":checked")){
         $checkboxes.prop("checked", true);
