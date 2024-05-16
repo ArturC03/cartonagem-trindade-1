@@ -30,7 +30,7 @@ try{
             throw new Exception('Erro ao atualizar a base de dados');
         }
         
-        $imagePath = __DIR__ . '/images/trindade.png';
+        $imagePath = __DIR__ . '/../images/trindade.png';
         
         if ($_POST['tipo'] == '1') {
             $mail->Subject = 'Recuperar a password';
