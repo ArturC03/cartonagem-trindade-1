@@ -46,8 +46,10 @@ if (isset($_POST['submit'])) {
         <form class="card-body w-full lg:max-w-xs justify-center items-center text-center lg:border-r-8 lg:border-b-0 border-base-100 border-b-8" method="post" id="SetLocation" name="SetLocation" enctype="multipart/form-data" action="<?php  echo basename($_SERVER['PHP_SELF']) ?>?id=<?php echo $_GET['id']; ?>">
             <?php
             $id = $_GET['id'];
-            $sqlC = "SELECT location_x,location_y, size_x, size_y, `description`  FROM location INNER JOIN sensor ON sensor.id_location = location.id_location WHERE sensor.id_sensor='$id'";
+            $sqlC = "SELECT location_x,location_y, size_x, size_y, `description` FROM location INNER JOIN sensor ON sensor.id_location = location.id_location WHERE sensor.id_sensor='$id'";
+            $sqlS = "SELECT * FROM sensor WHERE sensor.id_sensor='$id'";
             $result = my_query($sqlC);
+            $result1 = my_query($sqlS);
             if (count($result) > 0) {
                 $x = $result[0]['location_x'] * ($result[0]['size_x'] / $arrConfig['originalImageWidth']);
                 $y = $result[0]['location_y'] * ($result[0]['size_y'] / $arrConfig['originalImageHeight']);
@@ -67,7 +69,7 @@ if (isset($_POST['submit'])) {
 
             <input type="text" class="input input-bordered w-full max-w-xs" disabled value="<?php echo $_GET['id']; ?>">
 
-            <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-4 mt-2" name="description" placeholder="Descrição"><?php echo $result[0]['description']; ?></textarea>
+            <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-4 mt-2" name="description" placeholder="Descrição"><?php echo $result1[0]['description']; ?></textarea>
             
             <button class="btn btn-primary w-full max-w-xs mb-3" type="submit" name="submit" value="Guardar">Guardar</button>
             <a class="link link-hover" href="manageSensor.php">Voltar</a>
