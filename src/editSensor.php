@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
         if (my_query("UPDATE `location` SET `location_x`=$location_x,`location_y`=$location_y,`size_x`=$size_x,`size_y`=$size_y, id_user = '" . $_SESSION['username'] . "' where `id_location` = '"  . $res[0]['id_location'] . "';") == 1) {
             echo "<script type='text/javascript'>
         alert('Localização atualizada com sucesso!')
-        window.location = 'manageSensors.php';</script>";
+        window.location = 'manageSensor.php';</script>";
         } else {
             echo "Error: " . $arrConfig['conn']->error;
         }
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
             if (my_query("UPDATE sensor SET id_location = LAST_INSERT_ID(), id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$id_sensor';", 1) == 1) {
                 echo "<script type='text/javascript'>
             alert('Nova localização adicionada com sucesso!')
-            window.location = 'manageSensors.php';</script>";
+            window.location = 'manageSensor.php';</script>";
             } else {
                 echo "Error: " . $arrConfig['conn']->error;
             }
@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
             <textarea class="textarea textarea-bordered w-full max-w-xs resize-none mb-4 mt-2" name="description" placeholder="Descrição"></textarea>
             
             <button class="btn btn-primary w-full max-w-xs mb-3" type="submit" name="submit" value="Guardar">Guardar</button>
-            <a class="link link-hover" href="manageSensors.php">Voltar</a>
+            <a class="link link-hover" href="manageSensor.php">Voltar</a>
         </form>
         <div class="w-full lg:w-[70vw] flex items-center justify-center lg:justify-normal">
             <canvas id="factory" class="bg-contain bg-no-repeat h-full" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);"></canvas>
