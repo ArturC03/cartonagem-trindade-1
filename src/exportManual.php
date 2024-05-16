@@ -200,7 +200,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </dialog>
     </div>
-    <script src="js/export.js"></script>
+    <script src="js/dateTimeCheck.js"></script>
+    <script src="js/sensorsModal.js"></script>
     <?php
     include 'content/footer.inc.html';
 }

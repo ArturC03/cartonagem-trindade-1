@@ -1,4 +1,4 @@
-$('#submit').on('click', function(e) {
+$('button[type=submit]').on('click', function(e) {
     var mindate = $('#mindate');
     var maxdate = $('#maxdate');
     var mintime = $('#mintime');

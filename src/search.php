@@ -101,7 +101,7 @@ require 'content/header.inc.php';
         </div>
     </dialog>
 </div>
-<script src="js/search.js"></script>
+<script src="js/dateTimeCheck.js"></script>
 <script src="js/sensorsModal.js"></script>
 <?php
 require 'content/footer.inc.html';
