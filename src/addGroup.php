@@ -9,16 +9,24 @@ if (isset($_POST['completeYes'])) {
         }
     }
 
-    $result = my_query("INSERT INTO `group` (`group_name`,`id_user`) VALUES ('$grupo', '" . $_SESSION['username'] . "');");
+    $result = my_query("SELECT * FROM `group` WHERE group_name = '$grupo';");
 
-    $result = my_query("SELECT id_group FROM `group` WHERE group_name = '$grupo';");
-    $id = $result[0]['id_group'];
+    if (count($result) > 0) {
+        echo "<script type='text/javascript'>
+        alert('O grupo inserido já existe!')
+        window.location = 'addGroup.php';</script>";
+    } else {
+        $result = my_query("INSERT INTO `group` (`group_name`,`id_user`) VALUES ('$grupo', '" . $_SESSION['username'] . "');");
 
-    foreach ($sensores as $s) {
-        my_query("UPDATE sensor SET id_group = '$id', id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$s';");
+        $result = my_query("SELECT id_group FROM `group` WHERE group_name = '$grupo';");
+        $id = $result[0]['id_group'];
+
+        foreach ($sensores as $s) {
+            my_query("UPDATE sensor SET id_group = '$id', id_user = '" . $_SESSION['username'] . "' WHERE id_sensor = '$s';");
+        }
+        
+        header('Location: manageGroup.php');
     }
-
-    header('Location: manageGroup.php');
 }
 
 require 'content/header.inc.php';
