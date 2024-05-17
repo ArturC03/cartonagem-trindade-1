@@ -60,11 +60,11 @@ $result = my_query("SELECT * FROM user where id_user='" . $_SESSION['id'] . "';"
             <div class="form-control w-full max-w-xs">
                 <label class="label cursor-pointer">
                     <span class="label-text">Administrador</span> 
-                    <input type="radio" id="adminYes" name="permitions" class="radio" value="yes" <?php if ($result[0]['id_type'] == '1') echo "checked"; ?> />
+                    <input type="radio" id="adminYes" name="permitions" class="radio" value="yes" <?php echo ($result[0]['id_type'] == '1' ? "checked" : ""); ?> />
                 </label>
                 <label class="label cursor-pointer">
                     <span class="label-text">Utilizador</span> 
-                    <input type="radio" id="adminNo" name="permitions" class="radio" value="no" <?php if ($result[0]['id_type'] == '2') echo "checked"; ?> />
+                    <input type="radio" id="adminNo" name="permitions" class="radio" value="no" <?php echo ($result[0]['id_type'] == '2' ? "checked" : ""); ?> />
                 </label>
             </div>
             <button type="submit" name="completeYes" id="submitLogin" class="btn btn-primary w-full max-w-xs text-base mb-3">Editar Utilizador</button>

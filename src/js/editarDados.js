@@ -1,47 +1,29 @@
 var myInput = document.getElementById("new-password");
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
 
-myInput.onkeyup = function() {
-  // Validate lowercase letters
+myInput.oninput = function() {
+  var validityMessage = "";
   var lowerCaseLetters = /[a-z]/g;
-  if(myInput.value.match(lowerCaseLetters)) {  
-    letter.classList.add("done");
-  } else {
-    letter.classList.remove("done");
-  }
-  
-  // Validate capital letters
   var upperCaseLetters = /[A-Z]/g;
-  if(myInput.value.match(upperCaseLetters)) {  
-    capital.classList.add("done");
-  } else {
-    capital.classList.remove("done");
+  var numbers = /[0-9]/g;
+
+  if(!myInput.value.match(lowerCaseLetters)) {  
+    validityMessage = "Tem de conter pelo menos uma letra minúscula.";
+  } else if(!myInput.value.match(upperCaseLetters)) {  
+    validityMessage = "Tem de conter pelo menos uma letra maiúscula.";
+  } else if(!myInput.value.match(numbers)) {  
+    validityMessage = "Tem de conter pelo menos um número.";
+  } else if(myInput.value.length < 8) {
+    validityMessage = "Tem de conter pelo menos 8 carateres.";
   }
 
-  // Validate numbers
-  var numbers = /[0-9]/g;
-  if(myInput.value.match(numbers)) {  
-    number.classList.add("done");
-  } else {
-    number.classList.remove("done");
-  }
-  
-  // Validate length
-  if(myInput.value.length >= 8) {
-    length.classList.add("done");
-  } else {
-    length.classList.remove("done");
-  }
+  myInput.setCustomValidity(validityMessage);
 }
 
 var confirm_password = document.getElementById("confirm-password");
 
 function validatePassword(){
   if(myInput.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
+    confirm_password.setCustomValidity("Passwords não correspondem");
   } else {
     confirm_password.setCustomValidity('');
   }
