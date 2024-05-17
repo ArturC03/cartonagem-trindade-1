@@ -47,7 +47,7 @@ function load_data() {
 }
 
 function sendToCSV() {
-    $('div:has(.loading)').addClass("hidden");
+    $('div:has(.loading)').removeClass("hidden");
     setTimeout(function() {
         $.ajax({
             url: $(location).attr("origin") + "/cartonagem-trindade/backend/get_CSV.php",
@@ -58,7 +58,8 @@ function sendToCSV() {
                 console.log(err)
             },
             complete: function () {
-                document.location.href = "download/dados.csv";
+                var timestamp = new Date().getTime();
+                document.location.href = "download/dados.csv?ts=" + timestamp;
                 $('div:has(.loading)').addClass("hidden");
             }
         })
@@ -66,7 +67,7 @@ function sendToCSV() {
 }
 
 function sendToJSON() {
-    $('div:has(.loading)').addClass("hidden");
+    $('div:has(.loading)').removeClass("hidden");
     setTimeout(function() {
         $.ajax({
             url: $(location).attr("origin") + "/cartonagem-trindade/backend/get_JSON.php",
@@ -77,8 +78,9 @@ function sendToJSON() {
                 console.log(err)
             },
             complete: function () {
+                var timestamp = new Date().getTime();
                 var link = document.createElement('a');
-                link.href = "download/dados.json";
+                link.href = "download/dados.json?ts=" + timestamp;
                 link.download = "dados.json";
                 link.click();
                 link.remove();

@@ -3,7 +3,7 @@ require '../includes/config.inc.php';
 
 $sql = $_POST["sql"];
 $result2 = my_query($sql);
-$fileName = 'download/dados.csv';
+$fileName = '../download/dados.csv';
 
 $file = fopen($fileName, 'w');
 fputcsv($file, array('id_sensors', 'Data', 'Hora', 'Temperatura', 'Humidade','Pressão', 'Altitude', 'CO2', 'TVOC'), ';');
@@ -28,3 +28,4 @@ foreach ($result2 as $row) {
     fputcsv($file, $row, ';');
 }
 fclose($file);
+echo json_encode($fileName);

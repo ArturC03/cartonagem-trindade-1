@@ -3,7 +3,7 @@ require '../includes/config.inc.php';
 
 $sql = $_POST["sql"];
 $result2 = my_query($sql);
-$fileName = 'download/dados.json';
+$fileName = '../download/dados.json';
 
 $data = array();
 foreach ($result2 as $row) {
@@ -34,3 +34,4 @@ header('Content-Type: application/json');
 header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
 header('Content-Length: ' . filesize($fileName));
 readfile($fileName);
+echo json_encode($fileName);
