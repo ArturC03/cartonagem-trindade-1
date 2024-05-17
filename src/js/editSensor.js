@@ -91,6 +91,8 @@ const chart = new Chart(factory, {
     },
 });
 
+var flag = false;
+
 factory.addEventListener("click", function (event) {
     var rect = this.getBoundingClientRect();
     var x = event.clientX - rect.left;
@@ -119,4 +121,36 @@ factory.addEventListener("click", function (event) {
 
     // Update the chart
     chart.update("none");
+
+    if (!flag) {
+        flag = true;
+
+        var rect = this.getBoundingClientRect();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+
+        // Convert the click coordinates to chart data coordinates
+        var xValue = chart.scales.x.getValueForPixel(x);
+        var yValue = chart.scales.y.getValueForPixel(y);
+
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+
+        // Add a new bubble to the chart data
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push({
+                x: xValue,
+                y: yValue,
+                r: inputR.value,
+            });
+        });
+
+        inputX.value = xValue;
+        inputY.value = yValue;
+        console.log(xValue, yValue);
+
+        // Update the chart
+        chart.update("none");
+    }
 });
