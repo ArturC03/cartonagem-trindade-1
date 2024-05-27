@@ -4,16 +4,16 @@ require 'content/header.inc.php';
 $result = my_query("SELECT * FROM user WHERE id_user = '" . $_SESSION['username'] . "'")[0];
 ?>
 <div class="w-screen h-full max-h-[90vh] flex flex-col justify-center items-center">
-    <div class="card card-side bg-base-100 shadow-xl w-1/2">
-        <figure>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
+    <div class="card card-side min-[400px]:w-96 w-11/12 2xl:w-auto max-h-[496px] shadow-xl bg-base-300">
+        <figure class="w-0 md:w-1/2">
+            <svg class="hidden md:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
                 <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                 <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
             </svg>
         </figure>
-        <div class="card-body items-center text-center">
+        <div class="card-body w-full max-w-sm justify-center items-center text-center md:border-l-8 md:border-base-100">
             <h2 class="card-title">Dados do Utilizador</h2>
             <p>Veja aqui os seus dados.</p>
             <input type="text" placeholder="Username" id="username" name="username" value="<?php echo $result['username'] ?>" class="input input-bordered mb-4 w-full max-w-xs" disabled />
