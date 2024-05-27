@@ -68,7 +68,13 @@ $result = my_query("SELECT * FROM user where id_user='" . $_SESSION['id'] . "';"
                 </label>
             </div>
             <button type="submit" name="completeYes" id="submitLogin" class="btn btn-primary w-full max-w-xs text-base mb-3">Editar Utilizador</button>
-            <a class="link link-hover" href="manageUser.php">Voltar</a>
+            <?php
+            if ($_GET['id'] == $_SESSION['username']) {
+                echo '<a class="link link-hover" href="accountInfo.php">Voltar</a>';
+            } else {
+                echo '<a class="link link-hover" href="manageUser.php">Voltar</a>';
+            }
+            ?>
         </form>
     </div>
 </div>

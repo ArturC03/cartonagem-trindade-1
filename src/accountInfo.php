@@ -3,7 +3,7 @@ require 'content/header.inc.php';
 
 $result = my_query("SELECT * FROM user WHERE id_user = '" . $_SESSION['username'] . "'")[0];
 ?>
-<di class="w-screen h-full max-h-[90vh] flex flex-col justify-center items-center">
+<div class="w-screen h-full max-h-[90vh] flex flex-col justify-center items-center">
     <div class="card card-side bg-base-100 shadow-xl w-1/2">
         <figure>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
