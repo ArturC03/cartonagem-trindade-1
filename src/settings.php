@@ -1,138 +1,60 @@
 <?php
-include('config.inc.php');
+require 'content/header.inc.php';
 
-if (isset($_SESSION['username'])) {
-    include('header.inc.php');
+if (isset($_POST['changeTitle'])) {
+    $arrConfig['site_title'] = $_POST['tit'];
 
-    if(isset($_POST['changePassword'])) {
-        $id_exists = false;
-        $passO =$_POST['current-password'];
-        
-        $passOld=sha1($passO);
-        $pass = $_POST['new-password'] ; 
-        $password = sha1($pass);
-        $session_id = $_SESSION['username'];
-
-        $res = my_query("SELECT * FROM user WHERE password = '$passOld' and id_user = '$session_id'");
-        
-        if (count($res) > 0)
-        {
-        if (my_query("UPDATE `user` SET `password`='$password', last_edited_by = '" . $_SESSION['username'] . "' WHERE id_user='$session_id'") == 1) {
-            echo "<script type='text/javascript'>
-            alert('Password atualizada com sucesso!')
-            window.location = 'logout.php';</script>";
-        } else {
-            header("location:editarDados.php?msg=failed");
-        }
-        }
-        else
-        {
-        header("location:editarDados.php?msg=failed");
-        }	
+    if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('site_title', '" . $arrConfig['site_title']. "', '" . $_SESSION['username'] . "');") >= 1) {
+        echo "<script type='text/javascript'>
+        alert('Título atualizado com sucesso!');
+        window.location.href = 'home.php';</script>";
+    } else {
+        echo "<script type='text/javascript'>
+        alert('Erro a atualizar o título!');
+        </script>";
     }
+}
 
-    if(isset($_POST['changeTitle'])){
-        $arrConfig['site_title'] = $_POST['tit'];
+if (isset($_POST['changeCloud'])) {
+    $arrConfig['cloud_radius'] = $_POST['cloud'];
 
-        if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('site_title', '" . $arrConfig['site_title']. "', '" . $_SESSION['username'] . "');") >= 1) {
-            echo "<script type='text/javascript'>
-            alert('Título atualizado com sucesso!');
-            window.location.href = 'home.php';</script>";
-        } else {
-            echo "<script type='text/javascript'>
-            console.log('" . $mysqli->error . "');
-            alert('Erro a atualizar o título!');
-            </script>";
-        }
+    if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('cloud_radius', '" . $arrConfig['cloud_radius']. "', '" . $_SESSION['username'] . "');") >= 1) {
+        echo "<script type='text/javascript'>
+        alert('Raio da nuvem atualizado com sucesso!');
+        window.location.href = 'home.php';</script>";
+    } else {
+        echo "<script type='text/javascript'>
+        alert('Erro a atualizar o raio da nuvem!');
+        </script>";
     }
-
-    if(isset($_POST['changeCloud'])) {
-        $arrConfig['cloud_radius'] = $_POST['cloud'];
-
-        if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('cloud_radius', '" . $arrConfig['cloud_radius']. "', '" . $_SESSION['username'] . "');") >= 1) {
-            echo "<script type='text/javascript'>
-            alert('Raio da nuvem atualizado com sucesso!');
-            window.location.href = 'home.php';</script>";
-        } else {
-            echo "<script type='text/javascript'>
-            console.log('" . $mysqli->error . "');
-            alert('Erro a atualizar o raio da nuvem!');
-            </script>";
-        }
-    }
+}
 ?>
-
-<div class="col-container">
-    <div class="col-left">
-        <div class="container">
-            <form name="form01" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <label for="tit">Novo Título: </label>
-                <input type="text" id="tit" name="tit" required placeholder="Título" maxlength="30">
-                <div class="submit-reset-container">
-                    <input type="reset" id="reset">
-                    <input type="submit" id="submit" name="changeTitle">
-                </div>
-            </form>
-        </div>
-
-        <div class="container">
-            <form name="form01" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <label for="cloud">Raio da Nuvem: </label>
-                <input type="number" id="cloud" name="cloud" value="<?php echo $arrConfig['cloud_radius']; ?>" min="1" required>
-                <div class="submit-reset-container">
-                    <input type="reset" id="reset">
-                    <input type="submit" id="submit" name="changeCloud">
-                </div>
-            </form>
-        </div>
+<div class="w-screen flex justify-evenly gap-4">
+    <div class="card bg-base-300 shadow-xl w-auto">
+        <form class="card-body items-center text-center" action="" method="post">
+            <h2 class="card-title">Título</h2>
+            <p>Edita o título apresentado na página.</p>
+            <input type="text" placeholder="Título" id="tit" name="tit" class="input input-bordered mb-4 w-full max-w-xs" required />
+            <button type="submit" name="changeTitle" class="btn btn-primary w-full max-w-xs">Guardar</button>
+        </form>
     </div>
 
-    <div class="col-right">
-        <div class="container">
-            <h2>Alterar Password</h2>
-            <form method="post" class="modal-content" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return confirm('Pretende alterar a password?');">
-                <div id="change-password-form">
-                <div class="form-group">
-                    <label for="current-password">Senha Atual</label>
-                    <input type="password" id="current-password" name="current-password" required>
-                    <?php
-                    if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
-                        echo '<span class="error-message" id="current-password-error">Password atual errada!</span>';
-                    } 
-                    ?>
-                </div>
-                <div class="form-group">
-                    <label for="new-password">Nova Password</label>
-                    <input type="password" id="new-password" name="new-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                    <span class="error-message" id="new-password-error"></span>
-                </div>
-                <div id="password-requirements">
-                    <h3>Requisitos da Password:</h3>
-                    <ul>
-                        <li id="length">Pelo menos 8 caracteres</li>
-                        <li id="capital">Pelo menos uma letra maiúscula</li>
-                        <li id="letter">Pelo menos uma letra minúscula</li>
-                        <li id="number">Pelo menos um número</li>
-                    </ul>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirmar Nova Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
-                    <span class="error-message" id="confirm-password-error"></span>
-                </div>
-                <button type="submit" name="changePassword" id="change-password-button">Alterar Password</button>
-                </div>
-            </form>
-            <div id="change-password-feedback" class="hidden">
-                <p id="feedback-message"></p>
-            </div>
-        </div>
+    <div class="card bg-base-300 shadow-xl w-auto">
+        <form class="card-body items-center text-center" action="" method="post">
+            <h2 class="card-title">Raio da nuvem</h2>
+            <p>Edita o raio do círculo em cada sensor.</p>
+            <input type="number" placeholder="Raio" id="cloud" name="cloud" class="input input-bordered mb-4 w-full max-w-xs" min="1" value="<?php echo $arrConfig['cloud_radius']; ?>" required />
+            <button type="submit" name="changeCloud" class="btn btn-primary w-full max-w-xs">Guardar</button>
+        </form>
+    </div>
+    <div class="card bg-base-300 shadow-xl w-auto">
+        <form class="card-body items-center text-center" action="" method="post">
+            <h2 class="card-title">Raio da nuvem</h2>
+            <p>Edita o raio do círculo em cada sensor.</p>
+            <input type="number" placeholder="Raio" id="cloud" name="cloud" class="input input-bordered mb-4 w-full max-w-xs" min="1" value="<?php echo $arrConfig['cloud_radius']; ?>" required />
+            <button type="submit" name="changeTitle" class="btn btn-primary w-full max-w-xs">Guardar</button>
+        </form>
     </div>
 </div>
-<script src="js/editarDados.js"></script>
-
 <?php
-  include('footer.inc.php');
-}else{
-  header('Location: login.php');
-}
+require 'content/footer.inc.html';
