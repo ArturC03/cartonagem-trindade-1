@@ -29,11 +29,11 @@ if (isset($_POST['changeCloud'])) {
     }
 }
 ?>
-<div class="card bg-base-200 mx-10 mt-2 flex flex-col justify-around items-center h-[90vh]">
+<div class="sm:card sm:bg-base-200 mx-4 sm:mx-10 mt-2 flex flex-col justify-around items-center h-[88vh]">
     <div class="flex justify-center items-center pt-4">
         <h1 class="text-4xl font-bold p-3 border-t-2 border-b-2 border-neutral">Definições</h1>
     </div>
-    <div class="grid grid-cols-3 gap-4 p-3 overflow-x-auto max-h-[70vh]">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-4 p-3 overflow-x-auto max-h-[70vh]">
         <div class="flex justify-center items-center">
             <h1 class="text-3xl font-semibold p-3 border-t-2 border-b-2 border-neutral">Valores</h1>
         </div>
@@ -41,6 +41,9 @@ if (isset($_POST['changeCloud'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Raio da nuvem</h2>
                 <p>Edita o raio do círculo em cada sensor.</p>
+                <div class="size-full max-w-xs max-h-[300px] flex justify-center items-center my-3">
+                    <canvas id='factory' class="hidden bg-contain bg-no-repeat" style="background-image: url('<?php echo $arrConfig['imageFactory'] ?>')"></canvas>
+                </div>
                 <input type="number" placeholder="Raio" id="cloud" name="cloud" class="input input-bordered w-full max-w-xs" min="1" value="<?php echo $arrConfig['cloud_radius']; ?>" required />
                 <button type="submit" name="changeCloud" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
@@ -49,9 +52,31 @@ if (isset($_POST['changeCloud'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Valores ideais</h2>
                 <p>Edita os valores para apresentação das médias.</p>
-                <input type="number" placeholder="Temperatura (ºC)" id="cloud" name="cloud" class="input input-bordered w-full max-w-xs" min="1" value="" required />
-                <input type="number" placeholder="Humidade (%)" id="cloud" name="cloud" class="input input-bordered w-full max-w-xs" min="1" value="" required />
-                <input type="number" placeholder="Pressão (MPa)" id="cloud" name="cloud" class="input input-bordered w-full max-w-xs" min="1" value="" required />
+
+                <label for="temp_min" class="label">Temperatura (ºC)</label>
+                <div class="grid grid-cols-2 w-full max-w-xs gap-2">
+                    <input type="number" placeholder="Mínimo" id="temp_min" name="temp_min" class="input input-bordered w-full max-w-xs" min="1" value="<?php echo $arrConfig['min_avg_temp']; ?>" required />
+                    <input type="number" placeholder="Máximo" id="temp_max" name="temp_max" class="input input-bordered w-full max-w-xs" min="1" value="<?php echo $arrConfig['max_avg_temp']; ?>" required />
+                </div>
+
+                <label for="temp_min" class="label">Humidade (%)</label>
+                <div class="grid grid-cols-2 w-full max-w-xs gap-2">
+                    <input type="number" placeholder="Mínimo" id="humidity_min" name="humidity_min" class="input input-bordered w-full max-w-xs" min="0" max="100" value="<?php echo $arrConfig['min_avg_humidity']; ?>" required />
+                    <input type="number" placeholder="Máximo" id="humidity_max" name="humidity_max" class="input input-bordered w-full max-w-xs" min="0" max="100" value="<?php echo $arrConfig['max_avg_humidity']; ?>" required />
+                </div>
+
+                <label for="temp_min" class="label">Pressão (HPA)</label>
+                <div class="grid grid-cols-2 w-full max-w-xs gap-2">
+                    <input type="number" placeholder="Mínimo" id="pressure_min" name="pressure_min" class="input input-bordered w-full max-w-xs" min="800" max="1100" value="<?php echo $arrConfig['min_avg_pressure']; ?>" required />
+                    <input type="number" placeholder="Máximo" id="pressure_max" name="pressure_max" class="input input-bordered w-full max-w-xs" min="800" max="1100" value="<?php echo $arrConfig['max_avg_pressure']; ?>" required />
+                </div>
+
+                <div class="form-control w-full max-w-xs">
+                        <label for="diff" class="label">Diferença Máxima</label>
+                        <input type="number" placeholder="Diferença" id="diff" name="diff" class="input input-bordered w-full max-w-xs" min="0" value="<?php echo $arrConfig['max_diff']; ?>" required />
+                    </label>
+                </div>
+
                 <button type="submit" name="changeTitle" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
@@ -63,6 +88,9 @@ if (isset($_POST['changeCloud'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Background</h2>
                 <p>Edita a imagem apresentada na página inicial.</p>
+                <div class="size-full max-w-xs max-h-[300px] flex justify-center items-center my-3">
+                    <img src="<?php echo $arrConfig['imageFactory'] ?>" alt="" class="max-w-xs max-h-[300px]">
+                </div>
                 <input type="file" placeholder="Raio" id="cloud" name="cloud" class="file-input file-input-bordered w-full max-w-xs" required />
                 <button type="submit" name="changeCloud" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
@@ -71,6 +99,9 @@ if (isset($_POST['changeCloud'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Email</h2>
                 <p>Edita a imagem apresentada no email.</p>
+                <div class="size-full max-w-xs max-h-[300px] flex justify-center items-center my-3">
+                    <img src="<?php echo $arrConfig['imageEmail'] ?>" alt="" class="max-w-xs max-h-[300px]">
+                </div>
                 <input type="file" placeholder="Raio" id="cloud" name="cloud" class="file-input file-input-bordered w-full max-w-xs" required />
                 <button type="submit" name="changeCloud" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
@@ -83,19 +114,20 @@ if (isset($_POST['changeCloud'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Título</h2>
                 <p>Edita o título apresentado na página.</p>
-                <input type="text" placeholder="Título" id="tit" name="tit" class="input input-bordered w-full max-w-xs" required />
+                <input type="text" placeholder="Título" id="tit" name="tit" class="input input-bordered w-full max-w-xs" value="<?php echo $arrConfig['site_title'] ?>" required />
                 <button type="submit" name="changeTitle" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
         <div class="card bg-base-300 shadow-xl">
             <form class="card-body items-center text-center" action="" method="post">
-                <h2 class="card-title">Reload</h2>
+                <h2 class="card-title">Reload (seg)</h2>
                 <p>Edita o intervalo de reload da página inicial.</p>
-                <input type="time" placeholder="Tempo" id="tit" name="tit" class="input input-bordered w-full max-w-xs" value="00:00" required />
+                <input type="number" placeholder="Tempo" id="tit" name="tit" class="input input-bordered w-full max-w-xs" min="00:00:00" max="00:59:59" value="<?php echo $arrConfig['reload_time'] / 1000 ?>" required />
                 <button type="submit" name="changeTitle" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
     </div>
 </div>
+<script src="js/settings.js"></script>
 <?php
 require 'content/footer.inc.html';

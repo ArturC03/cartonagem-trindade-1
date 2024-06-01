@@ -161,12 +161,22 @@ $.ajax({
     humidityAvg.innerHTML = humidityAvgValue.toFixed(2) + " %";
     pressureAvg.innerHTML = pressureAvgValue.toFixed(2) + " hPa";
 
-    tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.8);
-    humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.8, 40, 60);
-    pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.8, 1013, 1017);
-    tempAvg.style.borderColor = getColorForData(tempAvgValue, 0);
-    humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, 40, 60);
-    pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, 1013, 1017);
+    $.ajax({
+      url: $(location).attr("origin") + "/cartonagem-trindade/backend/get_avg_values.php",
+      dataType: "json",
+      Type: "GET",
+      success: function (response) {
+        tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.8, response.tempMin, response.tempMax);
+        humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.8, response.humidityMin, response.humidityMax);
+        pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.8, response.pressureMin, response.pressureMax);
+        tempAvg.style.borderColor = getColorForData(tempAvgValue, 0);
+        humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, response.humidityMin, response.humidityMax);
+        pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, response.pressureMin, response.pressureMax);
+      },
+      error: function (error) {
+        alert("Erro ao carregar médias permitidas nos sensores.");
+      },
+    });
 
     var tempPercentage = ((tempAvgValue - 0) / (35 - 0)) * 100;
     var pressurePercentage = (Math.abs(pressureAvgValue - 1013) / (1017 - 1013)) * 100;
