@@ -164,19 +164,20 @@ $.ajax({
     $.ajax({
       url: $(location).attr("origin") + "/cartonagem-trindade/backend/get_avg_values.php",
       dataType: "json",
-      Type: "GET",
+      type: "GET",
       success: function (response) {
-        tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.8, response.tempMin, response.tempMax);
-        humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.8, response.humidityMin, response.humidityMax);
-        pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.8, response.pressureMin, response.pressureMax);
-        tempAvg.style.borderColor = getColorForData(tempAvgValue, 0);
-        humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, response.humidityMin, response.humidityMax);
-        pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, response.pressureMin, response.pressureMax);
+          tempAvg.style.backgroundColor = getColorForData(tempAvgValue, 0.8, response.min_avg_temp, response.max_avg_temp, response.max_diff);
+          humidityAvg.style.backgroundColor = getColorForData(humidityAvgValue, 0.8, response.min_avg_humidity, response.max_avg_humidity, response.max_diff);
+          pressureAvg.style.backgroundColor = getColorForData(pressureAvgValue, 0.8, response.min_avg_pressure, response.max_avg_pressure, response.max_diff);
+          tempAvg.style.borderColor = getColorForData(tempAvgValue, 0, response.min_avg_temp, response.max_avg_temp, response.max_diff);
+          humidityAvg.style.borderColor = getColorForData(humidityAvgValue, 0, response.min_avg_humidity, response.max_avg_humidity, response.max_diff);
+          pressureAvg.style.borderColor = getColorForData(pressureAvgValue, 0, response.min_avg_pressure, response.max_avg_pressure, response.max_diff);
       },
       error: function (error) {
-        alert("Erro ao carregar médias permitidas nos sensores.");
+        console.log(error);
+          alert("Erro ao carregar médias permitidas nos sensores.");
       },
-    });
+  });
 
     var tempPercentage = ((tempAvgValue - 0) / (35 - 0)) * 100;
     var pressurePercentage = (Math.abs(pressureAvgValue - 1013) / (1017 - 1013)) * 100;

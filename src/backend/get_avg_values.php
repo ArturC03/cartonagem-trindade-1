@@ -7,6 +7,7 @@ $minAvgHumidity = $arrConfig['min_avg_humidity'];
 $maxAvgHumidity = $arrConfig['max_avg_humidity'];
 $minAvgPressure = $arrConfig['min_avg_pressure'];
 $maxAvgPressure = $arrConfig['max_avg_pressure'];
+$tempDiff = $arrConfig['max_diff'];
 
 $data = [
     'min_avg_temp' => $minAvgTemp,
@@ -14,7 +15,8 @@ $data = [
     'min_avg_humidity' => $minAvgHumidity,
     'max_avg_humidity' => $maxAvgHumidity,
     'min_avg_pressure' => $minAvgPressure,
-    'max_avg_pressure' => $maxAvgPressure
+    'max_avg_pressure' => $maxAvgPressure,
+    'max_diff' => $tempDiff
 ];
 
 $jsonData = json_encode($data);

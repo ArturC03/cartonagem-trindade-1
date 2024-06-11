@@ -33,9 +33,17 @@ if (isset($_POST['changeDiffs'])) {
     $arrConfig['max_avg_temp'] = $_POST['temp_max'];
     $arrConfig['max_avg_humidity'] = $_POST['humidity_max'];
     $arrConfig['max_avg_pressure'] = $_POST['pressure_max'];
+    $arrConfig['min_avg_temp'] = $_POST['temp_min'];
+    $arrConfig['min_avg_humidity'] = $_POST['humidity_min'];
+    $arrConfig['min_avg_pressure'] = $_POST['pressure_min'];
+    $arrConfig['max_diff'] = $_POST['diff'];
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_avg_temp', '" . $arrConfig['max_avg_temp']. "', '" . $_SESSION['username'] . "');") >= 1
         && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_avg_humidity', '" . $arrConfig['max_avg_humidity']. "', '" . $_SESSION['username'] . "');") >= 1
         && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_avg_pressure', '" . $arrConfig['max_avg_pressure']. "', '" . $_SESSION['username'] . "');") >= 1
+        && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('min_avg_temp', '" . $arrConfig['min_avg_temp']. "', '" . $_SESSION['username'] . "');") >= 1
+        && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('min_avg_humidity', '" . $arrConfig['min_avg_humidity']. "', '" . $_SESSION['username'] . "');") >= 1
+        && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('min_avg_pressure', '" . $arrConfig['min_avg_pressure']. "', '" . $_SESSION['username'] . "');") >= 1
+        && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_diff', '" . $arrConfig['max_diff']. "', '" . $_SESSION['username'] . "');") >= 1
     ) {
         echo "<script type='text/javascript'>
         alert('Valores ideais atualizados com sucesso!');
