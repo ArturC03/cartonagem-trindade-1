@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
                 <div class="w-full max-w-xs flex justify-between join relative">
                     <input type="text" placeholder="Nenhum sensor selecionado" id="sensorsText" class="input input-bordered w-2/3 text-center join-item" disabled />
                     <input type="checkbox" class="-z-50 absolute left-1/4 bottom-0" id="sensorError" value="ERROR">
-                    <button class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
+                    <button type="button" class="btn btn-primary w-1/3 join-item" onclick="modalSensors.showModal()">Escolher Sensores</button>
                 </div>
                 <select name="periodoSelecionado" id="periodo" class="select w-full max-w-xs" required>
                     <option value="">Selecione uma opção</option>
