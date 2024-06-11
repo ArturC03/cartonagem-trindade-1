@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) {
             <a class="link link-hover" href="manageSensor.php">Voltar</a>
         </form>
         <div class="w-full lg:w-[70vw] flex items-center justify-center lg:justify-normal">
-            <canvas id="factory" class="bg-contain bg-no-repeat h-full" style="background-image: url(<?php echo $arrConfig['imageFactory'] ?>);"></canvas>
+            <canvas id="factory" class="bg-contain bg-no-repeat h-full" style="background-image: url('<?php echo $arrConfig['imageFactory'] ?>');"></canvas>
         </div>
     </div>
 </div>

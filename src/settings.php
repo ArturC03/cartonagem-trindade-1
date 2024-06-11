@@ -7,7 +7,7 @@ if (isset($_POST['changeTitle'])) {
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('site_title', '" . $arrConfig['site_title']. "', '" . $_SESSION['username'] . "');") >= 1) {
         echo "<script type='text/javascript'>
         alert('Título atualizado com sucesso!');
-        window.location.href = 'home.php';</script>";
+        window.location.href = 'settings.php';</script>";
     } else {
         echo "<script type='text/javascript'>
         alert('Erro a atualizar o título!');
@@ -21,10 +21,76 @@ if (isset($_POST['changeCloud'])) {
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('cloud_radius', '" . $arrConfig['cloud_radius']. "', '" . $_SESSION['username'] . "');") >= 1) {
         echo "<script type='text/javascript'>
         alert('Raio da nuvem atualizado com sucesso!');
-        window.location.href = 'home.php';</script>";
+        window.location.href = 'settings.php';</script>";
     } else {
         echo "<script type='text/javascript'>
         alert('Erro a atualizar o raio da nuvem!');
+        </script>";
+    }
+}
+
+if (isset($_POST['changeDiffs'])) {
+    $arrConfig['max_avg_temp'] = $_POST['temp_max'];
+    $arrConfig['max_avg_humidity'] = $_POST['humidity_max'];
+    $arrConfig['max_avg_pressure'] = $_POST['pressure_max'];
+    if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_avg_temp', '" . $arrConfig['max_avg_temp']. "', '" . $_SESSION['username'] . "');") >= 1
+        && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_avg_humidity', '" . $arrConfig['max_avg_humidity']. "', '" . $_SESSION['username'] . "');") >= 1
+        && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_avg_pressure', '" . $arrConfig['max_avg_pressure']. "', '" . $_SESSION['username'] . "');") >= 1
+    ) {
+        echo "<script type='text/javascript'>
+        alert('Valores ideais atualizados com sucesso!');
+        window.location.href = 'settings.php';</script>";
+    } else {
+        echo "<script type='text/javascript'>
+        alert('Erro a atualizar os valores ideais!');
+        </script>";
+    }
+}
+
+if (isset($_POST['changeBgImage'])) {
+    echo $bgImage = $_FILES['bgImageInput']['name'];
+    $bgImageTmp = $_FILES['bgImageInput']['tmp_name'];
+    $bgImagePath = 'images/plantas/' . $bgImage;
+    move_uploaded_file($bgImageTmp, $bgImagePath);
+    $arrConfig['imageFactory'] = $bgImagePath;
+    if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('imageFactory', '" . $arrConfig['imageFactory']. "', '" . $_SESSION['username'] . "');") >= 1) {
+        echo "<script type='text/javascript'>
+        alert('Imagem de fundo atualizada com sucesso!');
+        window.location.href = 'settings.php';</script>";
+    } else {
+        echo "<script type='text/javascript'>
+        alert('Erro a atualizar a imagem de fundo!');
+        </script>";
+    }
+}
+
+if (isset($_POST['changeEmailImage'])) {
+    $emailImage = $_FILES['emailImageInput']['name'];
+    $emailImageTmp = $_FILES['emailImageInput']['tmp_name'];
+    $emailImagePath = 'images/' . $emailImage;
+    move_uploaded_file($emailImageTmp, $emailImagePath);
+    $arrConfig['imageEmail'] = $emailImagePath;
+    if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('imageEmail', '" . $arrConfig['imageEmail']. "', '" . $_SESSION['username'] . "');") >= 1) {
+        echo "<script type='text/javascript'>
+        alert('Imagem de email atualizada com sucesso!');
+        window.location.href = 'settings.php';</script>";
+    } else {
+        echo "<script type='text/javascript'>
+        alert('Erro a atualizar a imagem de email!');
+        </script>";
+    }
+}
+
+if (isset($_POST['changeReload'])) {
+    $reloadTime = $_POST['reload_time'] * 1000;
+    $arrConfig['reload_time'] = $reloadTime;
+    if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('reload_time', '" . $arrConfig['reload_time']. "', '" . $_SESSION['username'] . "');") >= 1) {
+        echo "<script type='text/javascript'>
+        alert('Tempo de recarregamento atualizado com sucesso!');
+        window.location.href = 'settings.php';</script>";
+    } else {
+        echo "<script type='text/javascript'>
+        alert('Erro a atualizar o tempo de recarregamento!');
         </script>";
     }
 }
@@ -77,7 +143,7 @@ if (isset($_POST['changeCloud'])) {
                     </label>
                 </div>
 
-                <button type="submit" name="changeTitle" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
+                <button type="submit" name="changeDiffs" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
 
@@ -85,25 +151,25 @@ if (isset($_POST['changeCloud'])) {
             <h1 class="text-3xl font-semibold p-3 border-t-2 border-b-2 border-neutral">Imagens</h1>
         </div>
         <div class="card bg-base-300 shadow-xl">
-            <form class="card-body items-center text-center" action="" method="post">
+            <form class="card-body items-center text-center" action="" method="post" enctype="multipart/form-data">
                 <h2 class="card-title">Background</h2>
                 <p>Edita a imagem apresentada na página inicial.</p>
                 <div class="size-full max-w-xs max-h-[300px] flex justify-center items-center my-3">
-                    <img src="<?php echo $arrConfig['imageFactory'] ?>" alt="" class="max-w-xs max-h-[300px]">
+                    <img id="bgImage" src="<?php echo $arrConfig['imageFactory'] ?>" alt="" class="max-w-xs max-h-[300px]">
                 </div>
-                <input type="file" placeholder="Raio" id="cloud" name="cloud" class="file-input file-input-bordered w-full max-w-xs" required />
-                <button type="submit" name="changeCloud" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
+                <input type="file" placeholder="Raio" id="bgImageInput" name="bgImageInput" class="file-input file-input-bordered w-full max-w-xs" required />
+                <button type="submit" name="changeBgImage" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
         <div class="card bg-base-300 shadow-xl">
-            <form class="card-body items-center text-center" action="" method="post">
+            <form class="card-body items-center text-center" action="" method="post" enctype="multipart/form-data">
                 <h2 class="card-title">Email</h2>
                 <p>Edita a imagem apresentada no email.</p>
                 <div class="size-full max-w-xs max-h-[300px] flex justify-center items-center my-3">
-                    <img src="<?php echo $arrConfig['imageEmail'] ?>" alt="" class="max-w-xs max-h-[300px]">
+                    <img id="emailImage" src="<?php echo $arrConfig['imageEmail'] ?>" alt="" class="max-w-xs max-h-[300px]">
                 </div>
-                <input type="file" placeholder="Raio" id="cloud" name="cloud" class="file-input file-input-bordered w-full max-w-xs" required />
-                <button type="submit" name="changeCloud" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
+                <input type="file" placeholder="Raio" id="emailImageInput" name="emailImageInput" class="file-input file-input-bordered w-full max-w-xs" required />
+                <button type="submit" name="changeEmailImage" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
 
@@ -122,8 +188,8 @@ if (isset($_POST['changeCloud'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Reload (seg)</h2>
                 <p>Edita o intervalo de reload da página inicial.</p>
-                <input type="number" placeholder="Tempo" id="tit" name="tit" class="input input-bordered w-full max-w-xs" min="00:00:00" max="00:59:59" value="<?php echo $arrConfig['reload_time'] / 1000 ?>" required />
-                <button type="submit" name="changeTitle" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
+                <input type="number" placeholder="Tempo" id="time" name="time" class="input input-bordered w-full max-w-xs" min="00:00:00" max="00:59:59" value="<?php echo $arrConfig['reload_time'] / 1000 ?>" required />
+                <button type="submit" name="changeReload" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
     </div>
