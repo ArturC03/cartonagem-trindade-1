@@ -82,7 +82,7 @@ if (isset($_POST['changeEmailImage'])) {
 }
 
 if (isset($_POST['changeReload'])) {
-    $reloadTime = $_POST['reload_time'] * 1000;
+    $reloadTime = $_POST['reload_time'];
     $arrConfig['reload_time'] = $reloadTime;
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('reload_time', '" . $arrConfig['reload_time']. "', '" . $_SESSION['username'] . "');") >= 1) {
         echo "<script type='text/javascript'>
@@ -95,6 +95,12 @@ if (isset($_POST['changeReload'])) {
     }
 }
 ?>
+<div id="data" class="hidden">
+    <div id="image-width"><?php echo $arrConfig['originalImageWidth'] ?></div>
+    <div id="image-height"><?php echo $arrConfig['originalImageHeight'] ?></div>
+</div>
+<input type="hidden" name="size_x" id="size_x" value="<?php echo $arrConfig['originalImageWidth'] ?>">
+<input type="hidden" name="size_y" id="size_y" value="<?php echo $arrConfig['originalImageHeight'] ?>">
 <div class="sm:card sm:bg-base-200 mx-4 sm:mx-10 mt-2 flex flex-col justify-around items-center h-[88vh]">
     <div class="flex justify-center items-center pt-4">
         <h1 class="text-4xl font-bold p-3 border-t-2 border-b-2 border-neutral">Definições</h1>
@@ -188,7 +194,7 @@ if (isset($_POST['changeReload'])) {
             <form class="card-body items-center text-center" action="" method="post">
                 <h2 class="card-title">Reload (seg)</h2>
                 <p>Edita o intervalo de reload da página inicial.</p>
-                <input type="number" placeholder="Tempo" id="time" name="time" class="input input-bordered w-full max-w-xs" min="00:00:00" max="00:59:59" value="<?php echo $arrConfig['reload_time'] / 1000 ?>" required />
+                <input type="time" placeholder="Tempo" id="reload_time" name="reload_time" class="input input-bordered w-full max-w-xs" min="00:00" max="00:59" value="<?php echo $arrConfig['reload_time'] ?>" required />
                 <button type="submit" name="changeReload" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>

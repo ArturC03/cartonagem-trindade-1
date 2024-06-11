@@ -9,7 +9,11 @@ require __DIR__ . "/../includes/config.inc.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
     if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == '') {
-        echo '<meta http-equiv="refresh" content="10000">';
+        $time = $arrConfig['reload_time'] ?? '00:10';
+        list($hours, $minutes) = explode(':', $time);
+        $totalSeconds = ($hours * 3600) + ($minutes * 60);
+
+        echo '<meta http-equiv="refresh" content="' . $totalSeconds . '">';
     }
     ?>
     <link rel="stylesheet" href="css/tailwind.css">
