@@ -200,7 +200,7 @@ if (isset($_POST['changeReload'])) {
         </div>
         <div class="card bg-base-300 shadow-xl">
             <form class="card-body items-center text-center" action="" method="post">
-                <h2 class="card-title">Reload (seg)</h2>
+                <h2 class="card-title">Reload</h2>
                 <p>Edita o intervalo de reload da página inicial.</p>
                 <input type="time" placeholder="Tempo" id="reload_time" name="reload_time" class="input input-bordered w-full max-w-xs" min="00:00" max="00:59" value="<?php echo $arrConfig['reload_time'] ?>" required />
                 <button type="submit" name="changeReload" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
