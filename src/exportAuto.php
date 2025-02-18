@@ -150,5 +150,5 @@ if (isset($_POST['submit'])) {
     <script src="js/checkSensorsModal.js"></script>
     <script src="js/sensorsModal.js"></script>
     <?php
-    include 'content/footer.inc.html';
+    include 'content/footer.inc.php';
 }

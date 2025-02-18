@@ -1,0 +1,10 @@
+@import url('_table_big.css');
+@import url('_btn_learnmore.css');
+@import url('_btn_table.css');
+button.learn-more {
+    width: 17rem;
+    margin: auto; 
+}
+button.learn-more .button-text {
+    margin: 0 0 0 1.85rem;
+}

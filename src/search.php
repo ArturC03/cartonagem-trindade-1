@@ -106,4 +106,4 @@ require 'content/header.inc.php';
 <script src="js/checkSensorsModal.js"></script>
 <script src="js/sensorsModal.js"></script>
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';

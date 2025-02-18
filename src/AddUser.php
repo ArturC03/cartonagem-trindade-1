@@ -56,4 +56,4 @@ if (isset($_POST['completeYes'])) {
 <script src="js/editarDados.js"></script>
 <?php
 
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';

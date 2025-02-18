@@ -119,4 +119,4 @@ FROM sensor_reading s where " . $comp2 . $datas . "s.id_sensor in $sensores ORDE
     </div>
     <?php
 }
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';

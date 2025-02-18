@@ -1,17 +1,23 @@
 <?php
-require 'content/header.inc.php';
+include './content/header.inc.php';
 
 if (isset($_POST['changeTitle'])) {
     $arrConfig['site_title'] = $_POST['tit'];
 
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('site_title', '" . $arrConfig['site_title']. "', '" . $_SESSION['username'] . "');") >= 1) {
-        echo "<script type='text/javascript'>
-        alert('Título atualizado com sucesso!');
-        window.location.href = 'settings.php';</script>";
+  echo '<meta http-equiv="refresh" content="1; URL=./settings.php">';
+  
+  echo "<div class=\"float-left z-10 toast toast-center\">
+  <div role=\"alert\" class=\"alert alert-success justify-center items-center\" id=\"notification\">
+      <span>Título atualizado com sucesso!</span>
+  </div>
+</div>";
     } else {
-        echo "<script type='text/javascript'>
-        alert('Erro a atualizar o título!');
-        </script>";
+        echo "<div class=\"float-left z-10 toast toast-center\">
+        <div role=\"alert\" class=\"alert alert-error justify-center items-center\" id=\"notification\">
+            <span>Erro a atualizar o título!</span>
+        </div>
+      </div>";
     }
 }
 
@@ -19,13 +25,18 @@ if (isset($_POST['changeCloud'])) {
     $arrConfig['cloud_radius'] = $_POST['cloud'];
 
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('cloud_radius', '" . $arrConfig['cloud_radius']. "', '" . $_SESSION['username'] . "');") >= 1) {
-        echo "<script type='text/javascript'>
-        alert('Raio da nuvem atualizado com sucesso!');
-        window.location.href = 'settings.php';</script>";
+
+        echo "<div class=\"float-left z-10 toast toast-center\">
+        <div role=\"alert\" class=\"alert alert-success justify-center items-center\" id=\"notification\">
+            <span>Raio da nuvem atualizado com sucesso!</span>
+        </div>
+      </div>";
     } else {
-        echo "<script type='text/javascript'>
-        alert('Erro a atualizar o raio da nuvem!');
-        </script>";
+        echo "<div class=\"float-left z-10 toast toast-center\">
+        <div role=\"alert\" class=\"alert alert-error justify-center items-center\" id=\"notification\">
+            <span>Erro a atualizar o raio da nuvem!</span>
+        </div>
+      </div>";
     }
 }
 
@@ -45,13 +56,17 @@ if (isset($_POST['changeDiffs'])) {
         && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('min_avg_pressure', '" . $arrConfig['min_avg_pressure']. "', '" . $_SESSION['username'] . "');") >= 1
         && my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('max_diff', '" . $arrConfig['max_diff']. "', '" . $_SESSION['username'] . "');") >= 1
     ) {
-        echo "<script type='text/javascript'>
-        alert('Valores ideais atualizados com sucesso!');
-        window.location.href = 'settings.php';</script>";
+          echo "<div class=\"float-left z-10 toast toast-center\">
+            <div role=\"alert\" class=\"alert alert-success justify-center items-center\" id=\"notification\">
+                <span>Valores ideais atualizados com sucesso!</span>
+            </div>
+        </div>";
     } else {
-        echo "<script type='text/javascript'>
-        alert('Erro a atualizar os valores ideais!');
-        </script>";
+        echo "<div class=\"float-left z-10 toast toast-center\">
+            <div role=\"alert\" class=\"alert alert-error justify-center items-center\" id=\"notification\">
+                <span>Erro ao atualizar valores ideais!</span>
+            </div>
+        </div>";
     }
 }
 
@@ -62,13 +77,15 @@ if (isset($_POST['changeBgImage'])) {
     move_uploaded_file($bgImageTmp, $bgImagePath);
     $arrConfig['imageFactory'] = $bgImagePath;
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('imageFactory', '" . $arrConfig['imageFactory']. "', '" . $_SESSION['username'] . "');") >= 1) {
-        echo "<script type='text/javascript'>
-        alert('Imagem de fundo atualizada com sucesso!');
-        window.location.href = 'settings.php';</script>";
+        echo '<meta http-equiv="refresh" content="0.000001; URL=./settings.php">';
+        
+
     } else {
-        echo "<script type='text/javascript'>
-        alert('Erro a atualizar a imagem de fundo!');
-        </script>";
+        echo "<div class=\"float-left z-10 toast toast-center\">
+        <div role=\"alert\" class=\"alert alert-error justify-center items-center\" id=\"notification\">
+            <span>Erro a atualizar a imagem de fundo!</span>
+        </div>
+      </div>";
     }
 }
 
@@ -79,13 +96,18 @@ if (isset($_POST['changeEmailImage'])) {
     move_uploaded_file($emailImageTmp, $emailImagePath);
     $arrConfig['imageEmail'] = $emailImagePath;
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('imageEmail', '" . $arrConfig['imageEmail']. "', '" . $_SESSION['username'] . "');") >= 1) {
-        echo "<script type='text/javascript'>
-        alert('Imagem de email atualizada com sucesso!');
-        window.location.href = 'settings.php';</script>";
+
+        echo "<div class=\"float-left z-10 toast toast-center\">
+        <div role=\"alert\" class=\"alert alert-success justify-center items-center\" id=\"notification\">
+            <span>Imagem de email atualizada com sucesso!</span>
+        </div>
+      </div>";
     } else {
-        echo "<script type='text/javascript'>
-        alert('Erro a atualizar a imagem de email!');
-        </script>";
+        echo "<div class=\"float-left z-10 toast toast-center\">
+        <div role=\"alert\" class=\"alert alert-error justify-center items-center\" id=\"notification\">
+            <span>Erro a atualizar a imagem de email!</span>
+        </div>
+      </div>";
     }
 }
 
@@ -93,27 +115,59 @@ if (isset($_POST['changeReload'])) {
     $reloadTime = $_POST['reload_time'];
     $arrConfig['reload_time'] = $reloadTime;
     if (my_query("INSERT INTO site_settings (`name`,`value`,`id_user`) values('reload_time', '" . $arrConfig['reload_time']. "', '" . $_SESSION['username'] . "');") >= 1) {
-        echo "<script type='text/javascript'>
-        alert('Tempo de recarregamento atualizado com sucesso!');
-        window.location.href = 'settings.php';</script>";
+
+        echo "<div class=\"float-left z-10 toast toast-center\">
+                <div role=\"alert\" class=\"alert alert-success justify-center items-center\" id=\"notification\">
+                    <span>Tempo de recarregamento atualizado com sucesso!</span>
+                </div>
+              </div>";
     } else {
-        echo "<script type='text/javascript'>
-        alert('Erro a atualizar o tempo de recarregamento!');
-        </script>";
+        echo "<div class=\"float-left z-10 toast toast-center\">
+                <div role=\"alert\" class=\"alert alert-error justify-center items-center\" id=\"notification\">
+                    <span>Erro a atualizar o tempo de recarregamento!</span>
+                </div>
+              </div>";
     }
 }
 ?>
+<script>
+function checkParentDomain() {
+    // Verifica se a página está dentro de um iframe
+    if (window.self !== window.top) {
+        try {
+            var parentUrl = parent.window.location.href;
+            var iframeDomain = window.location.hostname;
+            var parentDomain = new URL(parentUrl).hostname;
+
+            // Compara os domínios
+            if (iframeDomain === parentDomain) {
+                window.location("A URL da página pai é: " + parentUrl);
+            } else {
+                console.log("A página pai está em um domínio diferente.");
+                window.location = '404.php';
+            }
+        } catch (e) {
+            console.log("Não foi possível acessar a URL da página pai devido a restrições de CORS.");
+        }
+    } else {
+        window.location = '404.php';
+        console.log("Esta página não está dentro de um iframe.");
+    }
+}
+
+// Chama a função ao carregar a página
+checkParentDomain();
+</script>
 <div id="data" class="hidden">
     <div id="image-width"><?php echo $arrConfig['originalImageWidth'] ?></div>
     <div id="image-height"><?php echo $arrConfig['originalImageHeight'] ?></div>
 </div>
 <input type="hidden" name="size_x" id="size_x" value="<?php echo $arrConfig['originalImageWidth'] ?>">
 <input type="hidden" name="size_y" id="size_y" value="<?php echo $arrConfig['originalImageHeight'] ?>">
-<div class="sm:card sm:bg-base-200 mx-4 sm:mx-10 mt-2 flex flex-col justify-around items-center h-[88vh]">
     <div class="flex justify-center items-center pt-4">
         <h1 class="text-4xl font-bold p-3 border-t-2 border-b-2 border-neutral">Definições</h1>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-4 p-3 overflow-x-auto max-h-[70vh]">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-4 p-3 overflow-x-auto">
         <div class="flex justify-center items-center">
             <h1 class="text-3xl font-semibold p-3 border-t-2 border-b-2 border-neutral">Valores</h1>
         </div>
@@ -124,7 +178,7 @@ if (isset($_POST['changeReload'])) {
                 <div class="size-full max-w-xs max-h-[300px] flex justify-center items-center my-3">
                     <canvas id='factory' class="hidden bg-contain bg-no-repeat" style="background-image: url('<?php echo $arrConfig['imageFactory'] ?>')"></canvas>
                 </div>
-                <input type="number" placeholder="Raio" id="cloud" name="cloud" class="input input-bordered w-full max-w-xs" min="1" value="<?php echo $arrConfig['cloud_radius']; ?>" required />
+                <input type="number" placeholder="Raio" id="cloud" name="cloud" class="input input-bordered w-full max-w-xs" min="1" max="160" value="<?php echo $arrConfig['cloud_radius']; ?>" required />
                 <button type="submit" name="changeCloud" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
             </form>
         </div>
@@ -207,7 +261,9 @@ if (isset($_POST['changeReload'])) {
             </form>
         </div>
     </div>
-</div>
+
+
 <script src="js/settings.js"></script>
+<script src="js/notification.js"></script>
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';  

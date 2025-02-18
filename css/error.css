@@ -1,0 +1,46 @@
+body {
+    background: url(../images/cartonagem.jpg);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    position: absolute;
+    width: 50%;
+    background-color: rgb(240, 170, 79);
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+    padding: 20px;
+    border-radius: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    font-size: 10vh;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 4vh;
+}
+
+.image-container {
+    margin-top: 0;
+}
+
+img {
+    width: 20vh;
+}

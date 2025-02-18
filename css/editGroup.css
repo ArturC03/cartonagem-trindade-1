@@ -1,0 +1,87 @@
+@import url('_checkbox.css');
+
+.container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgba(56, 56, 56, 0.718);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+input {
+    width: 70%;
+    height: 40px;
+    border: 2px solid #fbe961;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    color: #5a5656;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+  
+input:hover{
+    border-color: #f39c12;
+    box-shadow: 0 0 10px #f39c12;
+}
+
+.radio-label {
+    margin: auto;
+    font-size: 14px;
+}
+
+.radio-question {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#adminYes, #adminNo {
+    margin-right: 10px;
+    font-size: 10px;
+}
+
+button {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-top: 20px; 
+}
+
+button:hover {
+    background-color: #00a108;
+    transition: background-color 0.3s ease;
+}
+
+
+.sensor-update {
+    display: flex;
+    flex-wrap: wrap;
+    width: 30%;
+    border: 2px solid #fbe961;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+}

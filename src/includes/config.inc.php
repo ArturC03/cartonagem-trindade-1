@@ -18,6 +18,8 @@ foreach ($result as $row) {
 }
 $arrConfig['originalImageWidth'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[0];
 $arrConfig['originalImageHeight'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[1];
+$arrConfig['baseUrl'] = "http://localhost/cartonagem-trindade-25/";
+
 if (!str_contains($_SERVER['REQUEST_URI'], 'backend')) {
     $_SESSION['previous_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 }

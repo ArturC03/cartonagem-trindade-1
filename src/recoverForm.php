@@ -52,7 +52,7 @@ if (isset($_GET['token'])) {
         <script src="js/editarDados.js"></script>
         <?php
 
-        include 'content/footer.inc.html';
+        include 'content/footer.inc.php';
     } else {
         unset($_SESSION['token']);
         echo "<script>alert('Token inválido!'); window.location = 'index.php'</script>";

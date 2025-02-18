@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Java\jdk1.8.0_281\bin\java" -jar "C:\xampp\htdocs\ProjetoCartonagemV1\RS232-monitorization1.1\dist\RS232-monitorization.jar"

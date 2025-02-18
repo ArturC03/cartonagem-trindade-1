@@ -80,4 +80,4 @@ $result = my_query("SELECT * FROM user where id_user='" . $_SESSION['id'] . "';"
 </div>
 <script src="js/editarDados.js"></script>
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';

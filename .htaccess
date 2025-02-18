@@ -1,7 +1,7 @@
 Options -Indexes
 
 RewriteEngine On
-RewriteBase /cartonagem-trindade/
+RewriteBase /cartonagem-trindade-25/
 RewriteCond %{THE_REQUEST} /src/([^\s?]*) [NC]
 RewriteRule ^ %1 [L,NE,R=302]
 
@@ -13,4 +13,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 RewriteCond %{HTTP_HOST} ^(?:www\.)?([a-z0-9-]+\.[a-z]+)
-ErrorDocument 404 http://localhost/cartonagem-trindade/404.php
+ErrorDocument 404 http://localhost/cartonagem-trindade-25/404.php

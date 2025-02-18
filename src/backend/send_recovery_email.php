@@ -3,7 +3,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+use PHPMailer\PHPMailer\SMTP;
 require '../includes/config.inc.php';
 
 $data = array();
@@ -15,14 +15,14 @@ try{
         $mail = new PHPMailer(true);
         $mail -> isSMTP();
         $mail->CharSet = 'UTF-8';
-        $mail->Host = 'smtp-mail.outlook.com';
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'no-reply1742@hotmail.com';
-        $mail->Password='1R0_#y19i$sw';
-        $mail->SMTPSecure = 'tls';
+        $mail->Username = 'noreplyct4@gmail.com';
+        $mail->Password='inhh dtmi zcfl cbbo';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port=587;
         
-        $mail->setFrom('no-reply1742@hotmail.com');
+        $mail->setFrom($mail->Username);
         $mail->addAddress($_POST['email']);
         
         $token = bin2hex(random_bytes(16));

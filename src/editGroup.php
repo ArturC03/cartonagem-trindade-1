@@ -196,4 +196,4 @@ if (count($result3) > 0) {
 <script src="js/sensorsModal.js"></script>
 
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';

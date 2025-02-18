@@ -1,0 +1,6 @@
+@import url('_table_big.css');
+@import url('_btn_table.css');
+.button-table.active, .button-table.inactive{
+    width: 10vw;
+    max-width: 100px;
+}

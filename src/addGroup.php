@@ -172,5 +172,5 @@ $result2 = my_query("SELECT id_sensor FROM sensor WHERE id_group IS NULL;");
 <script src="js/sensorsModal.js"></script>
 
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';
 

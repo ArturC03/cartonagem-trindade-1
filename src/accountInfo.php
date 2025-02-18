@@ -35,4 +35,4 @@ $result = my_query("SELECT * FROM user WHERE id_user = '" . $_SESSION['username'
 </div>
 
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';

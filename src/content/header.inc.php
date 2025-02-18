@@ -18,8 +18,10 @@ require __DIR__ . "/../includes/config.inc.php";
     ?>
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <title><?php echo $arrConfig['site_title'];?></title>
 </head>

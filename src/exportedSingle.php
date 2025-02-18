@@ -55,5 +55,5 @@ require 'content/header.inc.php';
     </div>
 </div>
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';
 

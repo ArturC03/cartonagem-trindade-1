@@ -82,4 +82,4 @@ if (isset($_POST['submit'])) {
 
 <script src="js/editSensor.js"></script>
 <?php
-require 'content/footer.inc.html';
+require 'content/footer.inc.php';
