@@ -11,6 +11,14 @@ function my_connect($arrConfig)
     return $conn;
 }
 
+function my_escape_string($value) {
+    // Aqui você pode usar a função adequada para o seu tipo de conexão
+    // Exemplo usando mysqli
+    global $arrConfig;  // Supondo que você tenha uma variável de conexão chamada $conn
+    return mysqli_real_escape_string($arrConfig['conn'], $value);
+}
+
+
 function my_query($sql, $debug = 0)
 {
     global $arrConfig;

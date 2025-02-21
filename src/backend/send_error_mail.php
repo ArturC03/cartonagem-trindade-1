@@ -8,6 +8,7 @@ require_once '../includes/config.inc.php';
 
 if (isset($_POST)){
     my_send_email("arturvicentecruz@proton.me",  "TESTES - ".$_POST['error_title'],$_POST['error_message']);
+die();
 }
 header("Location: ".$_SERVER['HTTP_REFERER']);
 ?>

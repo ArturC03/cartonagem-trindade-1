@@ -33,11 +33,9 @@ $average3 = 20;
         </div>
     </div>
 </div>
-<div class="fixed top-1/2 left-1/2 z-10">
-    <span class="loading loading-ring loading-lg"></span>
-</div>
 
-<!-- Indicador de refresh -->
+
+<!-- Opções Técnico -->
 <div id="tecard" class="top-1/2 left-1/2 absolute inset-0 flex items-center justify-center">
   <div class="fixed card bg-base-100 w-96 shadow-xl top-1/2 hidden left-1/2 absolute inset-0 flex items-center justify-center bg-white p-6 shadow-md" id="inputTecPass" style="transform: translate(-100%, -50%);">
     <form class="card-body" id="tecForm" action="" method="post">
