@@ -10,7 +10,7 @@ $allowed_orders = ['ASC', 'DESC'];
 
 // Obter parâmetros da URL com validação
 $column = isset($_GET['sort']) && in_array($_GET['sort'], $allowed_columns) ? $_GET['sort'] : 'error_date';
-$order = isset($_GET['order']) && in_array($_GET['order'], $allowed_orders) ? $_GET['order'] : 'ASC';
+$order = isset($_GET['order']) && in_array($_GET['order'], $allowed_orders) ? $_GET['order'] : 'DESC';
 
 // Obter parâmetros de filtro
 $filter_id_log = isset($_GET['filter_id_log']) ? $_GET['filter_id_log'] : '';

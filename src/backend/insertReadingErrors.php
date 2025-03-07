@@ -2,6 +2,19 @@
 @session_start();
 require "../includes/config.inc.php";
 
+$res = my_query("SELECT value FROM site_settings WHERE name LIKE 'error_check_time' ORDER BY last_edited_at DESC");
+$checkTime = $res[0]['value'];
+
+sscanf($checkTime, "%d:%d", $minutos, $segundos);
+
+// Converter para segundos
+$totalSegundos = ($minutos * 60) + $segundos;
+
+// Convertendo para segundos
+$checkTime = $totalSegundos;
+
+$results[] = ["check_time" => $checkTime];
+
 // Caminho para o arquivo de logs
 $logFile = "../../tools/RS232Monitorization2.0/reading_errors.log";
 
@@ -28,8 +41,6 @@ $file = fopen($logFile, "r");
 // Ir para a última posição processada
 fseek($file, $lastPosition);
 
-// Array para armazenar os resultados
-$results = [];
 
 // Processar novas linhas
 while (!feof($file)) {
@@ -63,10 +74,10 @@ while (!feof($file)) {
             $insertId = my_query($sql);
             // Se for inserido com sucesso
             if ($insertId) {
-                $results[] = ["status" => "added", "id_error" => $idError, "error_date" => $errorDateTime];
+                $results[] = ["status" => "added", "id_error" => $idError, "error_date" => $errorDateTime, "check_time" => $checkTime];
             }
         } else {
-            $results[] = ["status" => "exists", "id_error" => $idError, "error_date" => $errorDateTime];
+            $results[] = ["status" => "exists", "id_error" => $idError, "error_date" => $errorDateTime, "check_time" => $checkTime];
         }
     }
 }

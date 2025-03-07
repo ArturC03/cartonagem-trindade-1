@@ -39,7 +39,7 @@ document.addEventListener('keydown', (e) => {
     pressedKeys = []; // Reset the pressed keys array
 
     if (sequenceCount === 2) {
-      console.log('Secret shortcut unlocked!');
+      // console.log('Secret shortcut unlocked!');
       if (element) {
         element.classList.remove('hidden');
         passOpcTecInput.focus();

@@ -16,13 +16,13 @@ $error = $error_details[0] ?? null;
 // Consultar histórico de mudanças
 $log_changes = my_query("SELECT h.id_history, h.change_date, u.username, e.state FROM error_state_history AS h LEFT JOIN user AS u ON h.id_user_state_change = u.id_user LEFT JOIN error_state AS e ON h.error_state_id = e.id WHERE h.id_log = $id_log ORDER BY h.change_date ASC");
 
-if (!$error) {
+if (empty($error)) {
     echo json_encode(["error" => "Erro não encontrado!"]);
     exit;
 }
 
 $response = [
-    "error" => $error,
+    "erro" => $error,
     "log_changes" => $log_changes
 ];
 // Retornar os dados em formato JSON

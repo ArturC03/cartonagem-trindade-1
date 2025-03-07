@@ -1,5 +1,7 @@
 // Função para abrir o modal e carregar o conteúdo via AJAX
 function openModal(id_log) {
+    document.getElementById('modalContent').innerHTML = '';
+    document.getElementById('log_title').innerHTML = '';
     // Mostrar o spinner de carregamento
     document.getElementById('loadingSpinner').classList.remove('hidden');
 
@@ -11,16 +13,16 @@ function openModal(id_log) {
         dataType: 'json',
         success: function(response) {
             const logChanges = response.log_changes;
-            console.log(response);
+            // console.log(response);
 
             // Definir título do modal
-            $('#log_title').text(`Detalhes: Log ${response.error.id_log}`);
+            $('#log_title').text(`Detalhes: Log ${response.erro.id_log}`);
 
             // Definir conteúdo inicial do modal
             let modalContent = `
                 <div class="block px-4 mx-4">
-                    <p><strong>Mensagem: </strong>${response.error.error}</p>
-                    <p><strong>Erro detectado em: </strong>${new Date(response.error.error_date).toLocaleString()}</p>
+                    <p><strong>Mensagem: </strong>${response.erro.error}</p>
+                    <p><strong>Erro detectado em: </strong>${new Date(response.erro.error_date).toLocaleString()}</p>
                     <br>
 `;
 
@@ -57,7 +59,7 @@ if (response.log_changes.length > 0) {
             document.getElementById('errorModal').classList.add('modal-open');
         },
         error: function() {
-            alert('Erro ao carregar os detalhes do erro');
+            
         },
         complete: function() {
             // Esconder o spinner de carregamento após a resposta

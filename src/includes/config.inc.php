@@ -19,6 +19,8 @@ foreach ($result as $row) {
 $arrConfig['originalImageWidth'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[0];
 $arrConfig['originalImageHeight'] = getimagesize(__DIR__ . "/../" . $arrConfig['imageFactory'])[1];
 $arrConfig['baseUrl'] = "http://localhost/cartonagem-trindade-25/";
+$arrConfig['basePath'] = "C:\\xampp\\htdocs\\cartonagem-trindade-25";
+$arrConfig['sensorProgramPath'] = $arrConfig['basePath'] . '/tools/RS232Monitorization2.0/RS232Monitorization.exe';
 
 if (!str_contains($_SERVER['REQUEST_URI'], 'backend')) {
     $_SESSION['previous_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
