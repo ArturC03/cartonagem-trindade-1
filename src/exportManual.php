@@ -1,10 +1,8 @@
-<?php
+    <?php
 require 'includes/config.inc.php';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['mindate']) && isset($_POST['maxdate'])) {
         ob_clean();
-
         foreach ($_POST as $k => $v) {
             if ($v == "on") {
                 $ids[] = $k;
@@ -16,36 +14,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $sensores = substr($sensores, 0, -1);
         $sensores = $sensores . ")";
-
         $dataMinima = $_POST["mindate"];
         $dataMaxima = $_POST["maxdate"];
-
         $horaMinima = $_POST["mintime"];
         $horaMaxima = $_POST["maxtime"];
-
         $timestamp = strtotime($dataMaxima);
         $timestamp2 = strtotime($dataMinima);
-
         $dataMinima = date("y-m-d", $timestamp2);
         $dataMaxima = date("y-m-d", $timestamp);
-
         $comp2 = strlen($horaMinima);
         $comp3 = strlen($horaMaxima);
-
+        
+        // Criando condições de tempo e data
         if ($comp2 == 0 && $comp3 == 0) {
-            $comp2 = "s.time BETWEEN '00:00:00' and '23:59:59' AND ";
+            $timeCondition = "time BETWEEN '00:00:00' and '23:59:59'";
         } elseif ($comp2 == 0 && $comp3 <> 0) {
-            $comp2 = "s.time BETWEEN '00:00:00' and '" . $horaMaxima . "' and ";
+            $timeCondition = "time BETWEEN '00:00:00' and '" . $horaMaxima . "'";
         } elseif ($comp2 <> 0 && $comp3 <> 0) {
-            $comp2 = "s.time BETWEEN '" . $horaMinima . "' and '" . $horaMaxima . "' AND ";
+            $timeCondition = "time BETWEEN '" . $horaMinima . "' and '" . $horaMaxima . "'";
         } else {
-            $comp2 = "s.time BETWEEN '" . $horaMinima . "' and '23:59:59' AND ";
+            $timeCondition = "time BETWEEN '" . $horaMinima . "' and '23:59:59'";
         }
-
-        $datas = "s.date BETWEEN '" . $dataMinima . "' and '" . $dataMaxima . "' AND ";
-
-        $result = my_query("SELECT distinct s.id_sensor, s.date, s.time, s.temperature, s.humidity, s.pressure, s.altitude, s.eCO2, s.eTVOC FROM sensor_reading s where " . $comp2 . $datas . "s.id_sensor in $sensores order by date, time ASC");
-
+        
+        $dateCondition = "date BETWEEN '" . $dataMinima . "' and '" . $dataMaxima . "'";
+        
+        // Consulta unindo dados das duas tabelas
+        $query = "(SELECT 
+                    id_sensor, date, time, temperature, humidity, pressure, altitude, eCO2, eTVOC 
+                  FROM 
+                    sensor_reading 
+                  WHERE 
+                    " . $timeCondition . " AND " . $dateCondition . " AND id_sensor IN " . $sensores . ")
+                  UNION
+                  (SELECT 
+                    id_sensor, date, time, temperature, humidity, pressure, altitude, eCO2, eTVOC 
+                  FROM 
+                    sensor_reading_history 
+                  WHERE 
+                    " . $timeCondition . " AND " . $dateCondition . " AND id_sensor IN " . $sensores . ")
+                  ORDER BY 
+                    date, time ASC";
+                    
+        $result = my_query($query);
+        
         if (count($result) > 0) {
             if (isset($_POST['botaoCSV'])) {
                 $fileName = __DIR__ . "/download/dados_sensores.csv";
@@ -57,7 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $file = fopen($fileName, 'w');
                 $contentType = 'application/json';
             }
-
             foreach ($result as $row) {
                 $formattedTemperature = ltrim(sprintf("%.3f", $row['temperature']), '0');
                 $row['temperature'] = $formattedTemperature;
@@ -69,20 +79,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $row['eCO2'] = $formattedCo2;
                 $formattedTvoc = ltrim(sprintf("%.3f", $row['eTVOC']), '0');
                 $row['eTVOC'] = $formattedTvoc;
-
                 if (isset($_POST['botaoCSV'])) {
                     fputcsv($file, $row, ';');
                 } else if (isset($_POST['botaoJSON'])) {
                     $data[] = $row;
                 }
             }
-
             if (isset($_POST['botaoJSON'])) {
                 fwrite($file, json_encode($data));
             }
-
             fclose($file);
-
             header('Content-Type: ' . $contentType);
             header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
             readfile($fileName);

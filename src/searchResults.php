@@ -1,11 +1,11 @@
-<?php
+    <?php
 require 'includes/config.inc.php';
-
+ 
 if (!isset($_POST['mindate']) || !isset($_POST['maxdate'])) {
     header('Location: search.php');
 } else {
     include 'content/header.inc.php';
-
+ 
     foreach ($_POST as $k => $v) {
         if ($v == "on") {
             $ids[] = $k;
@@ -17,40 +17,108 @@ if (!isset($_POST['mindate']) || !isset($_POST['maxdate'])) {
     }
     $sensores = substr($sensores, 0, -1);
     $sensores = $sensores . ")";
-
+ 
     $dataMinima = $_POST["mindate"];
     $dataMaxima = $_POST["maxdate"];
-
+ 
     $horaMinima = $_POST["mintime"];
     $horaMaxima = $_POST["maxtime"];
-
+ 
     $timestamp = strtotime($dataMaxima);
     $timestamp2 = strtotime($dataMinima);
-
+ 
     $dataMinima = date("y-m-d", $timestamp2);
     $dataMaxima = date("y-m-d", $timestamp);
-
+ 
     $comprimento = strlen($sensores);
-
+ 
     $comp2 = strlen($horaMinima);
     $comp3 = strlen($horaMaxima);
-
+ 
+    // Condições de hora para a tabela principal
     if ($comp2 == 0 && $comp3 == 0) {
-        $comp2 = "s.time BETWEEN '00:00:00' and '23:59:59' AND ";
+        $timeCondition = "time BETWEEN '00:00:00' and '23:59:59'";
     } elseif ($comp2 == 0 && $comp3 <> 0) {
-        $comp2 = "s.time BETWEEN '00:00:00' and '" . $horaMaxima . "' and ";
+        $timeCondition = "time BETWEEN '00:00:00' and '" . $horaMaxima . "'";
     } elseif ($comp2 <> 0 && $comp3 <> 0) {
-        $comp2 = "s.time BETWEEN '" . $horaMinima . "' and '" . $horaMaxima . "' AND ";
+        $timeCondition = "time BETWEEN '" . $horaMinima . "' and '" . $horaMaxima . "'";
     } else {
-        $comp2 = "s.time BETWEEN '" . $horaMinima . "' and '23:59:59' AND ";
+        $timeCondition = "time BETWEEN '" . $horaMinima . "' and '23:59:59'";
     }
-
-    $datas = "s.date BETWEEN '" . $dataMinima . "' and '" . $dataMaxima . "' AND ";
-
-    $sql = "SELECT distinct s.id_sensor, s.date, s.time, ROUND(s.temperature, 2) AS temperature, ROUND(s.humidity, 2) AS humidity,
-ROUND(s.pressure, 2) AS pressure, ROUND(s.altitude, 2) AS altitude, ROUND(s.eCO2, 2) AS eCO2, ROUND(s.eTVOC, 2) AS eTVOC
-FROM sensor_reading s where " . $comp2 . $datas . "s.id_sensor in $sensores ORDER BY date, time ASC";
-    $sql2 = "SELECT distinct s.id_sensor, s.date, s.time, s.temperature, s.humidity, s.pressure, s.altitude, s.eCO2, s.eTVOC FROM sensor_reading s where " . $comp2 . $datas . "s.id_sensor in $sensores order by date, time ASC";
+ 
+    $dateCondition = "date BETWEEN '" . $dataMinima . "' and '" . $dataMaxima . "'";
+ 
+    // Consulta com ROUND para ambas as tabelas
+    $sql = "(SELECT 
+                id_sensor, 
+                date, 
+                time, 
+                ROUND(temperature, 2) AS temperature, 
+                ROUND(humidity, 2) AS humidity,
+                ROUND(pressure, 2) AS pressure, 
+                ROUND(altitude, 2) AS altitude, 
+                ROUND(eCO2, 2) AS eCO2, 
+                ROUND(eTVOC, 2) AS eTVOC
+            FROM 
+                sensor_reading 
+            WHERE 
+                " . $timeCondition . " AND " . $dateCondition . " AND id_sensor in " . $sensores . ")
+            
+            UNION
+            
+            (SELECT 
+                id_sensor, 
+                date, 
+                time, 
+                ROUND(temperature, 2) AS temperature, 
+                ROUND(humidity, 2) AS humidity,
+                ROUND(pressure, 2) AS pressure, 
+                ROUND(altitude, 2) AS altitude, 
+                ROUND(eCO2, 2) AS eCO2, 
+                ROUND(eTVOC, 2) AS eTVOC
+            FROM 
+                sensor_reading_history 
+            WHERE 
+                " . $timeCondition . " AND " . $dateCondition . " AND id_sensor in " . $sensores . ")
+            
+            ORDER BY 
+                date, time ASC";
+                
+    // Consulta sem ROUND para ambas as tabelas
+    $sql2 = "(SELECT 
+                id_sensor, 
+                date, 
+                time, 
+                temperature, 
+                humidity, 
+                pressure, 
+                altitude, 
+                eCO2, 
+                eTVOC
+            FROM 
+                sensor_reading 
+            WHERE 
+                " . $timeCondition . " AND " . $dateCondition . " AND id_sensor in " . $sensores . ")
+            
+            UNION
+            
+            (SELECT 
+                id_sensor, 
+                date, 
+                time, 
+                temperature, 
+                humidity, 
+                pressure, 
+                altitude, 
+                eCO2, 
+                eTVOC
+            FROM 
+                sensor_reading_history 
+            WHERE 
+                " . $timeCondition . " AND " . $dateCondition . " AND id_sensor in " . $sensores . ")
+            
+            ORDER BY 
+                date, time ASC";
     ?>
     <p id="sql" class="hidden"><?php echo $sql; ?></p>
     <p id="sql2" class="hidden"><?php echo $sql2; ?></p>
