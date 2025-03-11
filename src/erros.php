@@ -149,23 +149,47 @@ $id_type = $res[0]['id_type'];
                                 <td><?php echo $row['error_date']; ?></td>
                                 <td><?php echo $row['username'] ?? 'na'; ?></td>
                                 <td><?php echo $row['state']; ?></td>
-                                <?php if ($id_type == 1) { ?>
-                                    <td>
-                                        <?php if ($row['state_id'] == 0) { ?>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=3" class="btn btn-error btn-sm" onclick="event.stopPropagation();">Marcar como Não Resolvido</a>
-                                        <?php } elseif ($row['state_id'] == 1) { ?>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=0" class="btn btn-success btn-sm" onclick="event.stopPropagation();">Marcar como Resolvido</a>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=3" class="btn btn-error btn-sm" onclick="event.stopPropagation();">Marcar como Não Resolvido</a>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=2" class="btn btn-warning btn-sm" onclick="event.stopPropagation();">Ignorar</a>
-                                        <?php } elseif ($row['state_id'] == 2) { ?>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=0" class="btn btn-success btn-sm" onclick="event.stopPropagation();">Marcar como Resolvido</a>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=3" class="btn btn-error btn-sm" onclick="event.stopPropagation();">Marcar como Não Resolvido</a>
-                                        <?php } elseif ($row['state_id'] == 3) { ?>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=0" class="btn btn-success btn-sm" onclick="event.stopPropagation();">Marcar como Resolvido</a>
-                                            <a href="update_error_state.php?id_log=<?php echo $row['id_log']; ?>&id_state=2" class="btn btn-warning btn-sm" onclick="event.stopPropagation();">Ignorar</a>
-                                        <?php } ?>
-                                    </td>
-                                <?php } ?>
+<?php if ($id_type == 1) { ?>
+    <td>
+        <?php if ($row['state_id'] == 0) { ?>
+            <a href="#" class="btn btn-error btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
+                Marcar como Não Resolvido
+            </a>
+        <?php } elseif ($row['state_id'] == 1) { ?>
+            <a href="#" class="btn btn-success btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
+                Marcar como Resolvido
+            </a>
+            <a href="#" class="btn btn-error btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
+                Marcar como Não Resolvido
+            </a>
+            <a href="#" class="btn btn-warning btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
+                Ignorar
+            </a>
+        <?php } elseif ($row['state_id'] == 2) { ?>
+            <a href="#" class="btn btn-success btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
+                Marcar como Resolvido
+            </a>
+            <a href="#" class="btn btn-error btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
+                Marcar como Não Resolvido
+            </a>
+        <?php } elseif ($row['state_id'] == 3) { ?>
+            <a href="#" class="btn btn-success btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
+                Marcar como Resolvido
+            </a>
+            <a href="#" class="btn btn-warning btn-sm estado-btn" 
+               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
+                Ignorar
+            </a>
+        <?php } ?>
+    </td>
+<?php } ?>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -198,6 +222,7 @@ $id_type = $res[0]['id_type'];
 </div>
 
 <script src="js/erros.js"></script>
+<script src="js/treatErrorUpdate.js"></script>
 
 <script>
     function filterTable() {
