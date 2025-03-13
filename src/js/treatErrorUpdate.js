@@ -22,7 +22,7 @@ function updateErrorState(id_log, new_state_id, $button) {
     
     // Make AJAX request
     $.ajax({
-        url: 'update_error_state.php',
+        url: `${window.location.origin}/cartonagem-trindade-25/backend/update_error_state.php`,
         type: 'GET',
         data: {
             id_log: id_log,

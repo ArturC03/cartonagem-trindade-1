@@ -2,18 +2,19 @@ var checkTime = 10 * 1000; // Define um valor inicial padrão de 10 segundos
 var intervalId; // Variável para armazenar o ID do setTimeout
 
 // Função para exibir o modal com título e mensagem de erro
-function showNotificationWithButton(title, message, date, id_error) {
-    // Atualiza o título e a mensagem do modal
-    $('#error-title').text(title);
-    $('#error-message').text(message);
+// function showNotificationWithButton(title, message, date, id_error) {
+//     // Atualiza o título e a mensagem do modal
+//     $('#error-title').text(title);
+//     $('#error-message').text(message);
     
-    $('input[name=error_title]').val(title); 
-    $('input[name=error_message]').val(message); // Corrigido fechamento do seletor
+//     $('input[name=error_title]').val(title); 
+//     $('input[name=error_message]').val(message); // Corrigido fechamento do seletor
 
-    // Abre o modal
-    $('#error-btn').click();
-    $('.btn-ignore').attr('onclick', `window.location.href = 'update_error_state.php?id_error=${id_error}&date=${encodeURIComponent(date)}&id_state=2&title=${encodeURIComponent(title)}';`);
-}
+//     // Abre o modal
+//     $('#error-btn').click();
+//     $('.btn-ignore').attr('onclick', `window.location.href = '${window.location.origin}/cartonagem-trindade-25/backend/update_error_state.php?id_error=${id_error}&date=${encodeURIComponent(date)}&id_state=2&title=${encodeURIComponent(title)}';`);
+
+// }
 
 // Função para verificar erros no log
 function checkReadingErrors() {
@@ -40,20 +41,20 @@ function checkReadingErrors() {
 
                         if (error.status === "added") {
                             console.log(`Erro adicionado: ${error.id_error} - ${error.error_date}`);
-                            if (parseInt(error.id_error) !== 1) { // Garante comparação numérica
-                                showNotificationWithButton(
-                                    "Erro Detetado",
-                                    `Erro de ID ${error.id_error} adicionado na data ${error.error_date}`,
-                                    error.error_date,
-                                    error.id_error
-                                );
-                            }
+                            // if (parseInt(error.id_error) !== 1) { // Garante comparação numérica
+                            //     showNotificationWithButton(
+                            //         "Erro Detetado",
+                            //         `Erro de ID ${error.id_error} adicionado na data ${error.error_date}`,
+                            //         error.error_date,
+                            //         error.id_error
+                            //     );
+                            // }
                         } else if (error.status === "exists") {
                             console.log(`Erro já existe: ${error.id_error} - ${error.error_date}`);
                         }
                     });
                 } else {
-                    // console.log("Nenhum erro encontrado na resposta");
+                    console.log("Nenhum erro encontrado na resposta");
                 }
 
                 // Reinicia o intervalo com o novo valor de checkTime

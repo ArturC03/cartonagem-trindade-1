@@ -18,3 +18,32 @@ $(document).ready(function() {
         }
     });
 });
+
+function showToast(message, type = 'info') {
+    // Create toast element
+    const toastId = 'toast-' + Date.now();
+    
+    const toastHTML = `
+        <div id="${toastId}" class="toast toast-end">
+            <div class="alert ${getAlertClass(type)}">
+                <span>${message}</span>
+            </div>
+        </div>
+    `;
+    
+    // Add to DOM
+    $('body').append(toastHTML);
+    
+    // Show the toast
+    setTimeout(() => {
+        $(`#${toastId}`).addClass('opacity-100');
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        $(`#${toastId}`).addClass('opacity-0');
+        setTimeout(() => {
+            $(`#${toastId}`).remove();
+        }, 500);
+    }, 3000);
+}

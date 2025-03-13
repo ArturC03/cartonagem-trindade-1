@@ -28,7 +28,7 @@ function checkDataValidity() {
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.error("Erro ao verificar a validade dos dados:", textStatus, errorThrown);
+            // console.error("Erro ao verificar a validade dos dados:", textStatus, errorThrown);
             // Reinicia o timeout em caso de erro para tentar novamente
             clearTimeout(intervalId);
             intervalId = setTimeout(checkDataValidity, checkTime);

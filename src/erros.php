@@ -91,11 +91,34 @@ $id_type = $res[0]['id_type'];
         </button>
                </div>
             </form>
+<!-- Controles de ação em massa -->
+<div id="bulkActionControls" class="flex flex-wrap items-center mb-4 gap-4 hidden">
+        <div class="form-control">
+        <label class="label cursor-pointer">
+            <input type="checkbox" id="selectAll" class="checkbox checkbox-sm" />
+            <span class="label-text ml-2">Selecionar todos</span>
+        </label>
+    </div>
+    
+    <select id="bulkAction" class="select select-bordered select-sm">
+        <option value="">Ação em massa</option>
+        <option value="0">Marcar como Resolvido</option>
+        <option value="2">Marcar como Ignorado</option>
+        <option value="3">Marcar como Não Resolvido</option>
+    </select>
+    
+    <button id="applyBulkAction" class="btn btn-sm btn-primary" disabled>
+        Aplicar
+    </button>
+    
+    <span id="selectedCount" class="text-sm text-gray-500">0 itens selecionados</span>
+</div>
 
             <div class="overflow-x-auto max-h-[50vh] md:max-h-[60vh]" id="table_body">
                 <table class="table table-pin-rows table-zebra">
                     <thead>
                         <tr>
+                            <th><span>#</span></th>
                             <th>
                                 <a href="?sort=id_log&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
                                     <span>ID Log</span>
@@ -144,6 +167,11 @@ $id_type = $res[0]['id_type'];
                     <tbody>
                         <?php foreach($result as $row){ ?>
                             <tr ondblclick="openModal(<?php echo $row['id_log']; ?>)" style="cursor: pointer;">
+                                <td class="w-16">
+    <input type="checkbox" class="checkbox checkbox-sm row-checkbox" 
+           data-id-log="<?php echo $row['id_log']; ?>" 
+           data-state-id="<?php echo $row['state_id']; ?>" />
+</td>
                                 <td><?php echo $row['id_log']; ?></td>
                                 <td><?php echo $row['id_error']; ?></td>
                                 <td><?php echo $row['error_date']; ?></td>
@@ -205,15 +233,14 @@ $id_type = $res[0]['id_type'];
 
 <!-- Detalhes do Erro -->
 <div class="modal" id="errorModal">
-    <div class="modal-box w-full max-w-full flex flex-col p-0 m-0">
+    <div class="modal-box w-full max-w-content flex flex-col p-0 m-0">
         <div class="flex justify-between items-center bg-gray-800 text-white p-4">
             <h3 class="font-bold text-xl" id="log_title"></h3>
             <button class="btn btn-sm btn-circle btn-ghost text-white" onclick="closeModal()">✕</button>
         </div>
 
-        <!-- Aqui iremos injetar o conteúdo carregado via AJAX -->
         <div id="modalContent" class="w-full h-full overflow-y-auto p-4">
-            <!-- Conteúdo carregado dinamicamente será injetado aqui -->
+            <!-- Conteúdo carregado por AJAX-->
         </div>
     </div>
 </div>
@@ -223,7 +250,7 @@ $id_type = $res[0]['id_type'];
 
 <script src="js/erros.js"></script>
 <script src="js/treatErrorUpdate.js"></script>
-
+<script src="js/bulkActions.js"></script>
 <script>
     function filterTable() {
         let column = document.getElementById('column').value;
