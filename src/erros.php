@@ -180,38 +180,38 @@ $id_type = $res[0]['id_type'];
 <?php if ($id_type == 1) { ?>
     <td>
         <?php if ($row['state_id'] == 0) { ?>
-            <a href="#" class="btn btn-error btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
                 Marcar como Não Resolvido
             </a>
         <?php } elseif ($row['state_id'] == 1) { ?>
-            <a href="#" class="btn btn-success btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
                 Marcar como Resolvido
             </a>
-            <a href="#" class="btn btn-error btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
                 Marcar como Não Resolvido
             </a>
-            <a href="#" class="btn btn-warning btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
                 Ignorar
             </a>
         <?php } elseif ($row['state_id'] == 2) { ?>
-            <a href="#" class="btn btn-success btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
                 Marcar como Resolvido
             </a>
-            <a href="#" class="btn btn-error btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
                 Marcar como Não Resolvido
             </a>
         <?php } elseif ($row['state_id'] == 3) { ?>
-            <a href="#" class="btn btn-success btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
                 Marcar como Resolvido
             </a>
-            <a href="#" class="btn btn-warning btn-sm estado-btn" 
+            <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
                data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
                 Ignorar
             </a>

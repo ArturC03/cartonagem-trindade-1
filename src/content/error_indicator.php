@@ -41,7 +41,7 @@ Modal de Erro
   </div>
 </dialog> -->
 
-<button id="error-btn" class="btn hidden" onclick="document.getElementById('error-modal').showModal()"></button>
+<button id="error-btn" class="btn hidden" onclick=" event.preventDefault();document.getElementById('error-modal').showModal()"></button>
 
 <dialog id="error-modal" class="modal">
   <div class="modal-box">
@@ -55,7 +55,7 @@ Modal de Erro
         <button class="btn btn-success btn-sm btn-resolve" data-id-log="" data-id-state="1">Resolvido</button>
         <button class="btn btn-error btn-sm btn-not-resolve" data-id-log="" data-id-state="3">Não Resolvido</button>
         <button class="btn btn-warning btn-sm btn-ignore" data-id-log="" data-id-state="2">Ignorar</button>
-        <button class="btn btn-ghost btn-sm" id="error-modal-close" onclick="document.getElementById('error-modal').hide()">Fechar</button>
+        <button class="btn btn-ghost btn-sm" id="error-modal-close" onclick="event.preventDefault(); document.getElementById('error-modal').close()">Fechar</button>
       </form>
     </div>
   </div>

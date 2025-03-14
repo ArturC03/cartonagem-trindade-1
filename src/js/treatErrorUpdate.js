@@ -75,44 +75,44 @@ function updateTableRow(id_log, new_state_id, state_name) {
             // Add new buttons based on the state
             if (new_state_id == 0) { // Resolvido
                 $actionsCell.append(`
-                    <a href="#" class="btn btn-error btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="3">
                         Marcar como Não Resolvido
                     </a>
                 `);
             } else if (new_state_id == 1) { // Novo
                 $actionsCell.append(`
-                    <a href="#" class="btn btn-success btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="0">
                         Marcar como Resolvido
                     </a>
-                    <a href="#" class="btn btn-error btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="3">
                         Marcar como Não Resolvido
                     </a>
-                    <a href="#" class="btn btn-warning btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="2">
                         Ignorar
                     </a>
                 `);
             } else if (new_state_id == 2) { // Ignorado
                 $actionsCell.append(`
-                    <a href="#" class="btn btn-success btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="0">
                         Marcar como Resolvido
                     </a>
-                    <a href="#" class="btn btn-error btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="3">
                         Marcar como Não Resolvido
                     </a>
                 `);
             } else if (new_state_id == 3) { // Não Resolvido
                 $actionsCell.append(`
-                    <a href="#" class="btn btn-success btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="0">
                         Marcar como Resolvido
                     </a>
-                    <a href="#" class="btn btn-warning btn-sm estado-btn" 
+                    <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
                        data-id-log="${id_log}" data-id-state="2">
                         Ignorar
                     </a>
@@ -162,14 +162,4 @@ function showToast(message, type = 'info') {
             $(`#${toastId}`).remove();
         }, 500);
     }, 3000);
-}
-
-// Helper function to get DaisyUI alert class based on type
-function getAlertClass(type) {
-    switch (type) {
-        case 'success': return 'alert-success';
-        case 'error': return 'alert-error';
-        case 'warning': return 'alert-warning';
-        default: return 'alert-info';
-    }
 }

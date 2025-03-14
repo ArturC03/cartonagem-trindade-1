@@ -19,6 +19,16 @@ $(document).ready(function() {
     });
 });
 
+// Helper function to get DaisyUI alert class based on type
+function getAlertClass(type) {
+    switch (type) {
+        case 'success': return 'alert-success';
+        case 'error': return 'alert-error';
+        case 'warning': return 'alert-warning';
+        default: return 'alert-info';
+    }
+}
+
 function showToast(message, type = 'info') {
     // Create toast element
     const toastId = 'toast-' + Date.now();
