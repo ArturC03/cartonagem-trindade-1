@@ -140,4 +140,3 @@ elseif ((isset($_GET['id_error']) && is_numeric($_GET['id_error']) &&
 } else {
     handleError("Parâmetros inválidos ou não fornecidos.", $is_ajax);
 }
-?>

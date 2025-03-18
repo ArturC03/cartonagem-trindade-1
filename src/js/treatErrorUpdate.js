@@ -1,5 +1,4 @@
 // Add this to your existing js/erros.js file or create a new file
-
 $(document).ready(function() {
     // Attach click handlers to action buttons using event delegation
     $(document).on('click', '.estado-btn', function(e) {
@@ -32,6 +31,7 @@ function updateErrorState(id_log, new_state_id, $button) {
         success: function(response) {
             if (response.success) {
                 // Update the table row with new state
+                console.log(response);
                 updateTableRow(id_log, new_state_id, response.state_name);
                 
                 // Show success toast

@@ -213,13 +213,15 @@ window.MonitoringSystem = (() => {
         
         processData(response) {
             try {
+                console.log(response);
                 if (response.success) {
                     if (Array.isArray(response.errors) && response.errors.length > 0) {
                         // Verifica se o usuário está autenticado
                         const isAuthenticated = response.isAuthenticated;
                         
                         // Processa cada erro
-                        response.errors.forEach(error => {
+                        if(!window.location.href.includes('erros')) {
+                            response.errors.forEach(error => {
                             const title = "Erro Pendente";
                             const message = `${error.error} (Data: ${utils.formatDate(error.error_date)})`;
                             
@@ -232,11 +234,11 @@ window.MonitoringSystem = (() => {
                                 isAuthenticated
                             );
                         });
-                        
+                    }
                         // Exibe a quantidade de erros pendentes
                         utils.showToast(`Existem ${response.errors.length} erros pendentes no sistema.`, 'warning');
                     } else {
-                        console.log(`${this.id}: Nenhum erro pendente encontrado`);
+                        // console.log(`${this.id}: Nenhum erro pendente encontrado`);
                     }
                 } else {
                     if (response.message) {

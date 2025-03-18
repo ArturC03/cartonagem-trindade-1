@@ -36,7 +36,7 @@ function moveExpiredReadingsToHistory($batchSize = 1000) {
         $result = my_query($query);
 
         if (!$result || count($result) === 0) {
-            echo "Nenhum registro expirado encontrado.\n";
+            $results[] = ['error' => "Nenhum registro expirado encontrado."];
             return;
         }
 
@@ -69,7 +69,7 @@ function moveExpiredReadingsToHistory($batchSize = 1000) {
 
             my_query("COMMIT"); // Confirmar transação
 
-            echo count($result) . " registros movidos para o histórico.\n";
+            // echo count($result) . " registros movidos para o histórico.\n";
         }
 
     } while (count($result) === $batchSize); // Continua enquanto ainda houver registros a processar

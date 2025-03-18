@@ -3,12 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require '../includes/config.inc.php';
 
-// Verificação de autenticação (descomentado, se necessário)
-// if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
-//     header('Content-Type: application/json');
-//     echo json_encode(['success' => false, 'message' => 'Não autenticado']);
-//     exit;
-// }
+@session_start();
 
 $last_checked_id = isset($_GET['last_checked_id']) ? (int)$_GET['last_checked_id'] : 0;
 
@@ -26,16 +21,33 @@ try {
               WHERE l.error_state_id = 1";  // Filtra apenas os erros com estado '1' (pendentes)
 
     if ($last_checked_id > 0) {
-        $query .= " AND l.id_log > $last_checked_id ";
+        $query .= " AND l.id_log > " . $last_checked_id;
     }
 
     $query .= " ORDER BY l.error_date DESC LIMIT 10";
 
     $errors = my_query($query);
+    
+    $isAuthenticated = isset($_SESSION['username']) ? true : false;
+    $id_type = null;
+
+    if ($isAuthenticated) {
+        // Consulta segura sem concatenar diretamente valores do usuário
+        $username = $_SESSION['username'];
+        $user_query = "SELECT id_type FROM user WHERE id_user = '$username'";
+        $user_result = my_query($user_query);
+        
+        if (!empty($user_result)) {
+            $id_type = (int)$user_result[0]['id_type'];
+            $isAuthenticated = ($id_type === 1);
+        } else {
+            $isAuthenticated = false;
+        }
+    }
 
     // Resposta com os erros encontrados
     $response = [
-        'isAuthenticated' => $_SESSION['username'] ?? false,
+        'isAuthenticated' => $isAuthenticated,
         'success' => true,
         'check_time' => $check_time,
         'last_checked_id' => $last_checked_id,
