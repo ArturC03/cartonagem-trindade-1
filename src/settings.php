@@ -177,6 +177,14 @@ if (isset($_POST['changeCheckValidadeTime'])) {
 }
 
 ?>
+
+    <script>
+        // Verifica se a página NÃO está dentro de um iframe
+        if (window.self === window.top) {
+            // Se não estiver num iframe, redireciona para 404
+            window.location.href = "<?= $arrConfig['baseUrl'] ?>/404.php"; // Altere para a sua página de erro
+        }
+    </script>
 <div id="data" class="hidden">
     <div id="image-width"><?php echo $arrConfig['originalImageWidth'] ?></div>
     <div id="image-height"><?php echo $arrConfig['originalImageHeight'] ?></div>
@@ -308,24 +316,26 @@ if (isset($_POST['changeCheckValidadeTime'])) {
         <h2 class="card-title">Validade dos Dados</h2>
         <p>Edite a quantidade de tempo que um dado tem antes de ser movido para o histórico de dados.</p>
         
-<div class="gap-4 space-x-2 flex justify-center">
-    <div class="p-2">
-        <label for="data_life_time_dias" class="label text-sm">Dias</label>
+<div class=" space-x-2 flex justify-center w-full">
+    <div class="p-2 flex-1 flex flex-col items-center">
+        <label for="data_life_time_dias" class="label text-sm w-20 text-center">Dias</label>
         <input type="number" id="data_life_time_dias" name="data_life_time_dias" placeholder="Dias" class="input input-bordered w-full" min="0" max="31" value="<?php echo $arrConfig['data_life_time_dias'] ?>" required />
     </div>
-    <div class="p-2">
-        <label for="data_life_time_horas" class="label text-sm">Horas</label>
+    <div class="py-2 flex-1 flex flex-col items-center">
+        <label for="data_life_time_horas" class="label text-sm w-20 text-center">Horas</label>
         <input type="number" id="data_life_time_horas" name="data_life_time_horas" placeholder="Horas" class="input input-bordered w-full" min="0" max="23" value="<?php echo $arrConfig['data_life_time_horas'] ?>" required />
     </div>
-    <div class="p-2">
-        <label for="data_life_time_minutos" class="label text-sm">Minutos</label>
+    <div class="py-2 flex-1 flex flex-col items-center">
+        <label for="data_life_time_minutos" class="label text-sm w-20 text-center">Minutos</label>
         <input type="number" id="data_life_time_minutos" name="data_life_time_minutos" placeholder="Minutos" class="input input-bordered w-full" min="0" max="59" value="<?php echo $arrConfig['data_life_time_minutos'] ?>" required />
     </div>
-    <div class="p-2">
-        <label for="data_life_time_segundos" class="label text-sm">Segundos</label>
+    <div class="py-2 flex-1 flex flex-col items-center">
+        <label for="data_life_time_segundos" class="label text-sm w-20 text-center">Segundos</label>
         <input type="number" id="data_life_time_segundos" name="data_life_time_segundos" placeholder="Segundos" class="input input-bordered w-full" min="0" max="59" value="<?php echo $arrConfig['data_life_time_segundos'] ?>" required />
     </div>
 </div>
+
+
 
 <button type="submit" name="change_data_life" class="btn btn-primary mt-4 w-full max-w-xs">Guardar</button>
 

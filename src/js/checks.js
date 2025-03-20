@@ -36,7 +36,7 @@ window.MonitoringSystem = (() => {
             if (isAuthenticated) {
                 // Se o usuário estiver autenticado, os botões de ação são exibidos
                 $('.btn-resolve').attr('data-id-log', id_log);
-                $('.btn-resolve').attr('data-id-state', 1); // Estado 'Resolvido'
+                $('.btn-resolve').attr('data-id-state', 0); // Estado 'Resolvido'
                 
                 $('.btn-not-resolve').attr('data-id-log', id_log);
                 $('.btn-not-resolve').attr('data-id-state', 3); // Estado 'Não Resolvido'
@@ -78,7 +78,7 @@ window.MonitoringSystem = (() => {
             if (!this.isRunning && this.config.enabled) {
                 this.check();
                 this.isRunning = true;
-                console.log(`Verificador ${this.id} iniciado`);
+                // console.log(`Verificador ${this.id} iniciado`);
             }
             return this;
         }
@@ -87,7 +87,7 @@ window.MonitoringSystem = (() => {
             if (this.isRunning) {
                 clearTimeout(this.intervalId);
                 this.isRunning = false;
-                console.log(`Verificador ${this.id} parado`);
+                // console.log(`Verificador ${this.id} parado`);
             }
             return this;
         }
@@ -153,7 +153,7 @@ window.MonitoringSystem = (() => {
         
         processData(data) {
             if (!Array.isArray(data) || data.length === 0) {
-                console.log(`${this.id}: Nenhum erro encontrado na resposta`);
+                // console.log(`${this.id}: Nenhum erro encontrado na resposta`);
                 return;
             }
             
@@ -213,7 +213,6 @@ window.MonitoringSystem = (() => {
         
         processData(response) {
             try {
-                console.log(response);
                 if (response.success) {
                     if (Array.isArray(response.errors) && response.errors.length > 0) {
                         // Verifica se o usuário está autenticado

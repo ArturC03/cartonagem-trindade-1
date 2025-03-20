@@ -1,92 +1,94 @@
+
+// Configuração das teclas secretas
 const secretKeys = ['c', 't'];
-const btnConfirmar = document.getElementById('btnTecnicoConfirmar');
-const btnCancelar = document.getElementById('btnTecnicoCancelar');
-const element = document.getElementById('inputTecPass');
-const closemodal = document.getElementById('clmodal');
-const passOpcTecInput = document.getElementById('tecPassword');
-const form = document.getElementById('tecForm');
-
-
-const notificationDiv = document.createElement('div');
-    notificationDiv.className = 'float-left z-10 toast toast-center';
-  
-    const alertDiv = document.createElement('div');
-    alertDiv.role = 'alert';
-    alertDiv.className = 'alert alert-error justify-center items-center';
-    alertDiv.id = 'notification';
-  
-    const spanText = document.createElement('span');
-    spanText.textContent = 'Palavra-passe Incorreta';
-  
-    alertDiv.appendChild(spanText);
-    notificationDiv.appendChild(alertDiv);
-
 let pressedKeys = [];
 let sequenceCount = 0;
 
+// Elementos DOM
+const techPasswordModal = document.getElementById('tech_password_modal');
+const settingsModal = document.getElementById('settings_modal');
+const tecForm = document.getElementById('tecForm');
+const passwordInput = document.getElementById('tecPassword');
+const btnConfirmar = document.getElementById('btnTecnicoConfirmar');
+const btnCancelar = document.getElementById('btnTecnicoCancelar');
+const closeModal = document.getElementById('clmodal');
+const passwordError = document.getElementById('passwordError');
+const backdropClose = document.getElementById('backdropClose');
 
-form.addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent the default form submission behavior
+// Event listener para submitir o form quando pressionar Enter
+tecForm.addEventListener('submit', function(event) {
+  event.preventDefault();
   btnConfirmar.click();
 });
 
+// Detector de sequência de teclas
 document.addEventListener('keydown', (e) => {
-  if (e.altKey) pressedKeys.push('Alt');
-  else pressedKeys.push(e.key.toLowerCase());
+  // Adiciona a tecla Alt ou a tecla pressionada ao array
+  if (e.altKey && !pressedKeys.includes('Alt')) {
+    pressedKeys.push('Alt');
+  } else if (!pressedKeys.includes(e.key.toLowerCase())) {
+    pressedKeys.push(e.key.toLowerCase());
+  }
 
-  if (pressedKeys.join(',') === secretKeys.join(',')) {
+  // Verifica se a sequência correta foi pressionada
+  if (pressedKeys.length >= secretKeys.length && 
+      secretKeys.every((key, index) => pressedKeys.includes(key))) {
     sequenceCount++;
-    pressedKeys = []; // Reset the pressed keys array
+    pressedKeys = []; // Limpa as teclas pressionadas
 
     if (sequenceCount === 2) {
-      // console.log('Secret shortcut unlocked!');
-      if (element) {
-        element.classList.remove('hidden');
-        passOpcTecInput.focus();
-        passOpcTecInput.value = '';
-      }
-      sequenceCount = 0; // Reset the sequence count
+      // Abre o modal de senha do técnico
+      techPasswordModal.showModal();
+      passwordInput.focus();
+      passwordInput.value = '';
+      passwordError.classList.add('hidden');
+      sequenceCount = 0; // Reseta o contador de sequência
     }
   }
 });
 
 document.addEventListener('keyup', (e) => {
-  pressedKeys = pressedKeys.filter(key => key !== e.key.toLowerCase() && key !== 'Alt');
+  // Remove a tecla do array quando for solta
+  pressedKeys = pressedKeys.filter(key => key !== e.key.toLowerCase() && (e.key !== 'Alt' || key !== 'Alt'));
 });
 
+// Validação da senha
 btnConfirmar.addEventListener('click', function() {
-  const userInput = passOpcTecInput.value;
+  const userInput = passwordInput.value;
 
   if (userInput === 'carTrindade') {
-    const modal = document.getElementById('my_modal_4');
-    modal.showModal();
-    
+    // Senha correta - fecha o modal de senha e abre o modal de configurações
+    techPasswordModal.close();
+    setTimeout(() => {
+      settingsModal.showModal();
+    }, 100);
   } else {
-
-    document.body.appendChild(notificationDiv); // add the notification div to the page
-  
-    // Remove // 3000ms = 3 seconds
+    // Senha incorreta - mostra o erro
+    passwordError.classList.remove('hidden');
+    passwordInput.classList.add('input-error');
+    
+    // Remove a classe de erro após 3 segundos
+    setTimeout(() => {
+      passwordInput.classList.remove('input-error');
+    }, 3000);
   }
 });
 
-if(document.getElementById('notification') !== null) {
-  setTimeout(() => {
-    document.body.removeChild(notificationDiv);
-  }, 3000); // 3000ms = 3 seconds
-}
-
-
+// Fechar o modal de senha quando cancelar
 btnCancelar.addEventListener('click', function() {
-  if (element) {
-    passOpcTecInput.value = '';
-    element.classList.add('hidden');
-  }
+  passwordInput.value = '';
+  techPasswordModal.close();
 });
 
-closemodal.addEventListener('click', function()
-{
-  const tecard = document.getElementById('tecard');
-  passOpcTecInput.value = '';
-  tecard.classList.add('hidden');
-  location.reload();
+// Quando clicar em fechar no backdrop
+backdropClose.addEventListener('click', function() {
+  passwordInput.value = '';
+  passwordError.classList.add('hidden');
+});
+
+// Fechar o modal de configurações e reiniciar
+closeModal.addEventListener('click', function() {
+  setTimeout(() => {
+    location.reload();
+  }, 100);
 });

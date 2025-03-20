@@ -31,7 +31,7 @@ function updateErrorState(id_log, new_state_id, $button) {
         success: function(response) {
             if (response.success) {
                 // Update the table row with new state
-                console.log(response);
+                // console.log(response);
                 updateTableRow(id_log, new_state_id, response.state_name);
                 
                 // Show success toast
@@ -57,22 +57,34 @@ function updateErrorState(id_log, new_state_id, $button) {
 }
 
 function updateTableRow(id_log, new_state_id, state_name) {
-    // Find the row with the matching id_log
-    const $row = $('table tbody tr').filter(function() {
-        return $(this).find('td:first').text() == id_log;
-    });
     
+    // Encontrar a linha correspondente ao id_log
+    const $row = $('table tbody tr').filter(function() {
+        const currentId = $(this).find('td:eq(1)').text().trim();  // Procurar pelo id_log na segunda célula
+        // console.log("Verificando linha, ID atual:", currentId);
+        return currentId == id_log;  // Comparar com o id_log passado
+    });
+
     if ($row.length > 0) {
-        // Update the state text (5th column)
-        $row.find('td:eq(4)').text(state_name || getStateNameById(new_state_id));
+
+        // Encontrar o índice escondido na linha correspondente
+        const rowIndex = $row.find('input.row-index').val();  // Obter o valor do input hidden
+
+        // Agora podemos usar rowIndex para realizar a atualização correta na tabela, se necessário
         
-        // Update action buttons in the last column
+        // Atualizar o texto do estado (5ª coluna)
+        const $stateCell = $row.find('td:eq(4)');
+        
+        $stateCell.text(state_name || getStateNameById(new_state_id));
+        
+        // Atualizar os botões de ação na última coluna
         const $actionsCell = $row.find('td:last');
+        
         if ($actionsCell.length > 0) {
-            // Clear current buttons
+            // Limpar botões atuais
             $actionsCell.empty();
-            
-            // Add new buttons based on the state
+
+            // Adicionar novos botões baseados no novo estado
             if (new_state_id == 0) { // Resolvido
                 $actionsCell.append(`
                     <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
@@ -118,9 +130,14 @@ function updateTableRow(id_log, new_state_id, state_name) {
                     </a>
                 `);
             }
+        } else {
+            console.log("Célula de ações não encontrada.");
         }
+    } else {
+        console.log("Linha com id_log não encontrada:", id_log);
     }
 }
+
 
 // Helper function to get state name by ID
 function getStateNameById(state_id) {

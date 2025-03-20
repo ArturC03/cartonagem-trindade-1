@@ -1,3 +1,4 @@
+// IMPORTANT: NÃO ESTÁ A SER UTILIZADO
 // Função para exibir o modal com título e mensagem de erro
 function showNotificationWithButton(title, message, errorDate, id_error, id_log, isAuthenticated) {
     $('#error-title').text(title);

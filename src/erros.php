@@ -115,113 +115,115 @@ $id_type = $res[0]['id_type'];
 </div>
 
             <div class="overflow-x-auto max-h-[50vh] md:max-h-[60vh]" id="table_body">
-                <table class="table table-pin-rows table-zebra">
-                    <thead>
-                        <tr>
-                            <th><span>#</span></th>
-                            <th>
-                                <a href="?sort=id_log&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
-                                    <span>ID Log</span>
-                                    <?php if ($column === 'id_log'): ?>
-                                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
-                                    <?php endif; ?>
-                                </a>
-                            </th>
-                            <th>
-                                <a href="?sort=id_error&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
-                                    <span>ID Erro</span>
-                                    <?php if ($column === 'id_error'): ?>
-                                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
-                                    <?php endif; ?>
-                                </a>
-                            </th>
-                            <th>
-                                <a href="?sort=error_date&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
-                                    <span>Data Erro</span>
-                                    <?php if ($column === 'error_date'): ?>
-                                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
-                                    <?php endif; ?>
-                                </a>
-                            </th>
-                            <th>
-                                <a href="?sort=username&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
-                                    <span>Utilizador</span>
-                                    <?php if ($column === 'username'): ?>
-                                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
-                                    <?php endif; ?>
-                                </a>
-                            </th>
-                            <th>
-                                <a href="?sort=state&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
-                                    <span>Estado Erro</span>
-                                    <?php if ($column === 'state'): ?>
-                                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
-                                    <?php endif; ?>
-                                </a>
-                            </th>
-                            <?php if ($id_type == 1) { ?>
-                                <th>Ações</th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($result as $row){ ?>
-                            <tr ondblclick="openModal(<?php echo $row['id_log']; ?>)" style="cursor: pointer;">
-                                <td class="w-16">
-    <input type="checkbox" class="checkbox checkbox-sm row-checkbox" 
-           data-id-log="<?php echo $row['id_log']; ?>" 
-           data-state-id="<?php echo $row['state_id']; ?>" />
-</td>
-                                <td><?php echo $row['id_log']; ?></td>
-                                <td><?php echo $row['id_error']; ?></td>
-                                <td><?php echo $row['error_date']; ?></td>
-                                <td><?php echo $row['username'] ?? 'na'; ?></td>
-                                <td><?php echo $row['state']; ?></td>
-<?php if ($id_type == 1) { ?>
-    <td>
-        <?php if ($row['state_id'] == 0) { ?>
-            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
-                Marcar como Não Resolvido
-            </a>
-        <?php } elseif ($row['state_id'] == 1) { ?>
-            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
-                Marcar como Resolvido
-            </a>
-            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
-                Marcar como Não Resolvido
-            </a>
-            <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
-                Ignorar
-            </a>
-        <?php } elseif ($row['state_id'] == 2) { ?>
-            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
-                Marcar como Resolvido
-            </a>
-            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
-                Marcar como Não Resolvido
-            </a>
-        <?php } elseif ($row['state_id'] == 3) { ?>
-            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
-                Marcar como Resolvido
-            </a>
-            <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
-               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
-                Ignorar
-            </a>
-        <?php } ?>
-    </td>
-<?php } ?>
-                            </tr>
+              <table class="table table-pin-rows table-zebra">
+    <thead>
+        <tr>
+            <th><span>#</span></th>
+            <th>
+                <a href="?sort=id_log&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
+                    <span>ID Log</span>
+                    <?php if ($column === 'id_log'): ?>
+                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
+                    <?php endif; ?>
+                </a>
+            </th>
+            <th>
+                <a href="?sort=id_error&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
+                    <span>ID Erro</span>
+                    <?php if ($column === 'id_error'): ?>
+                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
+                    <?php endif; ?>
+                </a>
+            </th>
+            <th>
+                <a href="?sort=error_date&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
+                    <span>Data Erro</span>
+                    <?php if ($column === 'error_date'): ?>
+                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
+                    <?php endif; ?>
+                </a>
+            </th>
+            <th>
+                <a href="?sort=username&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
+                    <span>Utilizador</span>
+                    <?php if ($column === 'username'): ?>
+                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
+                    <?php endif; ?>
+                </a>
+            </th>
+            <th>
+                <a href="?sort=state&order=<?php echo $order === 'ASC' ? 'DESC' : 'ASC'; ?>" class="flex items-center space-x-2">
+                    <span>Estado Erro</span>
+                    <?php if ($column === 'state'): ?>
+                        <i class="fas fa-arrow-<?php echo $order === 'ASC' ? 'up' : 'down'; ?>"></i>
+                    <?php endif; ?>
+                </a>
+            </th>
+            <?php if ($id_type == 1) { ?>
+                <th>Ações</th>
+            <?php } ?>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($result as $index => $row) { ?>
+            <tr ondblclick="openModal(<?php echo $row['id_log']; ?>)" style="cursor: pointer;">
+                <td class="w-16">
+                    <input type="checkbox" class="checkbox checkbox-sm row-checkbox" 
+                           data-id-log="<?php echo $row['id_log']; ?>" 
+                           data-state-id="<?php echo $row['state_id']; ?>" />
+                </td>
+                <td><?php echo $row['id_log']; ?></td>
+                <td><?php echo $row['id_error']; ?></td>
+                <td><?php echo $row['error_date']; ?></td>
+                <td><?php echo $row['username'] ?? 'na'; ?></td>
+                <td><?php echo $row['state']; ?></td>
+                <input type="hidden" class="row-index" value="<?php echo $index; ?>"> <!-- Índice oculto -->
+                <?php if ($id_type == 1) { ?>
+                    <td>
+                        <?php if ($row['state_id'] == 0) { ?>
+                            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
+                                Marcar como Não Resolvido
+                            </a>
+                        <?php } elseif ($row['state_id'] == 1) { ?>
+                            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
+                                Marcar como Resolvido
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
+                                Marcar como Não Resolvido
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
+                                Ignorar
+                            </a>
+                        <?php } elseif ($row['state_id'] == 2) { ?>
+                            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
+                                Marcar como Resolvido
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-error btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="3">
+                                Marcar como Não Resolvido
+                            </a>
+                        <?php } elseif ($row['state_id'] == 3) { ?>
+                            <a href="javascript:void(0);" class="btn btn-success btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="0">
+                                Marcar como Resolvido
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-warning btn-sm estado-btn" 
+                               data-id-log="<?php echo $row['id_log']; ?>" data-id-state="2">
+                                Ignorar
+                            </a>
                         <?php } ?>
-                    </tbody>
-                </table>
+                    </td>
+                <?php } ?>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+  
             </div>
             <div class="text-sm text-gray-700 mt-4">
                 <p><strong>Nota:</strong> Clique duas vezes sobre um registro para visualizar os detalhes do erro.</p>

@@ -1,3 +1,4 @@
+// IMPORTANT: NÃO ESTÁ A SER UTILIZADO
 // Configuração inicial
 const ErrorChecker = (() => {
     // Variáveis privadas
