@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\rs232monitor]
+@="URL:RS232 Monitor"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\rs232monitor\shell]
+
+[HKEY_CLASSES_ROOT\rs232monitor\shell\open]
+
+[HKEY_CLASSES_ROOT\rs232monitor\shell\open\command]
+@="\"C:\\xampp\\htdocs\\cartonagem-trindade-25\\tools\\RS232Monitorization2.1\\launcher.bat\" \"%1\""
