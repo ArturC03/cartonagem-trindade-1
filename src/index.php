@@ -79,7 +79,7 @@ $average3 = 20;
 <!-- Modal de Configurações - COM LARGURA AUMENTADA -->
 <dialog id="settings_modal" class="modal">
   <div class="modal-box w-full md:w-11/12 max-w-7xl h-5/6 max-h-screen p-0">
-    <iframe src="settings.php" class="w-full h-full border-none" title="Settings"></iframe>
+    <iframe src="settings.php" scrolling="no" class="w-full h-full border-none" title="Settings"></iframe>
     <form method="dialog" class="modal-action absolute top-2 right-2 m-0">
       <button class="btn btn-circle btn-ghost text-lg" id="clmodal">✕</button>
     </form>
@@ -89,8 +89,16 @@ $average3 = 20;
   </form>
 </dialog>
 
-<script src="js/menuTecnico.js"></script>
+
+<p class="absolute bottom-0 w-screen text-lg z-10 text-center bg-gray-100 p-4 rounded-lg border-t border-gray-300" id="paragrafo">A carregar...</p>
+
+<div class="fixed top-1/2 left-1/2 z-10">
+    <span class="loading loading-ring loading-lg"></span>
+</div>
+
 <script src="js/index.js"></script>
+<script src="js/getLastRead.js"></script>
+<script src="js/menuTecnico.js"defer ></script>
 
 <?php
 require "content/footer.inc.php";

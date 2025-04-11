@@ -290,7 +290,7 @@ if (isset($_POST['changeCheckValidadeTime'])) {
         </div>
 
         <div class="flex justify-center items-center">
-            <h1 class="text-3xl font-semibold p-3 border-neutral"></h1>
+            <h1 class="text-3xl font-semibold p-3 border-t-2 border-b-2 border-neutral">Erros</h1>
         </div>
 
         <div class="card bg-base-300 shadow-xl">
