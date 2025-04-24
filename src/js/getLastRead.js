@@ -60,7 +60,7 @@ async function verificaNovosRegistos() {
         }
       } else {
         // Caso ainda não tenha sido feito um fetch
-        document.getElementById('paragrafo').textContent = "A carregar...";
+        document.getElementById('paragrafo').textContent = "A aguardar dados...";
         // document.getElementById('paragrafo').classList.remove('text-red-500', 'font-bold');
       }
     }

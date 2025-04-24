@@ -47,9 +47,9 @@ $.ajax({
   Type: "GET",
   success: function (response) {
     var datasets = $.map(response, function (item, index) {
-      tempSum += parseFloat(item.temperature_decimal);
-      humiditySum += parseFloat(item.humidity);
-      pressureSum += parseFloat(item.pressure);
+      tempSum += !isNaN(item.temperature_decimal) ? parseFloat(item.temperature_decimal) : 0;
+      humiditySum += !isNaN(item.humidity) ? parseFloat(item.humidity) : 0;
+      pressureSum += !isNaN(item.pressure) ? parseFloat(item.pressure) : 0;
 
       console.log(heatMapColorforValue(item.temperature_decimal / 35));
 
